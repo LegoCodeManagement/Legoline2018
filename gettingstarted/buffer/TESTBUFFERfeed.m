@@ -17,9 +17,11 @@ clear m;
 b = memmapfile('buffer.txt', 'Writable', true, 'Format', 'int8');
 
 
-
+b.Data(1) = 0;
+b.Data(2) = 0;
 
 disp('feed')
+
 input('press ENTER to start');
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 i=0;

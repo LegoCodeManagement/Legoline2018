@@ -11,7 +11,7 @@ j = memmapfile('Junction1.txt', 'Writable', true);
 
 b = memmapfile('buffer.txt', 'Writable', true, 'Format', 'int8');
 
-
+j.Data(1) = 0;
 
 disp('transfer')
 input('press ENTER to start')
