@@ -6,8 +6,8 @@ COM_CloseNXT('all');
 %anymore
 %Try memory map to communicate between multiple instances or shared matrix
 %The delay here is significant
-!matlab  -nodesktop -minimize -nosplash -r TESTfeedwithbuffer&
-!matlab  -nodesktop -minimize -nosplash -r TESTtransferwithbuffer&
+!matlab  -nodesktop -minimize -nosplash -r TESTBUFFERfeed&
+!matlab  -nodesktop -minimize -nosplash -r TESTBUFFERtransfer&
 !matlab  -nodesktop -minimize -nosplash -r TESTmainline&
 !matlab  -nodesktop -minimize -nosplash -r TESTupstream
 

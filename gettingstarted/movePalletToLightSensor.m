@@ -16,6 +16,6 @@ while abs(GetLight(port, nxt) - currentValue) < 11
     end
 end
 result = true;
-pause(0.5)
+pause(0.7)
 movePallet.Stop('off', nxt);
 end

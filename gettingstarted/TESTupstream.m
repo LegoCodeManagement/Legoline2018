@@ -26,7 +26,7 @@ palletHasLeft = [timer('TimerFcn','fileJunc1.Data(1) = fileJunc1.Data(1) - 1','S
 for i = 1:1:3
     fileJunc1.Data(1) = fileJunc1.Data(1) + 1;
     feedPallet(U,SENSOR_1,MOTOR_A);
-    movePalletToLightSensor(MOTOR_B,30,U,SENSOR_2,currentValueU,20);
+    movePalletToLightSensor(MOTOR_B,50,U,SENSOR_2,currentValueU,20);
 
     start(palletHasLeft(i));
     pause(5)
