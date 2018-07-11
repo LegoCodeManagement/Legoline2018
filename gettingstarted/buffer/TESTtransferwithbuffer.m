@@ -11,13 +11,14 @@ j = memmapfile('Junction1.txt', 'Writable', true);
 
 b = memmapfile('buffer.txt', 'Writable', true, 'Format', 'int8');
 
-currentLight1 = GetLight(SENSOR_1, nxtT1);
-currentLight3 = GetLight(SENSOR_3, nxtT1);
+
 
 disp('transfer')
 input('press ENTER to start')
+currentLight1 = GetLight(SENSOR_1, nxtT1);
+currentLight3 = GetLight(SENSOR_3, nxtT1);
 k=0;
-while k < 6
+while k < 4
 
     	
 	if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 11)
@@ -29,10 +30,11 @@ while k < 6
 			movePalletToLightSensor(MOTOR_A, -50, nxtT1, SENSOR_3, currentLight3, 4);
 
             
-			%while j.Data(1) == 1
-			%	pause(0.5)
-            %    disp('mainline is busy')
-			%end
+			while j.Data(1) >= 1
+				pause(0.5)
+                disp('mainline is busy')
+                disp(['mainline is busy, pallets:', num2str(j.Data(1))]);
+			end
 			runTransferArm(MOTOR_B, nxtT1, 105);
 			pause(0.5);
 			

@@ -17,12 +17,13 @@ clear m;
 b = memmapfile('buffer.txt', 'Writable', true, 'Format', 'int8');
 
 
-currentLight3 = GetLight(SENSOR_3, nxtF1);
+
 
 disp('feed')
 input('press ENTER to start');
+currentLight3 = GetLight(SENSOR_3, nxtF1);
 i=0;
-while i<6
+while i<4
     disp(['feed buffer = ', num2str(b.Data(1))]);
     disp(['transfer buffer = ', num2str(b.Data(2))]);
 	
