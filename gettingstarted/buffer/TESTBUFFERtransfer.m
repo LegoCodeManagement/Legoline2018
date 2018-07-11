@@ -6,7 +6,7 @@ OpenLight(SENSOR_3, 'ACTIVE', nxtT1);
 OpenSwitch(SENSOR_2, nxtT1);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT1);
 
-resetTransferArm(MOTOR_B, SENSOR_2, nxtT1, 16);
+TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, 16);
 j = memmapfile('Junction1.txt', 'Writable', true);
 
 b = memmapfile('buffer.txt', 'Writable', true, 'Format', 'int8');
@@ -33,11 +33,11 @@ while k < 6
 			%	pause(0.5)
             %    disp('mainline is busy')
 			%end
-			runTransferArm(MOTOR_B, nxtT1, 105);
+			TransferArmRun(MOTOR_B, nxtT1, 105);
 			pause(0.5);
 			
 			
-    		resetTransferArm(MOTOR_B, SENSOR_2, nxtT1, 16);
+    		TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, 16);
             b.Data(2) = b.Data(2) - 1;
 			
             k=k+1;
