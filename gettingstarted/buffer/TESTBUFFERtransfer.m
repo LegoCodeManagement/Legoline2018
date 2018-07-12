@@ -42,6 +42,7 @@ while k < 6
 			
             k=k+1;
 		end
+		
 		if b.Data == 1
 			disp('too many pallets on transfer line, waiting')
 			pause(1);
