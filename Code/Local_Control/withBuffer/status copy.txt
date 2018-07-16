@@ -1,0 +1,19 @@
+global: 48 = waiting
+	49 = start
+	50 = stop
+
+Upstream
+
+Feed1
+Transfer1
+Main1
+
+Feed2
+Transfer2
+Main2
+
+Feed3
+Transfer3
+Main3
+
+Splitter

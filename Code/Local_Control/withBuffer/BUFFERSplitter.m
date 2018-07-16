@@ -1,9 +1,17 @@
-COM_CloseNXT('all');
+COM_CloseNXT('all')
 
-nxtSAddr = '001653132A78';
-nxtS = COM_OpenNXTEx('USB', nxtSAddr);
+%open config file and save variable names and values column 1 and 2
+%respectively.
+config = fopen('config.txt','rt');
+out = textscan(config, '%s %s');
+fclose(config);
 
-disp('Running Splitter');
+power = str2double(out{2}(strcmp('SPEED_S',out{1})));
+Saddr = char(out{2}(strcmp('Splitter1',out{1})));
+
+nxtS = COM_OpenNXTEx('USB', Saddr);
+
+
 
 
 %{
@@ -12,6 +20,8 @@ path2code = path2code(1: length(path2code) - 13);
 cd(path2code);
 %}
 
+disp('SPLITTER');
+input('press ENTER to start');
 %{ 
 %Collect information from configuration files
 fileInit = memmapfile('InitializationStatus.txt', 'Writable', true, 'Format', 'int8');

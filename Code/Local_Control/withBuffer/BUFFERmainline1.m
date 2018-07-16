@@ -1,20 +1,28 @@
 COM_CloseNXT('all')
-M1addr = '0016530EE594';
-M1 = COM_OpenNXTEx('USB', M1addr);
 
-power = linepower;
+%open config file and save variable names and values column 1 and 2
+%respectively.
+config = fopen('config.txt','rt');
+out = textscan(config, '%s %s');
+fclose(config);
+
+power = str2double(out{2}(strcmp('SPEED_M',out{1})));
+M1addr = char(out{2}(strcmp('Main1',out{1})));
+
+nxtM1 = COM_OpenNXTEx('USB', M1addr);
 
 OpenLight(SENSOR_1, 'ACTIVE', nxtM1);
 OpenLight(SENSOR_2, 'ACTIVE', nxtM1);
 
+fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 j2 = memmapfile('junction2.txt', 'Writable', true);
 
-disp('MAINLINE 1')
+
 
 mainline = NXTMotor(MOTOR_A,'Power',-power,'SpeedRegulation',false);
 
+disp('MAINLINE 1')
 input('Press ENTER to start')
-
 
 ambientLight1 = GetLight(SENSOR_1, nxtM1);
 mainline.SendToNXT(M1);
@@ -35,25 +43,12 @@ clearPalletM = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);];
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8)];
 
 
 k=0;
-%while fileInit.Data(1) ~= 53
-while k<5 % loop for 4 pallets
+while (k<6) && (fstatus.Data(1) == 49)
 	while abs(GetLight(SENSOR_1, nxtM1) - ambientLight1) < 11
-		%{
-		if fileInit.Data(1) == 53
-			clear j2;
-			clear fileInit;
-			delete(timerfind);
-			keepMainlineRunning.Stop('off', nxtM1);
-			CloseSensor(SENSOR_1, nxtM1);
-			CloseSensor(SENSOR_2, nxtM1);
-			COM_CloseNXT(nxtM1);
-			quit;
-		end
-		%}
 		pause(0.05);
 	end
 	j2.Data(1) = j2.Data(1) + 1;
@@ -66,11 +61,11 @@ while k<5 % loop for 4 pallets
 	k = k+1;
 	disp('Main1 clear');
 end
-%end
 
+mainline.Stop('off', nxtM1);
+disp('Main 1 STOPPED');
 clear j2;
 delete(timerfind);%Remove all timers from memory
-keepMainlineRunning.Stop('off', nxtM1);
 CloseSensor(SENSOR_1, nxtM1);
 CloseSensor(SENSOR_2, nxtM1);
 COM_CloseNXT(nxtM1);

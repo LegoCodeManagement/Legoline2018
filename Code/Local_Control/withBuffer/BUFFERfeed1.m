@@ -1,19 +1,23 @@
-COM_CloseNXT('all');
-disp('Running Feed1');
-nxtF1Addr = '00165308EE03';
-nxtF1 = COM_OpenNXTEx('USB', nxtF1Addr);
+COM_CloseNXT('all')
 
-power = linepower;
+%open config file and save variable names and values column 1 and 2
+%respectively.
+config = fopen('config.txt','rt');
+out = textscan(config, '%s %s');
+fclose(config);
+
+power = str2double(out{2}(strcmp('SPEED_F',out{1})));
+F1addr = char(out{2}(strcmp('Feed1',out{1})));
+
+nxtF1 = COM_OpenNXTEx('USB', F1addr);
 
 OpenSwitch(SENSOR_1, nxtF1);
 OpenLight(SENSOR_3, 'ACTIVE', nxtF1);
 
+fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 b1 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
 
-%clear buffer data
-b1.Data(1) = 0;
-b1.Data(2) = 0;
-
+disp('FEED 1');
 input('press ENTER to start');
 
 currentLight3 = GetLight(SENSOR_3, nxtF1);
@@ -22,11 +26,17 @@ currentLight3 = GetLight(SENSOR_3, nxtF1);
 T_F=10;
 toc = T_F + 1; %start with a number greater than 10 so that feed starts immediately
 k=0; 
-while k < 5 	%run loop until 4 pallets have been outputted.
+while (k<6) && (fstatus.Data(1) == 49)
 	if toc > T
 		switch b1.Data(1)
 			case b1.Data(1) == 1 | b1.Data(1) == 0
 				feedPallet(nxtF1, SENSOR_1, MOTOR_A);
+				
+				if fstatus.Data(1) ~= 49
+					break
+					disp('break');
+      			end
+				
 				k=k+1;
 				clear toc
 				tic %set timer for next pallet
@@ -69,7 +79,7 @@ while k < 5 	%run loop until 4 pallets have been outputted.
 	
 end
 
-disp('feed 1 STOPPED')
+disp('Feed 2 STOPPED')
 clear b1;
 CloseSensor(SENSOR_1, nxtF1);
 CloseSensor(SENSOR_3, nxtF1);

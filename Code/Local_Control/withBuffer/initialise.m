@@ -7,8 +7,6 @@ b1 = memmapfile('buffer1.txt', 'Writable', true);
 b2 = memmapfile('buffer2.txt', 'Writable', true);
 b3 = memmapfile('buffer2.txt', 'Writable', true);
 
-linepower = 30;
-
 b1.Data(1) = 0;
 b1.Data(2) = 0;
 b2.Data(1) = 0;

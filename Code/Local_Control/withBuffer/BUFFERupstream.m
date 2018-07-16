@@ -1,21 +1,31 @@
 COM_CloseNXT('all')
-Uaddr = '0016530EE120';
+
+%open config file and save variable names and values column 1 and 2
+%respectively.
+config = fopen('config.txt','rt');
+out = textscan(config, '%s %s');
+fclose(config);
+
+power = str2double(out{2}(strcmp('SPEED_U',out{1})));
+Uaddr = char(out{2}(strcmp('Upstream',out{1})));
+
 U = COM_OpenNXTEx('USB', Uaddr);
 
 
-power = linepower;
-
-disp('UPSTREAM')
-
+fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 j1 = memmapfile('Junction1.txt','Writable',true);
-
 disp(j1.Data(1));
 
 OpenLight(SENSOR_2,'ACTIVE',U)
 OpenSwitch(SENSOR_1,U)
 
-input('Press ENTER to start')
 
+disp('UPSTREAM');
+disp('waiting for ready signal')
+
+while fstatus.Data(1) == 48
+    pause(0.1);
+end
 currentValueU = GetLight(SENSOR_2,U);
 
 palletHasLeft = [timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',3); 
@@ -31,13 +41,18 @@ T_U = 6;
 toc = T_U + 1;
 j=0;
 tic;
-while j<6
+while (j<6) && (fstatus.Data(1) == 49)
+    
 	if toc > T_U
 		j1.Data(1) = j1.Data(1) + 1;
 		clear toc
 		tic
 		feedPallet(U,SENSOR_1,MOTOR_A);
 		j=j+1;
+        if fstatus.Data(1) ~= 49
+            break
+            disp('break');
+        end
 		movePalletToLightSensor(MOTOR_B,power,U,SENSOR_2,currentValueU,20);
 		start(palletHasLeft(j));
 	end
@@ -45,7 +60,7 @@ while j<6
 end
 
 delete(timerfind);
-disp('upstream STOPPED')
+disp('Upstream STOPPED')
 clear j1;
 CloseSensor(SENSOR_1, nxtF1);
 CloseSensor(SENSOR_2, nxtF1);

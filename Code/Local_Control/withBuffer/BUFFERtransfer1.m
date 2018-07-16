@@ -1,17 +1,23 @@
-COM_CloseNXT('all');
-nxtT1Addr = '0016530AABDF';
-nxtT1 = COM_OpenNXTEx('USB', nxtT1Addr);
+COM_CloseNXT('all')
+
+%open config file and save variable names and values column 1 and 2 respectively.
+config = fopen('config.txt','rt');
+out = textscan(config, '%s %s');
+fclose(config);
+power = str2double(out{2}(strcmp('SPEED_T',out{1})));
+T1addr = char(out{2}(strcmp('Transfer1',out{1})));
+
+nxtT1 = COM_OpenNXTEx('USB', T1addr);
 OpenLight(SENSOR_3, 'ACTIVE', nxtT1);
 OpenSwitch(SENSOR_2, nxtT1);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT1);
 
-power = linepower;
-
-TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, 16);
+fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 j1 = memmapfile('junction1.txt', 'Writable', true);
 j2 = memmapfile('junction2.txt', 'Writable', true);
 b1 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
 
+TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, 16);
 currentLight1 = GetLight(SENSOR_1, nxtT1);
 currentLight3 = GetLight(SENSOR_3, nxtT1);
 
@@ -29,10 +35,10 @@ clearPalletT1 = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);];
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3)];
 
 k=0;
-while k < 5 %move 4 pallets onto mainline
+while (k<6) && (fstatus.Data(1) == 49)
     	
 	if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 11)
     
@@ -43,6 +49,11 @@ while k < 5 %move 4 pallets onto mainline
 			pause(0.25)
 			disp('mainline is busy') %this clogs up console, need another method
 		end
+		
+		if fstatus.Data(1) ~= 49
+            break
+            disp('break');
+        end
 		
 		TransferArmRun(MOTOR_B, nxtT1, 105);
 		start(clearPalletT1(k))
@@ -61,10 +72,9 @@ while k < 5 %move 4 pallets onto mainline
 	pause(0.2);
 end
 
-disp('transfer 1 STOPPED')
+disp('Transfer 1 STOPPED')
 delete(timerfind);
-clear j1;
-clear b1;
+clearvals j1 j2 b1;
 CloseSensor(SENSOR_1, nxtT1);
 CloseSensor(SENSOR_2, nxtT1);
 CloseSensor(SENSOR_3, nxtT1);

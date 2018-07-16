@@ -1,21 +1,31 @@
 COM_CloseNXT('all')
-M2addr = '001653118AC9';
-M2 = COM_OpenNXTEx('USB', M2addr);
 
-power = linepower;
+%open config file and save variable names and values column 1 and 2
+%respectively.
+config = fopen('config.txt','rt');
+out = textscan(config, '%s %s');
+fclose(config);
+
+power = str2double(out{2}(strcmp('SPEED_M',out{1})));
+M2addr = char(out{2}(strcmp('Main2',out{1})));
+
+nxtM2 = COM_OpenNXTEx('USB', M2addr);
 
 OpenLight(SENSOR_1, 'ACTIVE', nxtM2);
 OpenLight(SENSOR_2, 'ACTIVE', nxtM2);
 
-j3 = memmapfile('junction2.txt', 'Writable', true);
+fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+j3 = memmapfile('junction3.txt', 'Writable', true);
 
-disp('MAINLINE 2')
+
 
 mainline = NXTMotor(MOTOR_A,'Power',-power,'SpeedRegulation',false);
 
+disp('MAINLINE 2')
 input('Press ENTER to start')
-mainline.SendToNXT(M2);
 
+ambientLight2 = GetLight(SENSOR_1, nxtM2);
+mainline.SendToNXT(M2);
 
 clearPalletM = [timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.8);
                 timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.8);
@@ -33,25 +43,12 @@ clearPalletM = [timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3
                 timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.8);
                 timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.8);
                 timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.8);];
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.8)];
 
 
 k=0;
-%while fileInit.Data(1) ~= 53
-while k<5 % loop for 4 pallets
+while (k<6) && (fstatus.Data(1) == 49)
 	while abs(GetLight(SENSOR_1, nxtM2) - ambientLight1) < 11
-		%{
-		if fileInit.Data(1) == 53
-			clear j3;
-			clear fileInit;
-			delete(timerfind);
-			keepMainlineRunning.Stop('off', nxtM2);
-			CloseSensor(SENSOR_1, nxtM2);
-			CloseSensor(SENSOR_2, nxtM2);
-			COM_CloseNXT(nxtM2);
-			quit;
-		end
-		%}
 		pause(0.05);
 	end
 	j3.Data(1) = j3.Data(1) + 1;
@@ -64,11 +61,11 @@ while k<5 % loop for 4 pallets
 	k = k+1;
 	disp('Main1 clear');
 end
-%end
 
+mainline.Stop('off', nxtM2);
+disp('Main 2 STOPPED');
 clear j3;
 delete(timerfind);%Remove all timers from memory
-keepMainlineRunning.Stop('off', nxtM2);
 CloseSensor(SENSOR_1, nxtM2);
 CloseSensor(SENSOR_2, nxtM2);
 COM_CloseNXT(nxtM2);

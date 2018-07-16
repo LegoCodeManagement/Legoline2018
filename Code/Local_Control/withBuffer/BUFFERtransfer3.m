@@ -1,71 +1,81 @@
-COM_CloseNXT('all');
-nxtT1Addr = '0016530A6F56s';
-nxtT1 = COM_OpenNXTEx('USB', nxtT1Addr);
-OpenLight(SENSOR_3, 'ACTIVE', nxtT1);
-OpenSwitch(SENSOR_2, nxtT1);
-OpenLight(SENSOR_1, 'ACTIVE', nxtT1);
+COM_CloseNXT('all')
 
-power = linepower;
+%open config file and save variable names and values column 1 and 2 respectively.
+config = fopen('config.txt','rt');
+out = textscan(config, '%s %s');
+fclose(config);
+power = str2double(out{2}(strcmp('SPEED_T',out{1})));
+T3addr = char(out{2}(strcmp('Transfer3',out{1})));
 
-TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, 16);
+nxtT3 = COM_OpenNXTEx('USB', T3addr);
+OpenLight(SENSOR_3, 'ACTIVE', nxtT3);
+OpenSwitch(SENSOR_2, nxtT3);
+OpenLight(SENSOR_1, 'ACTIVE', nxtT3);
+
+fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+
 j3 = memmapfile('junction3.txt', 'Writable', true);
+b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
 
-b3 = memmapfile('buffe3.txt', 'Writable', true, 'Format', 'int8');
-
-currentLight1 = GetLight(SENSOR_1, nxtT1);
-currentLight3 = GetLight(SENSOR_3, nxtT1);
+TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, 16);
+currentLight1 = GetLight(SENSOR_1, nxtT3);
+currentLight3 = GetLight(SENSOR_3, nxtT3);
 
 disp('TRANSFER 3')
 input('press ENTER to start')
 
-clearPalletT3 = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);];
+
+
+
+
+
+
+
+
+
+
+
+
 
 k=0;
-while k < 5 %move 4 pallets onto mainline
+while (k<6) && (fstatus.Data(1) == 49) 
     	
-	if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 11)
+	if (abs(GetLight(SENSOR_1, nxtT3) - currentLight1) > 11)
     
-		b1.Data(2) = b1.Data(2) + 1;
-		movePalletToLightSensor(MOTOR_A, -power, nxtT1, SENSOR_3, currentLight3, 4);
+		b3.Data(2) = b3.Data(2) + 1;
+		movePalletToLightSensor(MOTOR_A, -power, nxtT3, SENSOR_3, currentLight3, 4);
 		
-		while j1.Data(1) == 1
+		while j3.Data(1) == 1
 			pause(0.25);
 			disp('mainline is busy') %this clogs up console, need another method
 		end
 		
-		TransferArmRun(MOTOR_B, nxtT1, 105);
+		if fstatus.Data(1) ~= 49
+            break
+            disp('break');
+        end
+		
+		TransferArmRun(MOTOR_B, nxtT3, 105);
 		start(clearPalletT3(k))
 		pause(0.6);
-		TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, 16);
+		TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, 16);
 		
-		b1.Data(2) = b1.Data(2) - 1;
+		b3.Data(2) = b3.Data(2) - 1;
 		
 		k=k+1;
 		
-        disp(['transfer buffer = ', num2str(b1.Data(2))]);
-        disp(['feed buffer = ', num2str(b1.Data(1))]);
+        disp(['transfer buffer = ', num2str(b3.Data(2))]);
+        disp(['feed buffer = ', num2str(b3.Data(1))]);
         disp(['junction 1 = ', num2str(j1.Data(1))]);
         
     end
 	pause(0.2);
 end
 
-disp('transfer 1 STOPPED')
+disp('Transfer 1 STOPPED')
 delete(timerfind);
-clear j1;
-clear b1;
-CloseSensor(SENSOR_1, nxtT1);
-CloseSensor(SENSOR_2, nxtT1);
-CloseSensor(SENSOR_3, nxtT1);
-COM_CloseNXT(nxtT1);
+clearvals j3 b3;
+CloseSensor(SENSOR_1, nxtT3);
+CloseSensor(SENSOR_2, nxtT3);
+CloseSensor(SENSOR_3, nxtT3);
+COM_CloseNXT(nxtT3);
