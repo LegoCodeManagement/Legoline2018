@@ -6,10 +6,13 @@ COM_CloseNXT('all');
 %anymore
 %Try memory map to communicate between multiple instances or shared matrix
 %The delay here is significant
+
+addpath('C:\Users\EDC\Documents\MATLAB\LegolineNew\gettingstarted2\buffer')
+
 !matlab  -nodesktop -minimize -nosplash -r TESTBUFFERfeed&
-!matlab  -nodesktop -minimize -nosplash -r TESTBUFFERtransfer&
-!matlab  -nodesktop -minimize -nosplash -r TESTmainline&
-!matlab  -nodesktop -minimize -nosplash -r TESTupstream
+%!matlab  -nodesktop -minimize -nosplash -r TESTBUFFERtransfer
+%!matlab  -nodesktop -minimize -nosplash -r TESTmainline&
+%!matlab  -nodesktop -minimize -nosplash -r TESTupstream
 
 %!matlab  -nodesktop -minimize -nosplash -r TESTmainline&
 %!matlab  -nodesktop -minimize -nosplash -r TESTupstream&
