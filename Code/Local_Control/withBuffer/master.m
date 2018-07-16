@@ -7,11 +7,11 @@ COM_CloseNXT('all');
 %Try memory map to communicate between multiple instances or shared matrix
 %The delay here is significant
 
-run(initialise);
+run initialise
 
-!matlab  -nodesktop -minimize -nosplash -r BUFFERfeed1&
-!matlab  -nodesktop -minimize -nosplash -r BUFFERtransfer1&
-!matlab  -nodesktop -minimize -nosplash -r BUFFERmainline1&
+%!matlab  -nodesktop -minimize -nosplash -r BUFFERfeed1&
+%!matlab  -nodesktop -minimize -nosplash -r BUFFERtransfer1&
+%!matlab  -nodesktop -minimize -nosplash -r BUFFERmainline1&
 !matlab  -nodesktop -minimize -nosplash -r BUFFERupstream&
 
 %!matlab  -nodesktop -minimize -nosplash -r TESTmainline&

@@ -6,7 +6,7 @@ disp('UPSTREAM')
 
 j1 = memmapfile('Junction1.txt','Writable',true);
 
-j1.Data(1)
+disp(j1.Data(1));
 
 OpenLight(SENSOR_2,'ACTIVE',U)
 OpenSwitch(SENSOR_1,U)
