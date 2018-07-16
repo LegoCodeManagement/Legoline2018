@@ -3,6 +3,8 @@ disp('Running Feed1');
 nxtF1Addr = '00165308EE03';
 nxtF1 = COM_OpenNXTEx('USB', nxtF1Addr);
 
+power = linepower;
+
 OpenSwitch(SENSOR_1, nxtF1);
 OpenLight(SENSOR_3, 'ACTIVE', nxtF1);
 
@@ -46,13 +48,13 @@ while k < 5 	%run loop until 4 pallets have been outputted.
 				case b1.Data(1) == 0
 					
 				case b1.Data(1) == 1
-					movePalletToLightSensor(MOTOR_B, 50, nxtF1, SENSOR_3, currentLight3, 3);
+					movePalletToLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 3);
 					b1.Data(1) = b1.Data(1) - 1;
 			
 				case b1.Data(1) == 2 
-					movePalletToLightSensor(MOTOR_B, 50, nxtF1, SENSOR_3, currentLight3, 3);
+					movePalletToLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 3);
 					b1.Data(1) = b1.Data(1) - 1;
-					movePalletSpacing(400, MOTOR_B, -50, nxtF1);
+					movePalletSpacing(400, MOTOR_B, -power, nxtF1);
 					
 				otherwise
 					disp(['error, there are ',num2str(b1.Data(1)),' pallets on feed line']);

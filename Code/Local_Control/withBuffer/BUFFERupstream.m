@@ -2,6 +2,9 @@ COM_CloseNXT('all')
 Uaddr = '0016530EE120';
 U = COM_OpenNXTEx('USB', Uaddr);
 
+
+power = linepower;
+
 disp('UPSTREAM')
 
 j1 = memmapfile('Junction1.txt','Writable',true);
@@ -35,7 +38,7 @@ while j<6
 		tic
 		feedPallet(U,SENSOR_1,MOTOR_A);
 		j=j+1;
-		movePalletToLightSensor(MOTOR_B,30,U,SENSOR_2,currentValueU,20);
+		movePalletToLightSensor(MOTOR_B,power,U,SENSOR_2,currentValueU,20);
 		start(palletHasLeft(j));
 	end
 	pause(0.25)

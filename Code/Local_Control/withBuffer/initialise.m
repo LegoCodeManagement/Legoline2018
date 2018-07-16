@@ -1,3 +1,5 @@
+clearvars j1 j2 j3 b1 b2 b3;
+
 j1 = memmapfile('junction1.txt', 'Writable', true);
 j2 = memmapfile('junction2.txt', 'Writable', true);
 j3 = memmapfile('junction2.txt', 'Writable', true);
@@ -5,7 +7,7 @@ b1 = memmapfile('buffer1.txt', 'Writable', true);
 b2 = memmapfile('buffer2.txt', 'Writable', true);
 b3 = memmapfile('buffer2.txt', 'Writable', true);
 
-clearvars j1 j2 j3 b1 b2 b3;
+linepower = 30;
 
 b1.Data(1) = 0;
 b1.Data(2) = 0;

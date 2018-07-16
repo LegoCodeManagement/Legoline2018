@@ -2,12 +2,14 @@ COM_CloseNXT('all')
 M3addr = '001653118B91';
 M3 = COM_OpenNXTEx('USB', M3addr);
 
+power = linepower;
+
 OpenLight(SENSOR_1, 'ACTIVE', nxtM3);
 OpenLight(SENSOR_2, 'ACTIVE', nxtM3);
 
 disp('MAINLINE 3')
 
-mainline = NXTMotor(MOTOR_A,'Power',-40,'SpeedRegulation',false);
+mainline = NXTMotor(MOTOR_A,'Power',-power,'SpeedRegulation',false);
 
 input('Press ENTER to start')
 mainline.SendToNXT(M3);

@@ -5,6 +5,8 @@ OpenLight(SENSOR_3, 'ACTIVE', nxtT1);
 OpenSwitch(SENSOR_2, nxtT1);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT1);
 
+power = linepower;
+
 TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, 16);
 j3 = memmapfile('junction3.txt', 'Writable', true);
 
@@ -35,7 +37,7 @@ while k < 5 %move 4 pallets onto mainline
 	if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 11)
     
 		b1.Data(2) = b1.Data(2) + 1;
-		movePalletToLightSensor(MOTOR_A, -50, nxtT1, SENSOR_3, currentLight3, 4);
+		movePalletToLightSensor(MOTOR_A, -power, nxtT1, SENSOR_3, currentLight3, 4);
 		
 		while j1.Data(1) == 1
 			pause(0.25);

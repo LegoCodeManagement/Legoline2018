@@ -2,6 +2,8 @@ COM_CloseNXT('all')
 M2addr = '001653118AC9';
 M2 = COM_OpenNXTEx('USB', M2addr);
 
+power = linepower;
+
 OpenLight(SENSOR_1, 'ACTIVE', nxtM2);
 OpenLight(SENSOR_2, 'ACTIVE', nxtM2);
 
@@ -9,7 +11,7 @@ j3 = memmapfile('junction2.txt', 'Writable', true);
 
 disp('MAINLINE 2')
 
-mainline = NXTMotor(MOTOR_A,'Power',-40,'SpeedRegulation',false);
+mainline = NXTMotor(MOTOR_A,'Power',-power,'SpeedRegulation',false);
 
 input('Press ENTER to start')
 mainline.SendToNXT(M2);

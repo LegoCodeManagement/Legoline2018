@@ -2,6 +2,8 @@ COM_CloseNXT('all')
 M1addr = '0016530EE594';
 M1 = COM_OpenNXTEx('USB', M1addr);
 
+power = linepower;
+
 OpenLight(SENSOR_1, 'ACTIVE', nxtM1);
 OpenLight(SENSOR_2, 'ACTIVE', nxtM1);
 
@@ -9,7 +11,7 @@ j2 = memmapfile('junction2.txt', 'Writable', true);
 
 disp('MAINLINE 1')
 
-mainline = NXTMotor(MOTOR_A,'Power',-40,'SpeedRegulation',false);
+mainline = NXTMotor(MOTOR_A,'Power',-power,'SpeedRegulation',false);
 
 input('Press ENTER to start')
 
