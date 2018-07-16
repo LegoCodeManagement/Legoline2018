@@ -23,8 +23,11 @@ j3 = memmapfile('junction3.txt', 'Writable', true);
 
 mainline = NXTMotor(MOTOR_A,'Power',-power,'SpeedRegulation',false);
 
-disp('MAINLINE 2')
-input('Press ENTER to start')
+disp('MAINLINE 2');
+disp('waiting for ready signal');
+while fstatus.Data(1) == 48
+    pause(0.1);
+end
 
 ambientLight2 = GetLight(SENSOR_1, nxtM2);
 mainline.SendToNXT(M2);

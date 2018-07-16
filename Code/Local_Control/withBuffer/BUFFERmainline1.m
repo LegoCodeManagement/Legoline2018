@@ -23,11 +23,14 @@ j2 = memmapfile('junction2.txt', 'Writable', true);
 
 mainline = NXTMotor(MOTOR_A,'Power',-power,'SpeedRegulation',false);
 
-disp('MAINLINE 1')
-input('Press ENTER to start')
+disp('MAINLINE 1');
+disp('waiting for ready signal');
+while fstatus.Data(1) == 48
+    pause(0.1);
+end
 
 ambientLight1 = GetLight(SENSOR_1, nxtM1);
-mainline.SendToNXT(M1);
+mainline.SendToNXT(nxtM1);
 
 clearPalletM = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
@@ -54,13 +57,25 @@ while (k<6) && (fstatus.Data(1) == 49)
 		pause(0.05);
 	end
 	j2.Data(1) = j2.Data(1) + 1;
+    
+    if fstatus.Data(1) ~= 49
+        break
+		disp('break');
+    end
+    
 	if waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 6) == false
 		disp('Error');
 	end
 
 	waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 4);
-	start(clearPalletM(k));
+    
+    if fstatus.Data(1) ~= 49
+        break
+		disp('break');
+    end
+    
 	k = k+1;
+    start(clearPalletM(k));
 	disp('Main1 clear');
 end
 

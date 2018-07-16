@@ -20,7 +20,10 @@ fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
 
 disp('FEED 3');
-input('press ENTER to start');
+disp('waiting for ready signal');
+while fstatus.Data(1) == 48
+    pause(0.1);
+end
 
 currentLight3 = GetLight(SENSOR_3, nxtF3);
 
@@ -52,7 +55,7 @@ while (k<6) && (fstatus.Data(1) == 49)
 				disp(['error, there are ',num2str(b3.Data(1)),' pallets on feed line']);
 				break;
 		end
-	
+	end
 	switch b3.Data(2)
 		case b3.Data(2) == 0
 			switch b3.Data(1)

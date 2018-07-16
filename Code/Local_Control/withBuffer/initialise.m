@@ -1,5 +1,7 @@
 clearvars j1 j2 j3 b1 b2 b3;
 
+fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+fstatus.Data(1) = 48;
 j1 = memmapfile('junction1.txt', 'Writable', true);
 j2 = memmapfile('junction2.txt', 'Writable', true);
 j3 = memmapfile('junction2.txt', 'Writable', true);

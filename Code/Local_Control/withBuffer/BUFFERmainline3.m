@@ -23,8 +23,11 @@ OpenLight(SENSOR_2, 'ACTIVE', nxtM3);
 
 mainline = NXTMotor(MOTOR_A,'Power',-power,'SpeedRegulation',false);
 
-disp('MAINLINE 3')
-input('Press ENTER to start')
+disp('MAINLINE 3');
+disp('waiting for ready signal');
+while fstatus.Data(1) == 48
+    pause(0.1);
+end
 
 mainline.SendToNXT(M3);
 

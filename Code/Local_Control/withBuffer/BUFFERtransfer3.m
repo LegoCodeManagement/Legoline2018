@@ -23,8 +23,11 @@ TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, 16);
 currentLight1 = GetLight(SENSOR_1, nxtT3);
 currentLight3 = GetLight(SENSOR_3, nxtT3);
 
-disp('TRANSFER 3')
-input('press ENTER to start')
+disp('TRANSFER 3');
+disp('waiting for ready signal');
+while fstatus.Data(1) == 48
+    pause(0.1);
+end
 
 
 

@@ -23,8 +23,11 @@ TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, 16);
 currentLight1 = GetLight(SENSOR_1, nxtT2);
 currentLight3 = GetLight(SENSOR_3, nxtT2);
 
-disp('TRANSFER 2')
-input('press ENTER to start')
+disp('TRANSFER 2');
+disp('waiting for ready signal');
+while fstatus.Data(1) == 48
+    pause(0.1);
+end
 
 clearPalletT2 = [timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.3);
                 timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.3);
