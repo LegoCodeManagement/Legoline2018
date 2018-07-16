@@ -1,3 +1,5 @@
+addpath RWTHMindstormsNXT;
+
 COM_CloseNXT('all')
 
 %open config file and save variable names and values column 1 and 2
