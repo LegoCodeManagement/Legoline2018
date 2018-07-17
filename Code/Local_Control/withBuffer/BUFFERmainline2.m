@@ -1,6 +1,8 @@
 addpath RWTHMindstormsNXT;
 
-COM_CloseNXT('all')
+fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+fstatus.Data(6) = 49;
+j3 = memmapfile('junction3.txt', 'Writable', true);
 
 %open config file and save variable names and values column 1 and 2
 %respectively.
@@ -16,13 +18,12 @@ nxtM2 = COM_OpenNXTEx('USB', M2addr);
 OpenLight(SENSOR_1, 'ACTIVE', nxtM2);
 OpenLight(SENSOR_2, 'ACTIVE', nxtM2);
 
-fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
-j3 = memmapfile('junction3.txt', 'Writable', true);
+
 
 
 
 mainline = NXTMotor(MOTOR_A,'Power',-power,'SpeedRegulation',false);
-
+fstatus.Data(6) = 50;
 disp('MAINLINE 2');
 disp('waiting for ready signal');
 while fstatus.Data(1) == 48
@@ -30,7 +31,7 @@ while fstatus.Data(1) == 48
 end
 
 ambientLight2 = GetLight(SENSOR_1, nxtM2);
-mainline.SendToNXT(M2);
+mainline.SendToNXT(nxtM2);
 
 clearPalletM = [timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.8);
                 timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.8);

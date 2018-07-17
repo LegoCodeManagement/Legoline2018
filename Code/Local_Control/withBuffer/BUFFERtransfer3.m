@@ -1,6 +1,7 @@
 addpath RWTHMindstormsNXT;
 
-COM_CloseNXT('all')
+fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+fstatus.Data(10) = 49;
 
 %open config file and save variable names and values column 1 and 2 respectively.
 config = fopen('config.txt','rt');
@@ -8,13 +9,13 @@ out = textscan(config, '%s %s');
 fclose(config);
 power = str2double(out{2}(strcmp('SPEED_T',out{1})));
 T3addr = char(out{2}(strcmp('Transfer3',out{1})));
+T1angle = str2double(out{2}(strcmp('T1angle',out{1})));
 
 nxtT3 = COM_OpenNXTEx('USB', T3addr);
 OpenLight(SENSOR_3, 'ACTIVE', nxtT3);
 OpenSwitch(SENSOR_2, nxtT3);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT3);
 
-fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 
 j3 = memmapfile('junction3.txt', 'Writable', true);
 b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
@@ -22,7 +23,7 @@ b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
 TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, 16);
 currentLight1 = GetLight(SENSOR_1, nxtT3);
 currentLight3 = GetLight(SENSOR_3, nxtT3);
-
+fstatus.Data(10) = 50;
 disp('TRANSFER 3');
 disp('waiting for ready signal');
 while fstatus.Data(1) == 48

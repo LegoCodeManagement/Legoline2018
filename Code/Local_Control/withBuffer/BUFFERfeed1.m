@@ -1,6 +1,8 @@
 addpath RWTHMindstormsNXT;
 
-COM_CloseNXT('all')
+fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+fstatus.Data(5) = 49;
+b1 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
 
 %open config file and save variable names and values column 1 and 2
 %respectively.
@@ -16,9 +18,8 @@ nxtF1 = COM_OpenNXTEx('USB', F1addr);
 OpenSwitch(SENSOR_1, nxtF1);
 OpenLight(SENSOR_3, 'ACTIVE', nxtF1);
 
-fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
-b1 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
 
+fstatus.Data(5) = 50;
 disp('FEED 1');
 disp('waiting for ready signal');
 while fstatus.Data(1) == 48
@@ -33,13 +34,13 @@ k=0;
 while (k<6) && (fstatus.Data(1) == 49)
 	if toc > T_F
 		switch b1.Data(1)
-            case 0
+    		case 0
 				feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 				
 				if fstatus.Data(1) ~= 49
                     disp('break');
 					break
-                end
+				end
 				
 				k=k+1;
 				clear toc
@@ -75,11 +76,11 @@ while (k<6) && (fstatus.Data(1) == 49)
 				case 0
 					pause(0.1);
 				case 1
-					movePalletToLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 100);
+					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 50);
 					b1.Data(1) = b1.Data(1) - 1;
 			
                 case 2 
-					movePalletToLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 100);
+					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 50);
 					b1.Data(1) = b1.Data(1) - 1;
 					movePalletSpacing(350, MOTOR_B, -power, nxtF1);
 					

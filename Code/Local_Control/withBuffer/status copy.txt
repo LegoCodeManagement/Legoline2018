@@ -1,19 +1,24 @@
-global: 48 = waiting
+global: 48 = waiting, ready
 	49 = start
 	50 = stop
+module: 48 = initial
+	49 = loading
+	50 = ready
+	
 
-Upstream
+Upstream	2
 
-Feed1
-Transfer1
-Main1
+Main1		3
+Transfer1	4
+Feed1		5
 
-Feed2
-Transfer2
-Main2
+Main2		6
+Transfer2	7
+Feed2		8
 
-Feed3
-Transfer3
-Main3
+Main3		9
+Transfer3	10
+Feed3		11
 
-Splitter
+
+Splitter	12

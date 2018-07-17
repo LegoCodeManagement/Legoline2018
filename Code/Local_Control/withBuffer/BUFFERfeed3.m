@@ -1,6 +1,9 @@
 addpath RWTHMindstormsNXT;
 
-COM_CloseNXT('all')
+
+fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+fstatus.Data(11) = 49;
+b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
 
 %open config file and save variable names and values column 1 and 2
 %respectively.
@@ -16,9 +19,8 @@ nxtF3 = COM_OpenNXTEx('USB', F3addr);
 OpenSwitch(SENSOR_1, nxtF3);
 OpenLight(SENSOR_3, 'ACTIVE', nxtF3);
 
-fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
-b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
 
+fstatus.Data(11) = 50;
 disp('FEED 3');
 disp('waiting for ready signal');
 while fstatus.Data(1) == 48
@@ -33,21 +35,34 @@ k=0;
 while (k<6) && (fstatus.Data(1) == 49)
 	if toc > T_F
 		switch b3.Data(1)
-			case {0,1}
+			case 0
 				feedPallet(nxtF3, SENSOR_1, MOTOR_A);
 				
 				if fstatus.Data(1) ~= 49
-					disp('break');
+                    disp('break');
 					break
-      			end
+				end
 				
 				k=k+1;
 				clear toc
 				tic %set timer for next pallet
 				b3.Data(1) = b3.Data(1) + 1;
+			
+            case 1            
+                movePalletSpacing(350, MOTOR_B, power, nxtF3);
+                feedPallet(nxtF3, SENSOR_1, MOTOR_A);
+
+                if fstatus.Data(1) ~= 49
+                    disp('break');
+					break
+                end
 				
-				
-			case b3.Data(1) == 2
+				k=k+1;
+				clear toc
+				tic %set timer for next pallet
+				b3.Data(1) = b3.Data(1) + 1;
+							
+			case  2
 				disp(['cannot feed there are ',num2str(b3.Data(1)),' pallets on feed line']);
 			
 			otherwise
@@ -56,7 +71,7 @@ while (k<6) && (fstatus.Data(1) == 49)
 		end
 	end
 	switch b3.Data(2)
-		case b3.Data(2) == 0
+		case 0
 			switch b3.Data(1)
 			
 				case 0

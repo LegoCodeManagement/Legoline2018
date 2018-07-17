@@ -1,6 +1,7 @@
 addpath RWTHMindstormsNXT;
 
-COM_CloseNXT('all')
+fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+fstatus.Data(4) = 49;
 
 %open config file and save variable names and values column 1 and 2 respectively.
 config = fopen('config.txt','rt');
@@ -15,13 +16,13 @@ OpenLight(SENSOR_3, 'ACTIVE', nxtT1);
 OpenSwitch(SENSOR_2, nxtT1);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT1);
 
-fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+
 j1 = memmapfile('junction1.txt', 'Writable', true);
 j2 = memmapfile('junction2.txt', 'Writable', true);
 b1 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
 
 TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
-
+fstatus.Data(4) = 50;
 disp('TRANSFER 1');
 disp('waiting for ready signal');
 while fstatus.Data(1) == 48

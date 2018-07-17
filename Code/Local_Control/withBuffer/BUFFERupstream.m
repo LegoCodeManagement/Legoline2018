@@ -1,5 +1,8 @@
 addpath RWTHMindstormsNXT;
 
+fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+fstatus.Data(2) = 49; %initalise
+
 %open config file and save variable names and values column 1 and 2
 %respectively.
 config = fopen('config.txt','rt');
@@ -13,18 +16,18 @@ Uaddr = char(out{2}(strcmp('Upstream',out{1})));
 nxtU = COM_OpenNXTEx('USB', Uaddr);
 
 
-fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+
 j1 = memmapfile('Junction1.txt','Writable',true);
 disp(j1.Data(1));
 
 OpenLight(SENSOR_2,'ACTIVE',nxtU)
 OpenSwitch(SENSOR_1,nxtU)
-
+fstatus.Data(2) = 50; %ready
 disp('UPSTREAM');
 disp('waiting for ready signal')
-
+fstatus.Data(2) = 49;
 while fstatus.Data(1) == 48
-    pause(0.1);
+    pause(0.1); %wait for ready sign
 end
 currentValueU = GetLight(SENSOR_2,nxtU);
 
@@ -53,7 +56,7 @@ while (j<9) && (fstatus.Data(1) == 49)
             break
             disp('break');
         end
-		movePalletToLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,17);
+		movePalletToLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,10);
 		start(palletHasLeft(j));
 	end
 	pause(0.25)
