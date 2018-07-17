@@ -18,6 +18,11 @@ SPEED_M 40
 SPEED_F 40
 SPEED_U 40
 
+Transfer_Arm_Calibration_Angles:
+T1angle 21
+T2angle 16
+T3angle 16
+
 Timing_Values:
 
 MainlinePass 14

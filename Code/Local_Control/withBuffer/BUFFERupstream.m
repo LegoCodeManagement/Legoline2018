@@ -20,9 +20,7 @@ disp(j1.Data(1));
 OpenLight(SENSOR_2,'ACTIVE',nxtU)
 OpenSwitch(SENSOR_1,nxtU)
 
-
 disp('UPSTREAM');
-
 disp('waiting for ready signal')
 
 while fstatus.Data(1) == 48
@@ -55,7 +53,7 @@ while (j<6) && (fstatus.Data(1) == 49)
             break
             disp('break');
         end
-		movePalletToLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20);
+		movePalletToLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,17);
 		start(palletHasLeft(j));
 	end
 	pause(0.25)
