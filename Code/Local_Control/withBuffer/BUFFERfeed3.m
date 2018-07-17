@@ -27,19 +27,18 @@ end
 
 currentLight3 = GetLight(SENSOR_3, nxtF3);
 
-
 T_F=10;
-toc = T_F + 1; %start with a number greater than 10 so that feed starts immediately
+toc = T_F + 1; %start with a number greater than T_F so that feed starts immediately
 k=0; 
 while (k<6) && (fstatus.Data(1) == 49)
-	if toc > T
+	if toc > T_F
 		switch b3.Data(1)
-			case b3.Data(1) == 1 | b3.Data(1) == 0
+			case {0,1}
 				feedPallet(nxtF3, SENSOR_1, MOTOR_A);
 				
 				if fstatus.Data(1) ~= 49
-					break
 					disp('break');
+					break
       			end
 				
 				k=k+1;
@@ -60,13 +59,13 @@ while (k<6) && (fstatus.Data(1) == 49)
 		case b3.Data(2) == 0
 			switch b3.Data(1)
 			
-				case b3.Data(1) == 0
-					
-				case b3.Data(1) == 1
+				case 0
+					pause(0.1)
+				case 1
 					movePalletToLightSensor(MOTOR_B, power, nxtF3, SENSOR_3, currentLight3, 3);
 					b3.Data(1) = b3.Data(1) - 1;
 			
-				case b3.Data(1) == 2 
+				case 2
 					movePalletToLightSensor(MOTOR_B, power, nxtF3, SENSOR_3, currentLight3, 3);
 					b3.Data(1) = b3.Data(1) - 1;
 					movePalletSpacing(400, MOTOR_B, -power, nxtF3);
@@ -76,12 +75,11 @@ while (k<6) && (fstatus.Data(1) == 49)
 					break;
 			end
 			
-		case b3.Data(2) == 1
+		case 1
 		disp('waiting for pallet on transfer line');	
 	end
 	
 	pause(0.2)  %to avoid update error
-	
 end
 
 disp('Feed 3 STOPPED')

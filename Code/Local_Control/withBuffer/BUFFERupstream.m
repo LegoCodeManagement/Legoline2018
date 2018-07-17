@@ -6,6 +6,7 @@ config = fopen('config.txt','rt');
 out = textscan(config, '%s %s');
 fclose(config);
 
+
 power = str2double(out{2}(strcmp('SPEED_U',out{1})));
 Uaddr = char(out{2}(strcmp('Upstream',out{1})));
 
@@ -21,6 +22,7 @@ OpenSwitch(SENSOR_1,nxtU)
 
 
 disp('UPSTREAM');
+
 disp('waiting for ready signal')
 
 while fstatus.Data(1) == 48

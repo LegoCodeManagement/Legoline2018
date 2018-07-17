@@ -21,22 +21,21 @@ b1 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
 
 disp('FEED 1');
 disp('waiting for ready signal');
-%{
 while fstatus.Data(1) == 48
     pause(0.1);
 end
-%}
+
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
-fstatus.Data(1) = 49
 T_F=7;
-toc = T_F + 1; %start with a number greater than 10 so that feed starts immediately
+toc = T_F + 1; %start with a number greater than T_F so that feed starts immediately
 k=0; 
 while (k<6) && (fstatus.Data(1) == 49)
 	if toc > T_F
 		switch b1.Data(1)
             case {0,1}
 				feedPallet(nxtF1, SENSOR_1, MOTOR_A);
+				
 				if fstatus.Data(1) ~= 49
                     disp('break');
 					break
@@ -61,7 +60,7 @@ while (k<6) && (fstatus.Data(1) == 49)
 			switch b1.Data(1)
 			
 				case 0
-					
+					pause(0.1);
 				case 1
 					movePalletToLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 3);
 					b1.Data(1) = b1.Data(1) - 1;
