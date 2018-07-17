@@ -1,10 +1,10 @@
 function result = feedPallet(nxtFeed, touchSensor, liftMotor)
 initMotor = NXTMotor(liftMotor);
-initMotor.Power = -40;
+initMotor.Power = -50;
 initMotor.SpeedRegulation = 0;
-pushPallet = NXTMotor(liftMotor,'Power',60);
+pushPallet = NXTMotor(liftMotor,'Power',65);
 pushPallet.SpeedRegulation=0;
-pushPallet.TachoLimit=145;%Between 110+30 and 120+30 would do
+pushPallet.TachoLimit=155;%Between 110+30 and 120+30 would do
 pushPallet.ActionAtTachoLimit='Coast';
 initMotor.SendToNXT(nxtFeed);
 tic;

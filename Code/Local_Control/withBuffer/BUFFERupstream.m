@@ -28,20 +28,20 @@ while fstatus.Data(1) == 48
 end
 currentValueU = GetLight(SENSOR_2,nxtU);
 
-palletHasLeft = [timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',3); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',3);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',3); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',3);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',3); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',3);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',3); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',3)];
+palletHasLeft = [timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5); 
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5);
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5); 
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5);
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5); 
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5);
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5); 
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5)];
 
-T_U = 6;
+T_U = 3;
 toc = T_U + 1;
 j=0;
 tic;
-while (j<6) && (fstatus.Data(1) == 49)
+while (j<9) && (fstatus.Data(1) == 49)
     
 	if toc > T_U
 		j1.Data(1) = j1.Data(1) + 1;

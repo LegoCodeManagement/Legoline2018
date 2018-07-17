@@ -47,10 +47,10 @@ clearPalletT1 = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 
 k=0;
 while (k<6) && (fstatus.Data(1) == 49)
     	
-	if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 11)
+	if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 100)
     
 		b1.Data(2) = b1.Data(2) + 1;
-		movePalletToLightSensor(MOTOR_A, -power, nxtT1, SENSOR_3, currentLight3, 4, 17);
+		movePalletToLightSensor(MOTOR_A, -power, nxtT1, SENSOR_3, currentLight3, 10, 20);
 		
 		while j1.Data(1) == 1
 			pause(0.5);

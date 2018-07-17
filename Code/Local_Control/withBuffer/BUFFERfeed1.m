@@ -27,7 +27,7 @@ end
 
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
-T_F=3;
+T_F=5;
 toc = T_F + 1; %start with a number greater than T_F so that feed starts immediately
 k=0; 
 while (k<6) && (fstatus.Data(1) == 49)
@@ -75,11 +75,11 @@ while (k<6) && (fstatus.Data(1) == 49)
 				case 0
 					pause(0.1);
 				case 1
-					movePalletToLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 3, 15);
+					movePalletToLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 100);
 					b1.Data(1) = b1.Data(1) - 1;
 			
                 case 2 
-					movePalletToLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 3, 15);
+					movePalletToLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 100);
 					b1.Data(1) = b1.Data(1) - 1;
 					movePalletSpacing(350, MOTOR_B, -power, nxtF1);
 					
