@@ -29,36 +29,35 @@ end
 
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
-toc = T_F1 + 1; %start with a number greater than T_F1 so that feed starts immediately
 k=0; 
-a = 0.1
-exponentialstep	=	[timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
-					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
-					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
-					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
-					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
-					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
-					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
-					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
-					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
-					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);];
+a = 0.05;
+buffer1 = 0;
+buffer2 = 0;
+timer1 = tic;
+timer2 = tic;
+
+%feed first pallet
+feedPallet(nxtF1, SENSOR_1, MOTOR_A);
+b1.Data(1) = b1.Data(1) + 1;
 
 while (k<12) && (fstatus.Data(1) == 49)
-	if toc > T_F1
+	if toc(timer1) > T_F1*exp(-a*toc(timer2))
 		switch b1.Data(1)
     		case 0
-    			k=k+1;
+    			timer1 = tic; %set timer for next pallet
+    			b1.Data(1) = b1.Data(1) + 1;
 				feedPallet(nxtF1, SENSOR_1, MOTOR_A);
-				start(exponentialstep(k));
+				
 				if fstatus.Data(1) ~= 49
                     disp('break');
 					break
 				end
-				clear toc
-				tic %set timer for next pallet
-				b1.Data(1) = b1.Data(1) + 1;
+								
+				k=k+1;
 			
-            case 1            
+            case 1     
+            	timer1 = tic; %set timer for next pallet
+				b1.Data(1) = b1.Data(1) + 1;      
                 movePalletSpacing(350, MOTOR_B, power, nxtF1);
                 feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 
@@ -67,10 +66,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 					break
                 end
 				
-				k=k+1;
-				clear toc
-				tic %set timer for next pallet
-				b1.Data(1) = b1.Data(1) + 1;
+				k=k+1; 
 				
             case 2
 				disp(['cannot feed there are ',num2str(b1.Data(1)),' pallets on feed line']);
@@ -108,7 +104,7 @@ while (k<12) && (fstatus.Data(1) == 49)
         pause(0.3);
 	end
 	
-	pause(0.2)  %to avoid update error
+	pause(0.1)  %to avoid update error
 end
 
 disp('Feed 1 STOPPED')
