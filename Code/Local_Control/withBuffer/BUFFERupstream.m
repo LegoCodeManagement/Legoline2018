@@ -59,7 +59,7 @@ while (j<12) && (fstatus.Data(1) == 49)
             break
             disp('break');
         end
-		movePalletToLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,10);
+		movePalletToLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,24);
 		start(palletHasLeft(j));
 	end
 	pause(0.25)

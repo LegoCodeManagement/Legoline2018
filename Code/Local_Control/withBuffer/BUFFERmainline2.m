@@ -55,7 +55,7 @@ clearPalletM = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M
 
 k=0;
 while (k<6) && (fstatus.Data(1) == 49)
-	while abs(GetLight(SENSOR_1, nxtM2) - ambientLight1) < 11
+	while abs(GetLight(SENSOR_1, nxtM2) - ambientLight1) < 40
 		pause(0.05);
 	end
 	j3.Data(1) = j3.Data(1) + 1;
@@ -65,11 +65,11 @@ while (k<6) && (fstatus.Data(1) == 49)
 		disp('break');
     end
 	
-	if waitForPalletExit(nxtM2, SENSOR_1, ambientLight1, 10) == false
+	if waitForPalletExit(nxtM2, SENSOR_1, ambientLight1, 40) == false
 		disp('Error');
 	end
 
-	waitForPalletExit(nxtM2, SENSOR_1, ambientLight1, 10);
+	waitForPalletExit(nxtM2, SENSOR_1, ambientLight1, 40);
     
     if fstatus.Data(1) ~= 49
         break
