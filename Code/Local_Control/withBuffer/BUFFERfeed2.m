@@ -15,6 +15,7 @@ F2addr = char(out{2}(strcmp('Feed2',out{1})));
 T_F2 = str2double(out{2}(strcmp('T_F2',out{1})));
 nxtF2 = COM_OpenNXTEx('USB', F2addr);
 
+%activate sensors
 OpenSwitch(SENSOR_1, nxtF2);
 OpenLight(SENSOR_3, 'ACTIVE', nxtF2);
 
@@ -27,12 +28,15 @@ while fstatus.Data(1) == 48
     pause(0.1);
 end
 
+%calculate the background light in the room. Further measurements will be measured as a difference to this.
 currentLight3 = GetLight(SENSOR_3, nxtF2);
 
-toc = T_F + 1; %start with a number greater than T_F so that feed starts immediately
+toc = T_F; %so that feed starts immediately
 k=0; 
+
+%feed all the pallets or until told to stop.
 while (k<12) && (fstatus.Data(1) == 49)
-	if toc > T_F
+	if toc >= T_F %true if it's time to feed
 		switch b2.Data(1)
 			case 0
 				feedPallet(nxtF2, SENSOR_1, MOTOR_A);
@@ -48,7 +52,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 				b2.Data(1) = b2.Data(1) + 1;
 			
             case 1            
-                movePalletSpacing(350, MOTOR_B, power, nxtF2);
+                movePalletSpacing(350, MOTOR_B, power, nxtF2); %move pallet already on feed line out the way
                 feedPallet(nxtF2, SENSOR_1, MOTOR_A);
 
                 if fstatus.Data(1) ~= 49

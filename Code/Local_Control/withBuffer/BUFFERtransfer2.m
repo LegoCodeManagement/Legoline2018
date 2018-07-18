@@ -18,7 +18,7 @@ OpenLight(SENSOR_3, 'ACTIVE', nxtT2);
 OpenSwitch(SENSOR_2, nxtT2);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT2);
 
-
+%allow feed to read and edit junction/buffer files
 j2 = memmapfile('junction2.txt', 'Writable', true);
 j3 = memmapfile('junction3.txt', 'Writable', true);
 b2 = memmapfile('buffer2.txt', 'Writable', true, 'Format', 'int8');
@@ -31,7 +31,7 @@ disp('waiting for ready signal');
 while fstatus.Data(1) == 48
     pause(0.1);
 end
-
+%detect ambient light in room
 currentLight1 = GetLight(SENSOR_1, nxtT2);
 currentLight3 = GetLight(SENSOR_3, nxtT2);
 %one timer for each pallet.
@@ -48,15 +48,16 @@ clearPalletT2 = [timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 
                 timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.3);];
 
 k=0;
-while (k<11) && (fstatus.Data(1) == 49)
-    	
+%run for 11 pallets or until told to stop
+while (k<12) && (fstatus.Data(1) == 49)
+    %if we detect a pallet at start of transfer line, move it to transfer arm	
 	if (abs(GetLight(SENSOR_1, nxtT2) - currentLight1) > 100)
     
 		b2.Data(2) = b2.Data(2) + 1;
 		movePalletToLightSensor(MOTOR_A, -power, nxtT2, SENSOR_3, currentLight3, 10, 20);
 		
 		while j2.Data(1) > 0
-			pause(0.5);
+			pause(0.5); %wait for mainline to be empty to transfer pallet
 			disp('mainline is busy') %this clogs up console, need another method
 		end
 		
@@ -68,7 +69,7 @@ while (k<11) && (fstatus.Data(1) == 49)
         k=k+1;
 		j3.Data(1) = j3.Data(1) + 1;
 		TransferArmRun(MOTOR_B, nxtT2, 105);
-		start(clearPalletT2(k));
+		start(clearPalletT2(k));%start timer, which executes j3 = j3 - 1 after T2delay seconds.
 		b2.Data(2) = b2.Data(2) - 1;
 		pause(0.8);
 		TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);

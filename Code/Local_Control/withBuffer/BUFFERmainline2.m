@@ -31,29 +31,31 @@ end
 ambientLight2 = GetLight(SENSOR_1, nxtM2);
 mainline.SendToNXT(nxtM2);
 %one timer for each pallet.
-clearPalletM = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M2delay);];
+clearPalletM = [timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);];
 
 
 k=0;
+%If pallet detected at start of mainline, wait for pallet to be detected at end.
+%If not detected before timeout, display error.
 while (k<6) && (fstatus.Data(1) == 49)
 	while abs(GetLight(SENSOR_1, nxtM2) - ambientLight1) < 40
 		pause(0.05);
@@ -77,8 +79,9 @@ while (k<6) && (fstatus.Data(1) == 49)
     end
 	
 	k = k+1;
-	start(clearPalletM(k));
+	start(clearPalletM(k)); %start timer, which executes j2 = j2 - 1 after M1delay seconds.
 	disp('Main2 clear');
+	pause(0.1); %prevents updating to quickly
 end
 
 mainline.Stop('off', nxtM2);

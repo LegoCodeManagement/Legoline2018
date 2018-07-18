@@ -54,8 +54,10 @@ clearPalletM = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M
 
 
 k=0;
+%If pallet detected at start of mainline, wait for pallet to be detected at end.
+%If not detected before timeout, display error.
 while (k<23) && (fstatus.Data(1) == 49)
-	while abs(GetLight(SENSOR_1, nxtM1) - ambientLight1) < 40
+	while abs(GetLight(SENSOR_1, nxtM1) - ambientLight1) < 40 
 		pause(0.05);
 	end
 	j2.Data(1) = j2.Data(1) + 1;
@@ -77,14 +79,15 @@ while (k<23) && (fstatus.Data(1) == 49)
     end
     
 	k = k+1;
-	start(clearPalletM(k));
+	start(clearPalletM(k)); %start timer, which executes j2 = j2 - 1 after M1delay seconds.
 	disp('Main1 clear');
+	pause(0.1); %prevents updating to quickly
 end
 
 mainline.Stop('off', nxtM1);
 disp('Main 1 STOPPED');
 clear j2;
-delete(timerfind);%Remove all timers from memory
+delete(timerfind); %Remove all timers from memory
 CloseSensor(SENSOR_1, nxtM1);
 CloseSensor(SENSOR_2, nxtM1);
 COM_CloseNXT(nxtM1);

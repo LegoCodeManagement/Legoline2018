@@ -48,7 +48,7 @@ currentLight3 = GetLight(SENSOR_3, nxtT3);
 
 
 k=0;
-while (k<11) && (fstatus.Data(1) == 49) 
+while (k<12) && (fstatus.Data(1) == 49) 
     	
 	if (abs(GetLight(SENSOR_1, nxtT3) - currentLight1) > 100)
     

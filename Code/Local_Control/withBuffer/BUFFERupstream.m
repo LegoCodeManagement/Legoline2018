@@ -45,22 +45,22 @@ palletHasLeft = [timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Ude
 
 
 toc = T_U + 1;
-j=0;
+k=0;
 tic;
-while (j<12) && (fstatus.Data(1) == 49)
+while (k<12) && (fstatus.Data(1) == 49)
     
 	if toc > T_U
 		clear toc
 		tic
 		feedPallet(nxtU,SENSOR_1,MOTOR_A);
         j1.Data(1) = j1.Data(1) + 1;
-		j=j+1;
+		k=k+1;
         if fstatus.Data(1) ~= 49
             break
             disp('break');
         end
 		movePalletToLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,24);
-		start(palletHasLeft(j));
+		start(palletHasLeft(k)); %start timer, which executes j1 = j1 - 1 after Udelay seconds.
 	end
 	pause(0.25)
 end

@@ -15,6 +15,7 @@ F1addr = char(out{2}(strcmp('Feed1',out{1})));
 T_F1 = str2double(out{2}(strcmp('T_F1',out{1})));
 nxtF1 = COM_OpenNXTEx('USB', F1addr);
 
+%activate sensors
 OpenSwitch(SENSOR_1, nxtF1);
 OpenLight(SENSOR_3, 'ACTIVE', nxtF1);
 
@@ -27,12 +28,15 @@ while fstatus.Data(1) == 48
     pause(0.1);
 end
 
+%calculate the background light in the room. Further measurements will be measured as a difference to this.
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
-toc = T_F + 1; %start with a number greater than T_F so that feed starts immediately
-k=0; 
-while (k<12) && (fstatus.Data(1) == 49)
-	if toc > T_F
+toc = T_F; %so that feed starts immediately
+k=0;
+
+%feed all the pallets or until told to stop.
+while (k<12) && (fstatus.Data(1) == 49) 
+	if toc >= T_F %true if it's time to feed
 		switch b1.Data(1)
     		case 0
 				feedPallet(nxtF1, SENSOR_1, MOTOR_A);
@@ -48,9 +52,9 @@ while (k<12) && (fstatus.Data(1) == 49)
 				b1.Data(1) = b1.Data(1) + 1;
 			
             case 1            
-                movePalletSpacing(350, MOTOR_B, power, nxtF1);
+                movePalletSpacing(350, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
                 feedPallet(nxtF1, SENSOR_1, MOTOR_A);
-
+				
                 if fstatus.Data(1) ~= 49
                     disp('break');
 					break
@@ -82,7 +86,7 @@ while (k<12) && (fstatus.Data(1) == 49)
                 case 2 
 					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 10);
 					b1.Data(1) = b1.Data(1) - 1;
-					movePalletSpacing(350, MOTOR_B, -power, nxtF1);
+					movePalletSpacing(350, MOTOR_B, -power, nxtF1); %move pallet back on feed line so two can fit
 					
 				otherwise
 					disp(['error, there are ',num2str(b1.Data(1)),' pallets on feed line']);
