@@ -29,20 +29,31 @@ end
 
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
-toc = T_F + 1; %start with a number greater than T_F so that feed starts immediately
+toc = T_F1 + 1; %start with a number greater than T_F1 so that feed starts immediately
 k=0; 
+a = 0.1
+exponentialstep	=	[timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
+					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
+					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
+					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
+					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
+					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
+					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
+					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
+					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);
+					 timer('TimerFcn', 'T_F1 = T_F1*exp(-a)', 'StartDelay', T_F1*0.9);];
+
 while (k<12) && (fstatus.Data(1) == 49)
-	if toc > T_F
+	if toc > T_F1
 		switch b1.Data(1)
     		case 0
+    			k=k+1;
 				feedPallet(nxtF1, SENSOR_1, MOTOR_A);
-				
+				start(exponentialstep(k));
 				if fstatus.Data(1) ~= 49
                     disp('break');
 					break
 				end
-				
-				k=k+1;
 				clear toc
 				tic %set timer for next pallet
 				b1.Data(1) = b1.Data(1) + 1;
@@ -74,7 +85,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 			switch b1.Data(1)
 			
 				case 0
-					pause(0.1);
+
 				case 1
 					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 10);
 					b1.Data(1) = b1.Data(1) - 1;

@@ -1,5 +1,5 @@
 addpath RWTHMindstormsNXT;
-
+%establish memory map to status.txt. 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(4) = 49;
 
@@ -7,11 +7,12 @@ fstatus.Data(4) = 49;
 config = fopen('config.txt','rt');
 out = textscan(config, '%s %s');
 fclose(config);
+%retrieve parameters
 power = str2double(out{2}(strcmp('SPEED_T',out{1})));
 T1addr = char(out{2}(strcmp('Transfer1',out{1})));
 T1angle = str2double(out{2}(strcmp('T1angle',out{1})));
-T1delay = 2.5;
-
+T1delay = str2double(out{2}(strcmp('T1delay',out{1})));	
+%open connection and activate sensors
 nxtT1 = COM_OpenNXTEx('USB', T1addr);
 OpenLight(SENSOR_3, 'ACTIVE', nxtT1);
 OpenSwitch(SENSOR_2, nxtT1);
@@ -26,13 +27,14 @@ TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
 fstatus.Data(4) = 50;
 disp('TRANSFER 1');
 disp('waiting for ready signal');
+%wait for ready sign so that all matlab instances start simultaneously
 while fstatus.Data(1) == 48
     pause(0.1);
 end
 
 currentLight1 = GetLight(SENSOR_1, nxtT1);
 currentLight3 = GetLight(SENSOR_3, nxtT1);
-
+%one timer for each pallet.
 clearPalletT1 = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
@@ -62,6 +64,7 @@ while (k<11) && (fstatus.Data(1) == 49)
             break
             disp('break');
         end
+        
 		k=k+1;
         j2.Data(1) = j2.Data(1) + 1;
 		TransferArmRun(MOTOR_B, nxtT1, 105);

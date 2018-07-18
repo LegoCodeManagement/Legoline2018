@@ -10,6 +10,15 @@ Speed_Settings:
 % F = Feed 
 % U = Upstream
 
+Transfer_Arm_Calibration_Angles:
+Angle at which to reset the transfer arm once triggering touch sensor. Since the Transfer 1 module is adjacent to the Upstream module, a half-beam must be used to trigger the T1 touch sensor, in order to avoid a clash with with the U motor. (Thus gives a difference in reset angle for T1 compared to T2,T3).
+
+Feed_Frequencies
+Rate of pallet output for each feed module. Currently a uniform output; I will implement varying output frequency.
+
+Pallet_has_left delay:
+E.g j1 is increased by 1 when T1 puts a pallet onto the mainline. After a delay, j1 is then reduced by one to represent the pallet leaving the M1 section of the mainline. The value of Pallet_has_left is this delay.
+
 Timing_Values:
 
 MainlinePass

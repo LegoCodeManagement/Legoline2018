@@ -23,6 +23,19 @@ T1angle 21
 T2angle 16
 T3angle 16
 
+Feed_Frequencies
+T_F1 5
+T_F2 5
+T_F3 5
+T_U 4
+
+Pallet_has_left delay:
+M1delay 3.5 
+M2delay 3.5
+T1delay 2.5
+T2delay 2.5
+Udelay 2.2
+
 Timing_Values:
 
 MainlinePass 14

@@ -1,5 +1,5 @@
 addpath RWTHMindstormsNXT;
-
+%establish memory map to status.txt. 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(2) = 49; %initalise
 
@@ -9,14 +9,15 @@ config = fopen('config.txt','rt');
 out = textscan(config, '%s %s');
 fclose(config);
 
-
+%retrieve parameters
 power = str2double(out{2}(strcmp('SPEED_U',out{1})));
 Uaddr = char(out{2}(strcmp('Upstream',out{1})));
-Udelay = 2.2;
+Udelay = str2double(out{2}(strcmp('Udelay',out{1})));	
+T_U = str2double(out{2}(strcmp('T_U',out{1})));	
 nxtU = COM_OpenNXTEx('USB', Uaddr);
-T_U = 4.2;
 
 
+%establish memory map to junction file
 j1 = memmapfile('Junction1.txt','Writable',true);
 disp(j1.Data(1));
 
@@ -29,7 +30,7 @@ while fstatus.Data(1) == 48
     pause(0.1); %wait for ready sign
 end
 currentValueU = GetLight(SENSOR_2,nxtU);
-
+%one timer for each pallet.
 palletHasLeft = [timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay); 
                  timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay);
                  timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay); 
