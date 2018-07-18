@@ -12,7 +12,7 @@ fclose(config);
 
 power = str2double(out{2}(strcmp('SPEED_F',out{1})));
 F1addr = char(out{2}(strcmp('Feed1',out{1})));
-
+T_F=5;
 nxtF1 = COM_OpenNXTEx('USB', F1addr);
 
 OpenSwitch(SENSOR_1, nxtF1);
@@ -28,10 +28,9 @@ end
 
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
-T_F=5;
 toc = T_F + 1; %start with a number greater than T_F so that feed starts immediately
 k=0; 
-while (k<6) && (fstatus.Data(1) == 49)
+while (k<12) && (fstatus.Data(1) == 49)
 	if toc > T_F
 		switch b1.Data(1)
     		case 0
@@ -76,11 +75,11 @@ while (k<6) && (fstatus.Data(1) == 49)
 				case 0
 					pause(0.1);
 				case 1
-					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 50);
+					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 10);
 					b1.Data(1) = b1.Data(1) - 1;
 			
                 case 2 
-					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 50);
+					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 10);
 					b1.Data(1) = b1.Data(1) - 1;
 					movePalletSpacing(350, MOTOR_B, -power, nxtF1);
 					

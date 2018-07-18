@@ -12,6 +12,7 @@ fclose(config);
 
 power = str2double(out{2}(strcmp('SPEED_M',out{1})));
 M1addr = char(out{2}(strcmp('Main1',out{1})));
+M1delay = 3;
 
 nxtM1 = COM_OpenNXTEx('USB', M1addr);
 
@@ -23,37 +24,40 @@ OpenLight(SENSOR_2, 'ACTIVE', nxtM1);
 
 
 mainline = NXTMotor(MOTOR_A,'Power',-power,'SpeedRegulation',false);
-fstatus.Data(5) = 50;
+fstatus.Data(3) = 50;
 disp('MAINLINE 1');
 disp('waiting for ready signal');
-while fstatus.Data(1) == 49
+while fstatus.Data(1) == 48
     pause(0.1);
 end
 
 ambientLight1 = GetLight(SENSOR_1, nxtM1);
 mainline.SendToNXT(nxtM1);
 
-clearPalletM = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.8)];
+clearPalletM = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);];
 
 
 k=0;
-while (k<6) && (fstatus.Data(1) == 49)
+while (k<23) && (fstatus.Data(1) == 49)
 	while abs(GetLight(SENSOR_1, nxtM1) - ambientLight1) < 11
 		pause(0.05);
 	end
@@ -64,11 +68,11 @@ while (k<6) && (fstatus.Data(1) == 49)
 		disp('break');
     end
     
-	if waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 6) == false
+	if waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 10) == false
 		disp('Error');
 	end
 
-	waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 4);
+	waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 10);
     
     if fstatus.Data(1) ~= 49
         break

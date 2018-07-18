@@ -17,6 +17,6 @@ while abs(GetLight(port, nxt) - currentValue) < threshold
     pause(0.1);
 end
 result = true;
-pause(0.7)
+pause(0.2)
 movePallet.Stop('off', nxt);
 end

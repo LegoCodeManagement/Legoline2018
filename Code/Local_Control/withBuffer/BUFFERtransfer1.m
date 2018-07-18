@@ -10,6 +10,7 @@ fclose(config);
 power = str2double(out{2}(strcmp('SPEED_T',out{1})));
 T1addr = char(out{2}(strcmp('Transfer1',out{1})));
 T1angle = str2double(out{2}(strcmp('T1angle',out{1})));
+T1delay = 2.5;
 
 nxtT1 = COM_OpenNXTEx('USB', T1addr);
 OpenLight(SENSOR_3, 'ACTIVE', nxtT1);
@@ -32,28 +33,27 @@ end
 currentLight1 = GetLight(SENSOR_1, nxtT1);
 currentLight3 = GetLight(SENSOR_3, nxtT1);
 
-clearPalletT1 = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 3.3);];
+clearPalletT1 = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);];
 
 k=0;
-while (k<6) && (fstatus.Data(1) == 49)
+while (k<11) && (fstatus.Data(1) == 49)
     	
 	if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 100)
     
 		b1.Data(2) = b1.Data(2) + 1;
 		movePalletToLightSensor(MOTOR_A, -power, nxtT1, SENSOR_3, currentLight3, 10, 20);
 		
-		while j1.Data(1) == 1
+		while j1.Data(1) > 0
 			pause(0.5);
 			disp('mainline is busy') %this clogs up console, need another method
 		end
@@ -66,10 +66,9 @@ while (k<6) && (fstatus.Data(1) == 49)
         j2.Data(1) = j2.Data(1) + 1;
 		TransferArmRun(MOTOR_B, nxtT1, 105);
 		start(clearPalletT1(k));
-		pause(0.6);
+        b1.Data(2) = b1.Data(2) - 1;
+		pause(0.8);
 		TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
-		
-		b1.Data(2) = b1.Data(2) - 1;
 		
         disp(['transfer buffer = ', num2str(b1.Data(2))]);
         disp(['feed buffer = ', num2str(b1.Data(1))]);

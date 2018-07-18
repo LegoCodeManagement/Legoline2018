@@ -12,9 +12,9 @@ fclose(config);
 
 power = str2double(out{2}(strcmp('SPEED_U',out{1})));
 Uaddr = char(out{2}(strcmp('Upstream',out{1})));
-
+Udelay = 2.2;
 nxtU = COM_OpenNXTEx('USB', Uaddr);
-
+T_U = 4.2;
 
 
 j1 = memmapfile('Junction1.txt','Writable',true);
@@ -25,32 +25,34 @@ OpenSwitch(SENSOR_1,nxtU)
 fstatus.Data(2) = 50; %ready
 disp('UPSTREAM');
 disp('waiting for ready signal')
-fstatus.Data(2) = 49;
 while fstatus.Data(1) == 48
     pause(0.1); %wait for ready sign
 end
 currentValueU = GetLight(SENSOR_2,nxtU);
 
-palletHasLeft = [timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',2.5)];
+palletHasLeft = [timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay); 
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay);
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay); 
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay);
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay); 
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay);
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay); 
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay);
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay);
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay); 
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay);];
 
-T_U = 3;
+
 toc = T_U + 1;
 j=0;
 tic;
-while (j<9) && (fstatus.Data(1) == 49)
+while (j<12) && (fstatus.Data(1) == 49)
     
 	if toc > T_U
-		j1.Data(1) = j1.Data(1) + 1;
 		clear toc
 		tic
 		feedPallet(nxtU,SENSOR_1,MOTOR_A);
+        j1.Data(1) = j1.Data(1) + 1;
 		j=j+1;
         if fstatus.Data(1) ~= 49
             break
