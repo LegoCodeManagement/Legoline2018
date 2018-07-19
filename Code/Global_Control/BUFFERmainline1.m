@@ -57,30 +57,22 @@ k=0;
 %If pallet detected at start of mainline, wait for pallet to be detected at end.
 %If not detected before timeout, display error.
 while (k<23) && (fstatus.Data(1) == 49)
-	while abs(GetLight(SENSOR_1, nxtM1) - ambientLight1) < 40 
-		pause(0.05);
-	end
-	j2.Data(1) = j2.Data(1) + 1;
-    
-    if fstatus.Data(1) ~= 49
-        break
-		disp('break');
-    end
-    
-	if waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 40) == false
-		disp('Error');
-	end
 
-	waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 40);
-    
-    if fstatus.Data(1) ~= 49
-        break
-		disp('break');
-    end
-    
-	k = k+1;
-	start(clearPalletM(k)); %start timer, which executes j2 = j2 - 1 after M1delay seconds.
-	disp('Main1 clear');
+	if abs(GetLight(SENSOR_1, nxtM1) - ambientLight1) < 40 
+		k = k+1; 
+		start(clearPalletM(k)); %start timer, which executes j2 = j2 - 1 after M1delay seconds.
+	end
+	
+	j2.Data(1) = j2.Data(1) + 1;
+	
+	if wait.Data(1) == 1
+		mainline.Stop('off', nxtM1);
+		while wait.Data(1) == 1
+			pause(0.2);
+		end
+		mainline.SendToNXT(nxtM1);
+	end
+	%need to add: wait for pallet exit
 	pause(0.1); %prevents updating to quickly
 end
 
