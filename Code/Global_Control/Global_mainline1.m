@@ -3,6 +3,7 @@ addpath RWTHMindstormsNXT;
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(3) = 49;
 j2 = memmapfile('junction2.txt', 'Writable', true);
+wait = memmapfile('wait.txt', 'Writable', true);
 
 %open config file and save variable names and values column 1 and 2
 %respectively.
@@ -21,6 +22,7 @@ OpenLight(SENSOR_2, 'ACTIVE', nxtM1);
 
 mainline = NXTMotor(MOTOR_A,'Power',-power,'SpeedRegulation',false);
 fstatus.Data(3) = 50;
+wait.Data(1) = 0;
 disp('MAINLINE 1');
 disp('waiting for ready signal');
 %wait for ready sign so that all matlab instances start simultaneously

@@ -22,10 +22,13 @@ OpenLight(SENSOR_1, 'ACTIVE', nxtT1);
 j1 = memmapfile('junction1.txt', 'Writable', true);
 j2 = memmapfile('junction2.txt', 'Writable', true);
 b1 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
+wait = memmapfile('wait.txt', 'Writable', true);
+priority = memmapfile('priority.txt', 'Writable', true);
 
 TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle); %initialise
 fstatus.Data(4) = 50;
 disp('TRANSFER 1');
+disp(['Priority: ',num2str(p.Data)]);
 disp('waiting for ready signal');
 %wait for ready sign so that all matlab instances start simultaneously
 while fstatus.Data(1) == 48
@@ -35,7 +38,7 @@ end
 currentLight1 = GetLight(SENSOR_1, nxtT1);
 currentLight3 = GetLight(SENSOR_3, nxtT1);
 %one timer for each pallet.
-clearPalletT1 = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
+clearPalletT1 =[timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', T1delay);
@@ -49,36 +52,44 @@ clearPalletT1 = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', 
 
 k=0;
 %run for 11 pallets or until told to stop
+transferpallet = 49;
+upstreampallet = 50;
+
 while (k<12) && (fstatus.Data(1) == 49)
-    %if we detect a pallet at start of transfer line, move it to transfer arm
-	if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 100) 
-    
+	if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 100) %triggers if pallet is detected
 		b1.Data(2) = b1.Data(2) + 1;
 		movePalletToLightSensor(MOTOR_A, -power, nxtT1, SENSOR_3, currentLight3, 10, 20);
 		
-		while j1.Data(1) > 0
-			pause(0.5); %wait for mainline to be empty to transfer pallet
-			disp('mainline is busy') %this clogs up console, need another method
-		end
+		if j1.Data(1) > 0 %If mainline is busy
 		
-		if fstatus.Data(1) ~= 49
-            break
-            disp('break');
-        end
-        
-		k=k+1;
-        j2.Data(1) = j2.Data(1) + 1;
-		TransferArmRun(MOTOR_B, nxtT1, 105);
-		start(clearPalletT1(k));%start timer, which executes j2 = j2 - 1 after T1delay seconds.
-        b1.Data(2) = b1.Data(2) - 1;
-		pause(0.8);
-		TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
+		 	%check priority, if pallet on transfer arm has priority then this next statement triggers
+			if find((priority.Data == transferpallet) == 1) < find((priority.Data == upstreampallet) == 1)
 		
-        disp(['transfer buffer = ', num2str(b1.Data(2))]);
-        disp(['feed buffer = ', num2str(b1.Data(1))]);
-        disp(['junction 1 = ', num2str(j1.Data(1))]);
-        
-    end
+				wait.Data(1) = 1;						%tell mainline to stop
+				TransferArmRun(MOTOR_B, nxtT1, 105);
+				start(clearPalletT1(k));				%start timer, which executes j2 = j2 - 1 after T1delay seconds.
+				b1.Data(2) = b1.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
+				pause(0.8);
+				wait.Data(1) = 0; 						%tell mainline to resume
+				TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
+			    k=k+1;
+			
+			%If pallet on mainline has priority, simply wait for it to clear.
+			else
+
+				while j1.Data(1) > 0 
+					pause(0.25);
+					disp('mainline is busy')
+				end
+				
+				TransferArmRun(MOTOR_B, nxtT1, 105);
+				start(clearPalletT1(k)); %start timer, which executes j2 = j2 - 1 after T1delay seconds.
+				b1.Data(2) = b1.Data(2) - 1; %remove one pallet from transfer line section of buffer
+				pause(0.8);
+				TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
+				k=k+1;
+				
+			end
 	pause(0.2);
 end
 
