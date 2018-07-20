@@ -31,14 +31,16 @@ end
 %calculate the background light in the room. Further measurements will be measured as a difference to this.
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
-toc = T_F; %so that feed starts immediately
-k=0;
-
 %feed all the pallets or until told to stop.
+feedPallet(nxtF1, SENSOR_1, MOTOR_A); %so that feed starts immediately
+b1.Data(1) = b1.Data(1) + 1;
+tic;
+k=0;
 while (k<12) && (fstatus.Data(1) == 49) 
-	if toc >= T_F %true if it's time to feed
+	if toc >= T_F1 %true if it's time to feed
 		switch b1.Data(1)
     		case 0
+                b1.Data(1) = b1.Data(1) + 1;
 				feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 				
 				if fstatus.Data(1) ~= 49
@@ -47,11 +49,11 @@ while (k<12) && (fstatus.Data(1) == 49)
 				end
 				
 				k=k+1;
-				clear toc
+				clear toc;
 				tic %set timer for next pallet
-				b1.Data(1) = b1.Data(1) + 1;
+				
 			
-            case 1            
+            case 1          
                 movePalletSpacing(350, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
                 feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 				
@@ -76,15 +78,14 @@ while (k<12) && (fstatus.Data(1) == 49)
 	switch b1.Data(2)
         case 0
 			switch b1.Data(1)
-			
 				case 0
 					pause(0.1);
 				case 1
-					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 10);
+					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 15);
 					b1.Data(1) = b1.Data(1) - 1;
 			
                 case 2 
-					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 10);
+					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 15);
 					b1.Data(1) = b1.Data(1) - 1;
 					movePalletSpacing(350, MOTOR_B, -power, nxtF1); %move pallet back on feed line so two can fit
 					

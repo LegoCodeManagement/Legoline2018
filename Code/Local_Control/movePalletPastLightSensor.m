@@ -17,23 +17,23 @@ while abs(GetLight(port, nxt) - currentValue) < threshold
         return;
     end
     
-	pause(0.05);
+	pause(0.1);
 end
 limit = GetLight(port, nxt);
 pause(0.1);
 while GetLight(port, nxt) < limit 
-	
+	%{
 	if (toc - currentTime > timeOut)
         disp('The light sensor hasnt detected the pallet before timeout');
         movePallet.Stop('off', nxt);
         result = false;
         return;
     end
-    
-    pause(0.05);
+    %}
+    pause(0.1);
 	
 end
 result = true;
-pause(0.1);
+pause(0.2);
 movePallet.Stop('off', nxt);
 end

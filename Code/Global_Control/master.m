@@ -10,14 +10,16 @@ COM_CloseNXT('all');
 
 run initialise
 
-!matlab  -nodesktop -minimize -nosplash -r BUFFERfeed1&
-!matlab  -nodesktop -minimize -nosplash -r BUFFERtransfer1&
-!matlab  -nodesktop -minimize -nosplash -r BUFFERmainline1&
-!matlab  -nodesktop -minimize -nosplash -r BUFFERupstream&
+!matlab  -nodesktop -minimize -nosplash -r Global_feed1&
+!matlab  -nodesktop -minimize -nosplash -r Global_transfer1&
+!matlab  -nodesktop -minimize -nosplash -r Global_mainline1&
+!matlab  -nodesktop -minimize -nosplash -r Global_upstream&
 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(1) = 48;
-
+for i=1:1:11
+    fstatus.Data(i) = 48;
+end
 for i=1:100
     result = input('Please enter one of the following numbers:\n0 if you want to view the status of initialization\n1 if you want to abort the initialization\n2 If you are happy with the initialization and wish to continue');
 	if result == 0

@@ -33,26 +33,26 @@ end
 ambientLight1 = GetLight(SENSOR_1, nxtM1);
 mainline.SendToNXT(nxtM1);
 %one timer for each pallet.
-clearPalletM = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);];
+clearPalletM = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);];
 
 
 k=0;
@@ -60,12 +60,17 @@ k=0;
 %If not detected before timeout, display error.
 while (k<23) && (fstatus.Data(1) == 49)
 
-	if abs(GetLight(SENSOR_1, nxtM1) - ambientLight1) < 40 
+	if abs(GetLight(SENSOR_1, nxtM1) - ambientLight1) < 30 
 		k = k+1; 
 		start(clearPalletM(k)); %start timer, which executes j2 = j2 - 1 after M1delay seconds.
 	end
 	
 	j2.Data(1) = j2.Data(1) + 1;
+    
+    if fstatus.Data(1) ~= 49
+        break
+		disp('break');
+    end
 	
 	if wait.Data(1) == 1
 		mainline.Stop('off', nxtM1);

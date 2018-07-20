@@ -31,17 +31,17 @@ while fstatus.Data(1) == 48
 end
 currentValueU = GetLight(SENSOR_2,nxtU);
 %one timer for each pallet.
-palletHasLeft = [timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1','StartDelay',Udelay);];
+palletHasLeft = [timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay); 
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay);
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay); 
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay);
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay); 
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay);
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay); 
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay);
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay);
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay); 
+                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay);];
 
 
 toc = T_U + 1;
@@ -51,7 +51,7 @@ while (k<12) && (fstatus.Data(1) == 49)
     
 	if toc > T_U
 		clear toc
-		tic
+		tic;
 		feedPallet(nxtU,SENSOR_1,MOTOR_A);
         j1.Data(1) = j1.Data(1) + 1;
 		k=k+1;
@@ -59,7 +59,7 @@ while (k<12) && (fstatus.Data(1) == 49)
             break
             disp('break');
         end
-		movePalletToLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,24);
+		movePalletToLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,16);
 		start(palletHasLeft(k)); %start timer, which executes j1 = j1 - 1 after Udelay seconds.
 	end
 	pause(0.25)
