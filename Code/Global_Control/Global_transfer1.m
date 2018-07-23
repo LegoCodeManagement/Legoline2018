@@ -59,7 +59,7 @@ upstreampallet = 50;
 while (k<12) && (fstatus.Data(1) == 49)
 	if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 100) %triggers if pallet is detected
 		b1.Data(2) = b1.Data(2) + 1;
-		movePalletToLightSensor(MOTOR_A, -power, nxtT1, SENSOR_3, currentLight3, 10, 20);
+		movePalletToLightSensor(MOTOR_A, -power, nxtT1, SENSOR_3, currentLight3, 10, 20,0);
 		
 		if j1.Data(1) > 0 %If mainline is busy
 		
@@ -67,18 +67,18 @@ while (k<12) && (fstatus.Data(1) == 49)
 			if find((priority.Data == transferpallet) == 1) < find((priority.Data == upstreampallet) == 1)
                 
                 k=k+1;
-				wait.Data(1) = 1;						%tell mainline to stop
+				wait.Data(1) = 1;						%tell upstream to stop
 				TransferArmRun(MOTOR_B, nxtT1, 105);
 				start(clearPalletT1(k));				%start timer, which executes j2 = j2 - 1 after T1delay seconds.
 				b1.Data(2) = b1.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
 				pause(0.8);
-				wait.Data(1) = 0; 						%tell mainline to resume
+				wait.Data(1) = 0; 						%tell upstream to resume
 				TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
 			    
 			
 			%If pallet on mainline has priority, simply wait for it to clear.
 			else
-				while j1.Data(1) > 0 
+				while j1.Data(1) > 0
 					pause(0.25);
 					disp('mainline is busy')
 				end

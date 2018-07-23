@@ -3,6 +3,7 @@ addpath RWTHMindstormsNXT;
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(6) = 49;
 j3 = memmapfile('junction3.txt', 'Writable', true);
+wait = memmapfile('wait.txt', 'Writable', true);
 
 %open config file and save variable names and values column 1 and 2
 %respectively.

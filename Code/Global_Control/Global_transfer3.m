@@ -18,9 +18,11 @@ OpenLight(SENSOR_3, 'ACTIVE', nxtT3);
 OpenSwitch(SENSOR_2, nxtT3);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT3);
 
-
+%allow feed to read and edit junction/buffer files
 j3 = memmapfile('junction3.txt', 'Writable', true);
 b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
+wait = memmapfile('wait.txt', 'Writable', true);
+priority = memmapfile('priority.txt', 'Writable', true);
 
 TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
 fstatus.Data(10) = 50;

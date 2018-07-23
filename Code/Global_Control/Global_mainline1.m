@@ -22,7 +22,7 @@ OpenLight(SENSOR_2, 'ACTIVE', nxtM1);
 
 mainline = NXTMotor(MOTOR_A,'Power',-power,'SpeedRegulation',false);
 fstatus.Data(3) = 50;
-wait.Data(1) = 0;
+wait.Data(2) = 0;
 disp('MAINLINE 1');
 disp('waiting for ready signal');
 %wait for ready sign so that all matlab instances start simultaneously
@@ -72,9 +72,9 @@ while (k<23) && (fstatus.Data(1) == 49)
 		disp('break');
     end
 	
-	if wait.Data(1) == 1
+	if wait.Data(2) == 1
 		mainline.Stop('off', nxtM1);
-		while wait.Data(1) == 1
+		while wait.Data(2) == 1
 			pause(0.2);
 		end
 		mainline.SendToNXT(nxtM1);
