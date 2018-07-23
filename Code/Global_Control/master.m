@@ -16,6 +16,8 @@ run initialise
 !matlab  -nodesktop -minimize -nosplash -r Global_upstream&
 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+wait = memmapfile('wait.txt', 'Writable', true);
+global wait
 fstatus.Data(1) = 48;
 for i=1:1:11
     fstatus.Data(i) = 48;
@@ -163,6 +165,14 @@ end
 
 input('press ENTER to start Legoline');
 fstatus.Data(1) = 49;
+
+%{
+input('press ENTER to request upstream to wait');
+wait.Data(1) = 49;
+input('press ENTER to request upstream to resume');
+wait.Data(1) = 48;
+%}
+
 input('press ENTER to stop Legoline');
 fstatus.Data(1) = 50;
 

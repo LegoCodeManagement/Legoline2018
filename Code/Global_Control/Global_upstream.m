@@ -2,8 +2,10 @@ addpath RWTHMindstormsNXT;
 %establish memory map to status.txt. 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(2) = 49; %initalise
-wait = memmapfile('wait.txt', 'Writable', true);
-wait.Data(1) = 0;
+wait = memmapfile('wait.txt', 'Writable', true, 'Format', 'int8');
+global wait
+wait.Data(1) = 48;
+
 
 %open config file and save variable names and values column 1 and 2
 %respectively.
@@ -61,10 +63,10 @@ while (k<12) && (fstatus.Data(1) == 49)
             break
             disp('break');
         end
-		movePalletToLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,16,wait.Data(1));
+		movePalletToLightSensorU(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,16);
 		start(palletHasLeft(k)); %start timer, which executes j1 = j1 - 1 after Udelay seconds.
 	end
-	pause(0.25)
+	pause(0.1)
 end
 
 delete(timerfind);

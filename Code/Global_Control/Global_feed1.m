@@ -54,7 +54,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 				
 			
             case 1          
-                movePalletSpacing(350, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
+                movePalletSpacing(400, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
                 feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 				
                 if fstatus.Data(1) ~= 49
@@ -85,9 +85,10 @@ while (k<12) && (fstatus.Data(1) == 49)
 					b1.Data(1) = b1.Data(1) - 1;
 			
                 case 2 
-					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 15);
+					movePalletSpacing(500, MOTOR_B, power, nxtF1);
+                    pause(1);
 					b1.Data(1) = b1.Data(1) - 1;
-					movePalletSpacing(350, MOTOR_B, -power, nxtF1); %move pallet back on feed line so two can fit
+					movePalletSpacing(450, MOTOR_B, -power, nxtF1); %move pallet back on feed line so two can fit
 					
 				otherwise
 					disp(['error, there are ',num2str(b1.Data(1)),' pallets on feed line']);
