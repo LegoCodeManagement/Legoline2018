@@ -36,7 +36,6 @@ feedPallet(nxtF1, SENSOR_1, MOTOR_A); %so that feed starts immediately
 b1.Data(1) = b1.Data(1) + 1;
 tic;
 k=0;
-%feed all the pallets or until told to stop.
 while (k<12) && (fstatus.Data(1) == 49) 
 	if (toc >= T_F1) %true if it's time to feed
 		switch b1.Data(1)
@@ -50,10 +49,8 @@ while (k<12) && (fstatus.Data(1) == 49)
 				end
 				
 				k=k+1;
-				clear toc;
 				tic %set timer for next pallet
 				
-			
             case 1            
                 movePalletSpacing(400, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
                 feedPallet(nxtF1, SENSOR_1, MOTOR_A);

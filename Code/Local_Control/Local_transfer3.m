@@ -48,15 +48,16 @@ currentLight3 = GetLight(SENSOR_3, nxtT3);
 
 
 k=0;
+%run for 11 pallets or until told to stop
 while (k<12) && (fstatus.Data(1) == 49) 
-    	
+    %if we detect a pallet at start of transfer line, move it to transfer arm		
 	if (abs(GetLight(SENSOR_1, nxtT3) - currentLight1) > 100)
     
 		b3.Data(2) = b3.Data(2) + 1;
 		movePalletToLightSensor(MOTOR_A, -power, nxtT3, SENSOR_3, currentLight3, 4);
 		
-		while j3.Data(1) == 1
-			pause(0.25);
+		while j3.Data(1) > 0
+			pause(0.5);
 			disp('mainline is busy') %this clogs up console, need another method
 		end
 		

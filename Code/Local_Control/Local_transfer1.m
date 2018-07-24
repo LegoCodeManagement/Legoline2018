@@ -45,9 +45,9 @@ clearPalletT1 = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay',
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', T1delay);
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', T1delay);
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', T1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', T1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', T1delay);
                 timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', T1delay);];
-
-
 
 k=0;
 %run for 11 pallets or until told to stop

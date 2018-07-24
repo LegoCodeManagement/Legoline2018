@@ -35,17 +35,17 @@ end
 currentLight1 = GetLight(SENSOR_1, nxtT2);
 currentLight3 = GetLight(SENSOR_3, nxtT2);
 %one timer for each pallet.
-clearPalletT2 = [timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.3);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', 3.3);];
+clearPalletT2 = [timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', T2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', T2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', T2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', T2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', T2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', T2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', T2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', T2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', T2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', T2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', T2delay);];
 
 k=0;
 %run for 11 pallets or until told to stop

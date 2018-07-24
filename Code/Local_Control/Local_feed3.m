@@ -31,14 +31,16 @@ end
 %calculate the background light in the room. Further measurements will be measured as a difference to this.
 currentLight3 = GetLight(SENSOR_3, nxtF3);
 
-toc = T_F; %so that feed starts immediately
-k=0; 
-
 %feed all the pallets or until told to stop.
+feedPallet(nxtF2, SENSOR_1, MOTOR_A); %so that feed starts immediately
+b1.Data(1) = b1.Data(1) + 1;
+tic;
+k=0;
 while (k<12) && (fstatus.Data(1) == 49)
-	if toc >= T_F %true if it's time to feed
+	if (toc >= T_F3) %true if it's time to feed
 		switch b3.Data(1)
 			case 0
+				b3.Data(1) = b3.Data(1) + 1;
 				feedPallet(nxtF3, SENSOR_1, MOTOR_A);
 				
 				if fstatus.Data(1) ~= 49
@@ -47,12 +49,10 @@ while (k<12) && (fstatus.Data(1) == 49)
 				end
 				
 				k=k+1;
-				clear toc
 				tic %set timer for next pallet
-				b3.Data(1) = b3.Data(1) + 1;
 			
             case 1            
-                movePalletSpacing(350, MOTOR_B, power, nxtF3); %move pallet already on feed line out the way
+                movePalletSpacing(400, MOTOR_B, power, nxtF3); %move pallet already on feed line out the way
                 feedPallet(nxtF3, SENSOR_1, MOTOR_A);
 
                 if fstatus.Data(1) ~= 49
@@ -65,7 +65,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 				tic %set timer for next pallet
 				b3.Data(1) = b3.Data(1) + 1;
 							
-			case  2
+			case 2
 				disp(['cannot feed there are ',num2str(b3.Data(1)),' pallets on feed line']);
 			
 			otherwise
@@ -76,7 +76,6 @@ while (k<12) && (fstatus.Data(1) == 49)
 	switch b3.Data(2)
 		case 0
 			switch b3.Data(1)
-			
 				case 0
 					pause(0.1);
 				case 1
@@ -84,7 +83,9 @@ while (k<12) && (fstatus.Data(1) == 49)
 					b3.Data(1) = b3.Data(1) - 1;
 			
 				case 2
-					movePalletPastLightSensor(MOTOR_B, power, nxtF3, SENSOR_3, currentLight3, 6, 10);
+					movePalletSpacing(500, MOTOR_B, power, nxtF2);
+					pause(1);
+					
 					b3.Data(1) = b3.Data(1) - 1;
 					movePalletSpacing(350, MOTOR_B, -power, nxtF3);
 					
