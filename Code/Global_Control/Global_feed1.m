@@ -37,7 +37,7 @@ b1.Data(1) = b1.Data(1) + 1;
 tic;
 k=0;
 while (k<12) && (fstatus.Data(1) == 49) 
-	if toc >= T_F1 %true if it's time to feed
+	if (toc >= T_F1) %true if it's time to feed
 		switch b1.Data(1)
     		case 0
                 b1.Data(1) = b1.Data(1) + 1;
