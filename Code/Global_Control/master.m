@@ -10,10 +10,10 @@ COM_CloseNXT('all');
 
 run initialise
 
-!matlab  -nodesktop -minimize -nosplash -r Global_feed1&
-!matlab  -nodesktop -minimize -nosplash -r Global_transfer1&
-!matlab  -nodesktop -minimize -nosplash -r Global_mainline1&
-!matlab  -nodesktop -minimize -nosplash -r Global_upstream&
+%!matlab  -nodesktop -minimize -nosplash -r Global_feed1&
+!matlab  -nodesktop -minimize -nosplash -r Global_transfer1NEW&
+%!matlab  -nodesktop -minimize -nosplash -r Global_mainline1NEW&
+%!matlab  -nodesktop -minimize -nosplash -r Global_upstreamNEW&
 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 wait = memmapfile('wait.txt', 'Writable', true);
