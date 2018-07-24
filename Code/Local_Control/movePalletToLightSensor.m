@@ -7,6 +7,7 @@ currentTime = toc;
 movePallet = NXTMotor(motor, 'Power', power);
 movePallet.SpeedRegulation = 0;
 movePallet.SendToNXT(nxt);
+pause(1)
 while abs(GetLight(port, nxt) - currentValue) < threshold
     if (toc - currentTime > timeOut)
         disp('The light sensor hasnt detected the pallet before timeout');
@@ -17,6 +18,6 @@ while abs(GetLight(port, nxt) - currentValue) < threshold
     pause(0.1);
 end
 result = true;
-pause(0.2)
+pause(0.6)
 movePallet.Stop('off', nxt);
 end

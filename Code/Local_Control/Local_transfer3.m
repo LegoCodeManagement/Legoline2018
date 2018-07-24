@@ -10,7 +10,7 @@ fclose(config);
 %retrieve parameters
 power = str2double(out{2}(strcmp('SPEED_T',out{1})));
 T3addr = char(out{2}(strcmp('Transfer3',out{1})));
-T3angle = str2double(out{2}(strcmp('T1angle',out{1})));
+T3angle = str2double(out{2}(strcmp('T3angle',out{1})));
 
 %open connection and activate sensors
 nxtT3 = COM_OpenNXTEx('USB', T3addr);
@@ -54,7 +54,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 	if (abs(GetLight(SENSOR_1, nxtT3) - currentLight1) > 100)
     
 		b3.Data(2) = b3.Data(2) + 1;
-		movePalletToLightSensor(MOTOR_A, -power, nxtT3, SENSOR_3, currentLight3, 4);
+		movePalletToLightSensor(MOTOR_A, -power, nxtT3, SENSOR_3, currentLight3, 4,20);
 		
 		while j3.Data(1) > 0
 			pause(0.5);
@@ -69,14 +69,13 @@ while (k<12) && (fstatus.Data(1) == 49)
         k=k+1;
 		j3.Data(1) = j3.Data(1) + 1;
 		TransferArmRun(MOTOR_B, nxtT3, 105);
-		start(clearPalletT3(k))
 		b3.Data(2) = b3.Data(2) - 1;
 		pause(0.6);
 		TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
 		
         disp(['transfer buffer = ', num2str(b3.Data(2))]);
         disp(['feed buffer = ', num2str(b3.Data(1))]);
-        disp(['junction 1 = ', num2str(j1.Data(1))]);
+        disp(['junction 1 = ', num2str(j3.Data(1))]);
         
     end
 	pause(0.2);
@@ -84,7 +83,7 @@ end
 
 disp('Transfer 3 STOPPED');
 delete(timerfind);
-clearvals j3 b3;
+clearvars j3 b3;
 CloseSensor(SENSOR_1, nxtT3);
 CloseSensor(SENSOR_2, nxtT3);
 CloseSensor(SENSOR_3, nxtT3);

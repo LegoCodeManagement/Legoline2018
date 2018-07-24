@@ -16,7 +16,7 @@ b2.Data(2) = 0;
 b3.Data(1) = 0;
 b3.Data(2) = 0;
 j1.Data(1) = 0;
-j1.Data(1) = 0;
-j1.Data(1) = 0;
+j2.Data(1) = 0;
+j3.Data(1) = 0;
 
 disp('values have been reset');

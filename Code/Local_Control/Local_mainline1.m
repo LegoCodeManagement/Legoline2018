@@ -67,11 +67,11 @@ while (k<23) && (fstatus.Data(1) == 49)
 		disp('break');
     end
     
-	if waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 40) == false
+	if waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 10) == false
 		disp('Error');
 	end
 
-	waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 40);
+	waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 10);
     
     if fstatus.Data(1) ~= 49
         break

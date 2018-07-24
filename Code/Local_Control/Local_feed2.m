@@ -33,7 +33,8 @@ currentLight3 = GetLight(SENSOR_3, nxtF2);
 
 %feed all the pallets or until told to stop.
 feedPallet(nxtF2, SENSOR_1, MOTOR_A); %so that feed starts immediately
-b1.Data(1) = b1.Data(1) + 1;
+b2.Data(1) = b2.Data(1) + 1;
+pause(0.1)
 tic;
 k=0;
 while (k<12) && (fstatus.Data(1) == 49)
@@ -79,7 +80,8 @@ while (k<12) && (fstatus.Data(1) == 49)
 				case 0
 					pause(0.1);
 				case 1
-					movePalletPastLightSensor(MOTOR_B, power, nxtF2, SENSOR_3, currentLight3, 6, 10);
+					movePalletPastLightSensor(MOTOR_B, power, nxtF2, SENSOR_3, currentLight3, 6, 17);
+                    disp('pushing one pallet to transfer line')
 					b2.Data(1) = b2.Data(1) - 1;
 			
 				case 2

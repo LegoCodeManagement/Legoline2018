@@ -84,7 +84,7 @@ end
 
 disp('Transfer 2 STOPPED')
 delete(timerfind);
-clearvals j2 j3 b2;
+clearvars j2 j3 b2;
 CloseSensor(SENSOR_1, nxtT2);
 CloseSensor(SENSOR_2, nxtT2);
 CloseSensor(SENSOR_3, nxtT2);

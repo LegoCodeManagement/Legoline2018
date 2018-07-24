@@ -79,7 +79,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 				case 0
 					pause(0.1);
 				case 1
-					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 10);
+					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 15);
 					b1.Data(1) = b1.Data(1) - 1;
 			
                 case 2 
