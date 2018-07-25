@@ -56,9 +56,13 @@ while (k<12) && (fstatus.Data(1) == 49)
 		b3.Data(2) = b3.Data(2) + 1;
 		movePalletToLightSensor(MOTOR_A, -power, nxtT3, SENSOR_3, currentLight3, 4,20);
 		
-		while j3.Data(1) > 0
+		while j3.Data(1) > 48
 			pause(0.5);
 			disp('mainline is busy') %this clogs up console, need another method
+            if fstatus.Data(1) ~= 49
+                break
+                disp('break');
+            end
 		end
 		
 		if fstatus.Data(1) ~= 49
@@ -67,7 +71,7 @@ while (k<12) && (fstatus.Data(1) == 49)
         end
         
         k=k+1;
-		j3.Data(1) = j3.Data(1) + 1;
+        
 		TransferArmRun(MOTOR_B, nxtT3, 105);
 		b3.Data(2) = b3.Data(2) - 1;
 		pause(0.6);
@@ -88,3 +92,4 @@ CloseSensor(SENSOR_1, nxtT3);
 CloseSensor(SENSOR_2, nxtT3);
 CloseSensor(SENSOR_3, nxtT3);
 COM_CloseNXT(nxtT3);
+quit;

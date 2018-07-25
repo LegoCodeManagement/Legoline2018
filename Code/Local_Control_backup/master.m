@@ -10,16 +10,23 @@ COM_CloseNXT('all');
 
 run initialise
 
-%!matlab  -nodesktop -minimize -nosplash -r Local_feed1&
-%!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&
-%!matlab  -nodesktop -minimize -nosplash -r Local_mainline1&
-%!matlab  -nodesktop -minimize -nosplash -r Local_upstream&
-%!matlab  -nodesktop -minimize -nosplash -r Local_feed2&
-%!matlab  -nodesktop -minimize -nosplash -r Local_transfer2&
-%!matlab  -nodesktop -minimize -nosplash -r Local_mainline2&
+!matlab  -nodesktop -minimize -nosplash -r Local_feed1&
+!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&
+!matlab  -nodesktop -minimize -nosplash -r Local_mainline1&
+!matlab  -nodesktop -minimize -nosplash -r Local_upstream&
+!matlab  -nodesktop -minimize -nosplash -r Local_feed2&
+!matlab  -nodesktop -minimize -nosplash -r Local_transfer2&
+!matlab  -nodesktop -minimize -nosplash -r Local_mainline2&
 !matlab  -nodesktop -minimize -nosplash -r Local_feed3&
 !matlab  -nodesktop -minimize -nosplash -r Local_transfer3&
 !matlab  -nodesktop -minimize -nosplash -r Local_mainline3&
+
+j1 = memmapfile('junction1.txt', 'Writable', true,'Format','int8');
+j2 = memmapfile('junction2.txt', 'Writable', true,'Format','int8');
+j3 = memmapfile('junction3.txt', 'Writable', true,'Format','int8')
+b1 = memmapfile('buffer1.txt', 'Writable', true,'Format','int8');
+b2 = memmapfile('buffer2.txt', 'Writable', true,'Format','int8');
+b3 = memmapfile('buffer3.txt', 'Writable', true,'Format','int8');
 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(1) = 48;
@@ -68,7 +75,7 @@ for i=1:100
 			otherwise
 				disp('Feed1: Error');
 		end
-		%{
+		
 		switch fstatus.Data(6)
 			case 48
 				disp('Main2:......');
@@ -129,6 +136,7 @@ for i=1:100
 			otherwise
 				disp('Feed3: Error');
 		end
+        %{
 		switch fstatus.Data(12)
 			case 48
 				disp('Splitter1:......');
@@ -139,7 +147,8 @@ for i=1:100
 			otherwise
 				disp('Splitter1: Error');
 		end
-		%}
+        %}
+		
 	elseif result == 1
 		fstatus.Data(1) = 50; %Let all the other MATLAB instances know that we are shutting down
 		clear fstatus;

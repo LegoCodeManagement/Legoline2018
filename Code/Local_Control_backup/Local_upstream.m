@@ -71,3 +71,4 @@ clear j1;
 CloseSensor(SENSOR_1, nxtU);
 CloseSensor(SENSOR_2, nxtU);
 COM_CloseNXT(nxtU);
+quit;

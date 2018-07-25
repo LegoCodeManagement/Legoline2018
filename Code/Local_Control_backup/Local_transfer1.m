@@ -19,8 +19,8 @@ OpenSwitch(SENSOR_2, nxtT1);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT1);
 
 %allow feed to read and edit junction/buffer files
-j1 = memmapfile('junction1.txt', 'Writable', true);
-j2 = memmapfile('junction2.txt', 'Writable', true);
+j1 = memmapfile('junction1.txt', 'Writable', true, 'Format', 'int8');
+j2 = memmapfile('junction2.txt', 'Writable', true, 'Format', 'int8');
 b1 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
 
 TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle); %initialise
@@ -58,9 +58,13 @@ while (k<12) && (fstatus.Data(1) == 49)
 		b1.Data(2) = b1.Data(2) + 1;
 		movePalletToLightSensor(MOTOR_A, -power, nxtT1, SENSOR_3, currentLight3, 10, 20);
 		
-		while j1.Data(1) > 0
+		while j1.Data(1) > 48
 			pause(0.5); %wait for mainline to be empty to transfer pallet
 			disp('mainline is busy') %this clogs up console, need another method
+            if fstatus.Data(1) ~= 49
+                break
+                disp('break');
+            end
 		end
 		
 		if fstatus.Data(1) ~= 49
@@ -91,3 +95,4 @@ CloseSensor(SENSOR_1, nxtT1);
 CloseSensor(SENSOR_2, nxtT1);
 CloseSensor(SENSOR_3, nxtT1);
 COM_CloseNXT(nxtT1);
+quit;

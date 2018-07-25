@@ -2,7 +2,7 @@ addpath RWTHMindstormsNXT;
 %establish memory map to status.txt. 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(6) = 49;
-j3 = memmapfile('junction3.txt', 'Writable', true);
+j3 = memmapfile('junction3.txt', 'Writable', true, 'Format', 'int8');
 
 %open config file and save variable names and values column 1 and 2
 %respectively.
@@ -56,7 +56,7 @@ clearPalletM = [timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M
 k=0;
 %If pallet detected at start of mainline, wait for pallet to be detected at end.
 %If not detected before timeout, display error.
-while (k<6) && (fstatus.Data(1) == 49)
+while (fstatus.Data(1) == 49)
 	while abs(GetLight(SENSOR_1, nxtM2) - ambientLight2) < 25
 		pause(0.05);
 	end
@@ -91,3 +91,4 @@ delete(timerfind);%Remove all timers from memory
 CloseSensor(SENSOR_1, nxtM2);
 CloseSensor(SENSOR_2, nxtM2);
 COM_CloseNXT(nxtM2);
+quit;

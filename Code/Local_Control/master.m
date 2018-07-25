@@ -21,6 +21,13 @@ run initialise
 !matlab  -nodesktop -minimize -nosplash -r Local_transfer3&
 !matlab  -nodesktop -minimize -nosplash -r Local_mainline3&
 
+j1 = memmapfile('junction1.txt', 'Writable', true,'Format','int8');
+j2 = memmapfile('junction2.txt', 'Writable', true,'Format','int8');
+j3 = memmapfile('junction3.txt', 'Writable', true,'Format','int8')
+b1 = memmapfile('buffer1.txt', 'Writable', true,'Format','int8');
+b2 = memmapfile('buffer2.txt', 'Writable', true,'Format','int8');
+b3 = memmapfile('buffer3.txt', 'Writable', true,'Format','int8');
+
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(1) = 48;
 
