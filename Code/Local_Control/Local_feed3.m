@@ -3,7 +3,6 @@ addpath RWTHMindstormsNXT;
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(11) = 49;
 b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
-
 %open config file and save variable names and values column 1 and 2
 %respectively.
 config = fopen('config.txt','rt');
@@ -110,4 +109,4 @@ clear b3;
 CloseSensor(SENSOR_1, nxtF3);
 CloseSensor(SENSOR_3, nxtF3);
 COM_CloseNXT(nxtF3);
-			
+quit;

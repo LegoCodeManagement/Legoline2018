@@ -111,4 +111,4 @@ clear b1;
 CloseSensor(SENSOR_1, nxtF1);
 CloseSensor(SENSOR_3, nxtF1);
 COM_CloseNXT(nxtF1);
-			
+quit;			

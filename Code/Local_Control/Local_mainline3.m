@@ -38,4 +38,4 @@ disp('Main 3 STOPPED');
 CloseSensor(SENSOR_1, nxtM3);
 CloseSensor(SENSOR_2, nxtM3);
 COM_CloseNXT(nxtM3);
-
+quit;

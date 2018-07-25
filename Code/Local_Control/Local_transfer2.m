@@ -59,6 +59,10 @@ while (k<12) && (fstatus.Data(1) == 49)
 		while j2.Data(1) > 48
 			pause(0.5); %wait for mainline to be empty to transfer pallet
 			disp('mainline is busy') %this clogs up console, need another method
+            if fstatus.Data(1) ~= 49
+                break
+                disp('break');
+            end
 		end
 		
 		if fstatus.Data(1) ~= 49
@@ -89,3 +93,4 @@ CloseSensor(SENSOR_1, nxtT2);
 CloseSensor(SENSOR_2, nxtT2);
 CloseSensor(SENSOR_3, nxtT2);
 COM_CloseNXT(nxtT2);
+quit;

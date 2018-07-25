@@ -4,10 +4,10 @@ fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(1) = 48;
 j1 = memmapfile('junction1.txt', 'Writable', true,'Format','int8');
 j2 = memmapfile('junction2.txt', 'Writable', true,'Format','int8');
-j3 = memmapfile('junction2.txt', 'Writable', true,'Format','int8');
+j3 = memmapfile('junction3.txt', 'Writable', true,'Format','int8')
 b1 = memmapfile('buffer1.txt', 'Writable', true,'Format','int8');
 b2 = memmapfile('buffer2.txt', 'Writable', true,'Format','int8');
-b3 = memmapfile('buffer2.txt', 'Writable', true,'Format','int8');
+b3 = memmapfile('buffer3.txt', 'Writable', true,'Format','int8');
 
 b1.Data(1) = 48;
 b1.Data(2) = 48;
