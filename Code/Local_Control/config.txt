@@ -20,12 +20,12 @@ SPEED_U 40
 
 Transfer_Arm_Calibration_Angles:
 T1angle 23
-T2angle 17
+T2angle 19
 T3angle 13
 
 Feed_Frequencies
-T_F1 12
-T_F2 12
+T_F1 4
+T_F2 4
 T_F3 10
 T_U 8
 

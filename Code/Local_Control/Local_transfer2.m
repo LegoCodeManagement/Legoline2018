@@ -68,7 +68,7 @@ while (k<12) && (fstatus.Data(1) == 49)
         
         k=k+1;
 		j3.Data(1) = j3.Data(1) + 1;
-		TransferArmRun(MOTOR_B, nxtT2, 105);
+		TransferArmRun(MOTOR_B, nxtT2, 100);
 		start(clearPalletT2(k));%start timer, which executes j3 = j3 - 1 after T2delay seconds.
 		b2.Data(2) = b2.Data(2) - 1;
 		pause(0.8);

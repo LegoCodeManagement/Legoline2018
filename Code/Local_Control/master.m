@@ -10,13 +10,16 @@ COM_CloseNXT('all');
 
 run initialise
 
-!matlab  -nodesktop -minimize -nosplash -r Local_feed1&
-!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&
-!matlab  -nodesktop -minimize -nosplash -r Local_mainline1&
+%!matlab  -nodesktop -minimize -nosplash -r Local_feed1&
+%!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&
+%!matlab  -nodesktop -minimize -nosplash -r Local_mainline1&
 %!matlab  -nodesktop -minimize -nosplash -r Local_upstream&
-!matlab  -nodesktop -minimize -nosplash -r Local_feed2&
-!matlab  -nodesktop -minimize -nosplash -r Local_transfer2&
-!matlab  -nodesktop -minimize -nosplash -r Local_mainline2&
+%!matlab  -nodesktop -minimize -nosplash -r Local_feed2&
+%!matlab  -nodesktop -minimize -nosplash -r Local_transfer2&
+%!matlab  -nodesktop -minimize -nosplash -r Local_mainline2&
+!matlab  -nodesktop -minimize -nosplash -r Local_feed3&
+!matlab  -nodesktop -minimize -nosplash -r Local_transfer3&
+!matlab  -nodesktop -minimize -nosplash -r Local_mainline3&
 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(1) = 48;
