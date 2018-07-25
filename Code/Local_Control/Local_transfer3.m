@@ -19,7 +19,7 @@ OpenSwitch(SENSOR_2, nxtT3);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT3);
 
 
-j3 = memmapfile('junction3.txt', 'Writable', true);
+j3 = memmapfile('junction3.txt', 'Writable', true, 'Format', 'int8');
 b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
 
 TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
@@ -56,7 +56,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 		b3.Data(2) = b3.Data(2) + 1;
 		movePalletToLightSensor(MOTOR_A, -power, nxtT3, SENSOR_3, currentLight3, 4,20);
 		
-		while j3.Data(1) > 0
+		while j3.Data(1) > 48
 			pause(0.5);
 			disp('mainline is busy') %this clogs up console, need another method
 		end

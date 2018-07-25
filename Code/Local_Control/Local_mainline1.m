@@ -2,7 +2,7 @@ addpath RWTHMindstormsNXT;
 %establish memory map to status.txt. 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(3) = 49;
-j2 = memmapfile('junction2.txt', 'Writable', true);
+j2 = memmapfile('junction2.txt', 'Writable', true, 'Format', 'int8');
 
 %open config file and save variable names and values column 1 and 2
 %respectively.
