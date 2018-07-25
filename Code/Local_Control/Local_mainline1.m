@@ -31,33 +31,33 @@ end
 ambientLight1 = GetLight(SENSOR_1, nxtM1);
 mainline.SendToNXT(nxtM1);
 %one timer for each pallet.
-clearPalletM = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);
-                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1', 'StartDelay', M1delay);];
+clearPalletM = [timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'j2.Data(1) = j2.Data(1) - 1;', 'StartDelay', M1delay);];
 
 
 k=0;
 %If pallet detected at start of mainline, wait for pallet to be detected at end.
 %If not detected before timeout, display error.
 while (k<23) && (fstatus.Data(1) == 49)
-	while abs(GetLight(SENSOR_1, nxtM1) - ambientLight1) < 40 
+	while abs(GetLight(SENSOR_1, nxtM1) - ambientLight1) < 25
 		pause(0.05);
 	end
 	j2.Data(1) = j2.Data(1) + 1;

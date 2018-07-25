@@ -57,7 +57,7 @@ k=0;
 %If pallet detected at start of mainline, wait for pallet to be detected at end.
 %If not detected before timeout, display error.
 while (k<6) && (fstatus.Data(1) == 49)
-	while abs(GetLight(SENSOR_1, nxtM2) - ambientLight2) < 40
+	while abs(GetLight(SENSOR_1, nxtM2) - ambientLight2) < 25
 		pause(0.05);
 	end
 	j3.Data(1) = j3.Data(1) + 1;

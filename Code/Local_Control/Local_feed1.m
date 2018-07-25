@@ -34,6 +34,7 @@ currentLight3 = GetLight(SENSOR_3, nxtF1);
 %feed all the pallets or until told to stop.
 feedPallet(nxtF1, SENSOR_1, MOTOR_A); %so that feed starts immediately
 b1.Data(1) = b1.Data(1) + 1;
+pause(0.1)
 tic;
 k=0;
 while (k<12) && (fstatus.Data(1) == 49) 

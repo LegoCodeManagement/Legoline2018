@@ -30,8 +30,8 @@ T_F3 10
 T_U 8
 
 Pallet_has_left delay:
-M1delay 3.5 
-M2delay 3.5
+M1delay 3
+M2delay 3
 T1delay 2.5
 T2delay 2.5
 Udelay 2

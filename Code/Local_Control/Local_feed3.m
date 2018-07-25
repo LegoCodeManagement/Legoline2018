@@ -83,7 +83,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 					b3.Data(1) = b3.Data(1) - 1;
 			
 				case 2
-					movePalletSpacing(500, MOTOR_B, power, nxtF2);
+					movePalletSpacing(500, MOTOR_B, power, nxtF3);
 					pause(1);
 					
 					b3.Data(1) = b3.Data(1) - 1;
