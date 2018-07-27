@@ -24,14 +24,14 @@ T2angle 19
 T3angle 13
 
 Feed_Frequencies
-T_U 8
-T_F1 16
+T_U 6
+T_F1 8
 T_F2 10
 T_F3 13
 
 Pallet_has_left delay:
-M1delay 4
-M2delay 4
+M1delay 5.5
+M2delay 5.5
 T1delay 3
 T2delay 3
 Udelay 2

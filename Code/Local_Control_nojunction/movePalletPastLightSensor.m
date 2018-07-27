@@ -36,6 +36,6 @@ while GetLight(port, nxt) < limit
 	
 end
 result = true;
-pause(0.4);
+pause(0.6);
 movePallet.Stop('off', nxt);
 end

@@ -44,29 +44,28 @@ palletHasLeft = [timer('TimerFcn','u.Data(1) = u.Data(1) - 1;','StartDelay',Udel
                  timer('TimerFcn','u.Data(1) = u.Data(1) - 1;','StartDelay',Udelay); 
                  timer('TimerFcn','u.Data(1) = u.Data(1) - 1;','StartDelay',Udelay);];
 
-u.Data(1) = u.Data(1) + 1;
-feedPallet(nxtU,SENSOR_1,MOTOR_A);
+toc = T_U + 1;
 k=0;
-tic;
 while (k<12) && (fstatus.Data(1) == 49)
     
-	if (toc > T_U) && (u.Data(1) == 0)
-		clear toc
+	if (toc > T_U)
+        clear toc
 		tic;
 		feedPallet(nxtU,SENSOR_1,MOTOR_A);
 		u.Data(1) = u.Data(1) + 1;
-		k=k+1;
+        
         if fstatus.Data(1) ~= 49
             break
             disp('break');
         end
         
+        k=k+1;
+        movePalletPastLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,10);
+        start(palletHasLeft(k))
+        
+    end
         %take movepallet outside if statement and make new: if u.Data(1) > 1 then movepallet.
         
-		movePalletPastLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,16);
-		start(palletHasLeft(k))
-		
-	end
 	pause(0.1)
 end
 

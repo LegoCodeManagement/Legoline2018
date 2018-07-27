@@ -50,6 +50,7 @@ clearPalletT1 = [timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay',
                 timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', T1delay);];
 
 %run for 11 pallets or until told to stop
+k=0;
 while (fstatus.Data(1) == 49)
     %if we detect a pallet at start of transfer line, move it to transfer arm
 	if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 100) 
@@ -70,13 +71,13 @@ while (fstatus.Data(1) == 49)
             break
             disp('break');
         end
-        
+        k=k+1;
 		TransferArmRun(MOTOR_B, nxtT1, 105);
 		start(clearPalletT1(k));%start timer, which executes m1 = m1 - 1 after T1delay seconds.
 		pause(1);
 		m1.Data(1) = m1.Data(1) + 1;
         b1.Data(2) = b1.Data(2) - 1;
-		pause(0.6);
+		pause(0.5);
 		TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
 		
         disp(['transfer buffer = ', num2str(b1.Data(2))]);

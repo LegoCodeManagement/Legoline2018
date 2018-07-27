@@ -57,10 +57,12 @@ clearPalletM = [timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', 
 %If pallet detected at start of mainline, wait for pallet to be detected at end.
 %If not detected before timeout, display error.
 
+k=0;
 while (fstatus.Data(1) == 49)
 	while abs(GetLight(SENSOR_1, nxtM1) - ambientLight1) < 10
 		pause(0.05);
 	end
+    k=k+1;
     waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 10);
     
     start(clearPalletM(k)); %start timer, which executes m1 = m1 - 1 after M1delay seconds.
