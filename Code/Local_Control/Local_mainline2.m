@@ -25,7 +25,7 @@ disp('MAINLINE 2');
 disp('waiting for ready signal');
 %wait for ready sign so that all matlab instances start simultaneously
 while fstatus.Data(1) == 48
-    pause(0.1);
+    pause(0.5);
 end
 
 ambientLight2 = GetLight(SENSOR_1, nxtM2);
@@ -57,7 +57,7 @@ k=0;
 %If pallet detected at start of mainline, wait for pallet to be detected at end.
 %If not detected before timeout, display error.
 while (fstatus.Data(1) == 49)
-	while abs(GetLight(SENSOR_1, nxtM2) - ambientLight2) < 25
+	while abs(GetLight(SENSOR_1, nxtM2) - ambientLight2) < 10
 		pause(0.05);
 	end
 	j3.Data(1) = j3.Data(1) + 1;

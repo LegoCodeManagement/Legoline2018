@@ -25,7 +25,7 @@ disp('FEED 2');
 disp('waiting for ready signal');
 %wait for ready sign so that all matlab instances start simultaneously
 while fstatus.Data(1) == 48
-    pause(0.1);
+    pause(0.5);
 end
 
 %calculate the background light in the room. Further measurements will be measured as a difference to this.

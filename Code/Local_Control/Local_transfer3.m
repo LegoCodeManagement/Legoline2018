@@ -28,7 +28,7 @@ disp('TRANSFER 3');
 disp('waiting for ready signal');
 %wait for ready sign so that all matlab instances start simultaneously
 while fstatus.Data(1) == 48
-    pause(0.1);
+    pause(0.5);
 end
 
 currentLight1 = GetLight(SENSOR_1, nxtT3);

@@ -75,7 +75,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 		TransferArmRun(MOTOR_B, nxtT2, 100);
 		start(clearPalletT2(k));%start timer, which executes j3 = j3 - 1 after T2delay seconds.
 		b2.Data(2) = b2.Data(2) - 1;
-		pause(0.8);
+		pause(0.6);
 		TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);
 
         disp(['transfer buffer = ', num2str(b2.Data(2))]);

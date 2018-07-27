@@ -29,7 +29,7 @@ disp('TRANSFER 1');
 disp('waiting for ready signal');
 %wait for ready sign so that all matlab instances start simultaneously
 while fstatus.Data(1) == 48
-    pause(0.1);
+    pause(0.5);
 end
 %detect ambient light in room
 currentLight1 = GetLight(SENSOR_1, nxtT1);
@@ -73,11 +73,11 @@ while (k<12) && (fstatus.Data(1) == 49)
         end
         
 		k=k+1;
-        j2.Data(1) = j2.Data(1) + 1;
 		TransferArmRun(MOTOR_B, nxtT1, 105);
+        j2.Data(1) = j2.Data(1) + 1;
 		start(clearPalletT1(k));%start timer, which executes j2 = j2 - 1 after T1delay seconds.
         b1.Data(2) = b1.Data(2) - 1;
-		pause(0.8);
+		pause(0.6);
 		TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
 		
         disp(['transfer buffer = ', num2str(b1.Data(2))]);

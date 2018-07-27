@@ -53,12 +53,12 @@ while (k<12) && (fstatus.Data(1) == 49)
 		clear toc
 		tic;
 		feedPallet(nxtU,SENSOR_1,MOTOR_A);
-        j1.Data(1) = j1.Data(1) + 1;
 		k=k+1;
         if fstatus.Data(1) ~= 49
             break
             disp('break');
         end
+        j1.Data(1) = j1.Data(1) + 1;
 		movePalletToLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,16);
 		start(palletHasLeft(k)); %start timer, which executes j1 = j1 - 1 after Udelay seconds.
 	end

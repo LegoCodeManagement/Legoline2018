@@ -8,28 +8,33 @@ COM_CloseNXT('all');
 %Try memory map to communicate between multiple instances or shared matrix
 %The delay here is significant
 
+fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+fstatus.Data(1) = 48;
+
+for i=1:1:11
+    fstatus.Data(i) = 48;
+end
+
 run initialise
 
-!matlab  -nodesktop -minimize -nosplash -r Local_feed1&
-!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&
+!matlab  -nodesktop -minimize -nosplash -r Local_display&
+%!matlab  -nodesktop -minimize -nosplash -r Local_feed1&
+%!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&
 !matlab  -nodesktop -minimize -nosplash -r Local_mainline1&
 !matlab  -nodesktop -minimize -nosplash -r Local_upstream&
-!matlab  -nodesktop -minimize -nosplash -r Local_feed2&
-!matlab  -nodesktop -minimize -nosplash -r Local_transfer2&
+%!matlab  -nodesktop -minimize -nosplash -r Local_feed2&
+%!matlab  -nodesktop -minimize -nosplash -r Local_transfer2&
 !matlab  -nodesktop -minimize -nosplash -r Local_mainline2&
-!matlab  -nodesktop -minimize -nosplash -r Local_feed3&
-!matlab  -nodesktop -minimize -nosplash -r Local_transfer3&
-!matlab  -nodesktop -minimize -nosplash -r Local_mainline3&
+%!matlab  -nodesktop -minimize -nosplash -r Local_feed3&
+%!matlab  -nodesktop -minimize -nosplash -r Local_transfer3&
+%!matlab  -nodesktop -minimize -nosplash -r Local_mainline3&
 
 j1 = memmapfile('junction1.txt', 'Writable', true,'Format','int8');
 j2 = memmapfile('junction2.txt', 'Writable', true,'Format','int8');
-j3 = memmapfile('junction3.txt', 'Writable', true,'Format','int8')
+j3 = memmapfile('junction3.txt', 'Writable', true,'Format','int8');
 b1 = memmapfile('buffer1.txt', 'Writable', true,'Format','int8');
 b2 = memmapfile('buffer2.txt', 'Writable', true,'Format','int8');
 b3 = memmapfile('buffer3.txt', 'Writable', true,'Format','int8');
-
-fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
-fstatus.Data(1) = 48;
 
 for i=1:100
     result = input('Please enter one of the following numbers:\n0 if you want to view the status of initialization\n1 if you want to abort the initialization\n2 If you are happy with the initialization and wish to continue');
