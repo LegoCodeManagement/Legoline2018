@@ -1,12 +1,8 @@
-function result = average(nxt, port)
+function [avg,newarray] = average(nxt,port,array)
 
-a1 = GetLight(port, nxt);
-pause(0.1);
-a2 = GetLight(port, nxt);
-pause(0.1);
-a3 = GetLight(port, nxt);
-pause(0.1);
-a4 = GetLight(port, nxt);
+array = [array,GetLight(port, nxt)];
+array(1) = [];
 
-result = 0.25*(a1+a2+a3+a4);
+avg = mean(array);
+newarray = array;
 end

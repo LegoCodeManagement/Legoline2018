@@ -62,7 +62,7 @@ while (fstatus.Data(1) == 49)
 		pause(0.05);
 	end
 	k=k+1;
-	waitForPalletExit(nxtM2, SENSOR_1, ambientLight2, 10);
+	waitForPalletExit(nxtM2, SENSOR_1, ambientLight2,7, 10);
 	
 	start(clearPalletM(k)); %start timer, which executes m2 = m2 - 1 after M1delay seconds.
 	pause(1)
@@ -74,7 +74,7 @@ while (fstatus.Data(1) == 49)
         break
 		disp('break');
     end
-	if waitForPalletExit(nxtM2, SENSOR_1, ambientLight2, 10) == false
+	if waitForPalletExit(nxtM2, SENSOR_1, ambientLight2,7, 10) == false
 		disp('Error');
 	end
 	%}

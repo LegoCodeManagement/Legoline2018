@@ -21,17 +21,21 @@ movePalletU.SpeedRegulation = 0;
 x=linspace(0,4,100);    
 y1=zeros(1, 100);
 y2=zeros(1, 100);
+y3=zeros(1, 100);
 movePalletM.SendToNXT(nxtM1);
 movePalletU.SendToNXT(nxtU);
+array = ones(1,10)*GetLight(SENSOR_1, nxtM1);
 for i=1:1:100
-    y1(i)=GetLight(SENSOR_1, nxtM1);
-    y2(i)=GetLight(SENSOR_2, nxtU);
+    [y1(i),array] = average(nxtM1,SENSOR_1,array);
+    y3(i) = std(array)+653;
+    %y1(i)=GetLight(SENSOR_1, nxtM1);
+    y2(i)=GetLight(SENSOR_1, nxtM1);
     pause(0.04);
 end
 movePalletM.Stop('off', nxtM1);
 movePalletU.Stop('off', nxtU);
 figure
-plot(x,y1,x,y2)
+plot(x,y1,'*',x,y2,'*')
 legend('main','upstream')
 CloseSensor(SENSOR_2, nxtU);
 CloseSensor(SENSOR_1, nxtM1);

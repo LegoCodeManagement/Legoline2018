@@ -64,21 +64,11 @@ while (fstatus.Data(1) == 49)
 	end
     k=k+1;
     disp(['pallet detected. Pallets on mainline: ',num2str(m1.Data(1)-48)]);
-    waitForPalletExit(nxtM1, SENSOR_1, ambientLight1,6, 15);
-    start(clearPalletM(k)); %start timer, which executes m1 = m1 - 1 after M1delay seconds.
-    pause(1)
+    start(clearPalletM(k));
+    pause(0.5)
     m1.Data(1) = m1.Data(1) + 1;
-	
-	
-    %{
-    if fstatus.Data(1) ~= 49
-        break
-		disp('break');
-    end
-	if waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 10) == false
-		disp('Error');
-	end
-    %}
+
+    waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 10)
     
     if fstatus.Data(1) ~= 49
         break

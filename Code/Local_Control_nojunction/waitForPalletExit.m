@@ -4,7 +4,7 @@ function result = waitForPalletExit(nxt, port, ambientLight, timeOut,threshold)
 disp('waiting to detect pallet')
 
 while -average(nxt,port)+ambientLight < threshold
-    pause(0.2)
+    pause(0.1)
 end
 
 tic;
