@@ -31,26 +31,26 @@ end
 ambientLight2 = GetLight(SENSOR_1, nxtM2);
 mainline.SendToNXT(nxtM2);
 %one timer for each pallet.
-clearPalletM = [timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1', 'StartDelay', M2delay);];
+clearPalletM = [timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', M2delay);];
 
 
 %If pallet detected at start of mainline, wait for pallet to be detected at end.
@@ -62,9 +62,9 @@ while (fstatus.Data(1) == 49)
 		pause(0.05);
 	end
 	k=k+1;
-
 	waitForPalletExit(nxtM2, SENSOR_1, ambientLight2, 10);
-	start(clearPalletM(k)); %start timer, which executes j2 = j2 - 1 after M1delay seconds.
+	
+	start(clearPalletM(k)); %start timer, which executes m2 = m2 - 1 after M1delay seconds.
 	pause(1)
 	m2.Data(1) = m2.Data(1) + 1;
 	disp('Main2 clear');
@@ -78,8 +78,7 @@ while (fstatus.Data(1) == 49)
 		disp('Error');
 	end
 	%}
-	
-    
+	   
     if fstatus.Data(1) ~= 49
         break
 		disp('break');

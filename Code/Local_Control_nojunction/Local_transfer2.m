@@ -29,7 +29,7 @@ disp('TRANSFER 2');
 disp('waiting for ready signal');
 %wait for ready sign so that all matlab instances start simultaneously
 while fstatus.Data(1) == 48
-    pause(0.1);
+    pause(0.5);
 end
 %detect ambient light in room
 currentLight1 = GetLight(SENSOR_1, nxtT2);
@@ -52,6 +52,7 @@ clearPalletT2 = [timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay',
                 timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', T2delay);];
 
 %run for 11 pallets or until told to stop
+k=0;
 while (fstatus.Data(1) == 49)
     %if we detect a pallet at start of transfer line, move it to transfer arm	
 	if (abs(GetLight(SENSOR_1, nxtT2) - currentLight1) > 100)
@@ -72,14 +73,13 @@ while (fstatus.Data(1) == 49)
             break
             disp('break');
         end
-        
-		m2.Data(1) = m2.Data(1) + 1;
+        k=k+1
 		TransferArmRun(MOTOR_B, nxtT2, 100);
 		start(clearPalletT2(k));%start timer, which executes m2 = m2 - 1 after T2delay seconds.
 		pause(1);
 		m2.Data(1) = m2.Data(1) + 1;
 		b2.Data(2) = b2.Data(2) - 1;
-		pause(0.6);
+		pause(0.5);
 		TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);
 
         disp(['transfer buffer = ', num2str(b2.Data(2))]);
