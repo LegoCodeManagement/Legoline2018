@@ -18,8 +18,8 @@ end
 run initialise
 
 !matlab  -nodesktop -minimize -nosplash -r Local_display&
-!matlab  -nodesktop -minimize -nosplash -r Local_feed1&
-!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&
+%!matlab  -nodesktop -minimize -nosplash -r Local_feed1&
+%!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&
 !matlab  -nodesktop -minimize -nosplash -r Local_mainline1&
 !matlab  -nodesktop -minimize -nosplash -r Local_upstream&
 %!matlab  -nodesktop -minimize -nosplash -r Local_feed2&
