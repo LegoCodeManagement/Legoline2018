@@ -31,26 +31,26 @@ end
 ambientLight2 = GetLight(SENSOR_1, nxtM2);
 mainline.SendToNXT(nxtM2);
 %one timer for each pallet.
-clearPalletM = [timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);
-                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1', 'StartDelay', M2delay);];
+clearPalletM = [timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);
+                timer('TimerFcn', 'j3.Data(1) = j3.Data(1) - 1;', 'StartDelay', M2delay);];
 
 
 k=0;

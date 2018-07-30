@@ -72,7 +72,7 @@ while (fstatus.Data(1) == 49)
         
 		TransferArmRun(MOTOR_B, nxtT3, 105);
 		b3.Data(2) = b3.Data(2) - 1;
-		pause(0.6);
+		pause(0.5);
 		TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
 		
         disp(['transfer buffer = ', num2str(b3.Data(2))]);
