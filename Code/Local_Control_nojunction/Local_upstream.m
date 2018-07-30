@@ -60,7 +60,7 @@ while (k<12) && (fstatus.Data(1) == 49)
         end
         
         k=k+1;
-        movePalletPastLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,10);
+        movePalletPastLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,5,10);
         start(palletHasLeft(k))
         
     end
