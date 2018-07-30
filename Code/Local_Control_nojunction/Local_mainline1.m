@@ -59,16 +59,16 @@ clearPalletM = [timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', 
 
 k=0;
 while (fstatus.Data(1) == 49)
-	while abs(GetLight(SENSOR_1, nxtM1) - ambientLight1) < 10
-		pause(0.05);
+	while abs(average(nxtM1, SENSOR_1) - ambientLight1) < 15
+		pause(0.1);
 	end
     k=k+1;
-    waitForPalletExit(nxtM1, SENSOR_1, ambientLight1, 10);
-    
+    disp(['pallet detected. Pallets on mainline: ',num2str(m1.Data(1)-48)]);
+    waitForPalletExit(nxtM1, SENSOR_1, ambientLight1,6, 15);
     start(clearPalletM(k)); %start timer, which executes m1 = m1 - 1 after M1delay seconds.
     pause(1)
     m1.Data(1) = m1.Data(1) + 1;
-	disp('Main1 clear');
+	
 	
     %{
     if fstatus.Data(1) ~= 49
@@ -85,7 +85,7 @@ while (fstatus.Data(1) == 49)
 		disp('break');
     end
 
-	pause(0.2); %prevents updating to quickly
+	pause(0.1); %prevents updating to quickly
 end
 
 mainline.Stop('off', nxtM1);

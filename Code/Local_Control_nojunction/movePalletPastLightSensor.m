@@ -7,10 +7,8 @@ currentTime = toc;
 movePallet = NXTMotor(motor, 'Power', power);
 movePallet.SpeedRegulation = 0;
 movePallet.SendToNXT(nxt);
-pause(1);
 
-waitForPalletExit(nxt, port, ambientLight, timeOut, threshold);
+waitForPalletExit(nxt, port, currentValue, timeOut, threshold);
 
-pause(0.1);
 movePallet.Stop('off', nxt);
 end

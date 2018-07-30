@@ -30,11 +30,11 @@ T_F2 10
 T_F3 13
 
 Pallet_has_left delay:
-M1delay 5.5
-M2delay 5.5
+M1delay 5
+M2delay 5
 T1delay 3
 T2delay 3
-Udelay 2
+Udelay 1.3
 
 Timing_Values:
 
