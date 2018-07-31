@@ -23,6 +23,11 @@ T1angle 23
 T2angle 19
 T3angle 13
 
+Transfer_Arm_Wait_Before_Reset
+T1armwait 0.6
+T2armwait 0.6
+T3armwait 0.6
+
 Feed_Frequencies
 T_U 6
 T_F1 8
@@ -35,6 +40,15 @@ M2delay 7
 T1delay 3
 T2delay 3
 Udelay 1.3
+
+Light_sensor_threshold_for_detection
+Mthreshold 15
+Tthreshold 20
+Uthreshold 14
+Fthreshold 17
+
+timeOut_for_pallet_detection
+timeOut 5
 
 Timing_Values:
 

@@ -8,10 +8,11 @@ config = fopen('config.txt','rt');
 out = textscan(config, '%s %s');
 fclose(config);
 %retrieve parameters
-power = str2double(out{2}(strcmp('SPEED_T',out{1})));
-T3addr = char(out{2}(strcmp('Transfer3',out{1})));
-T3angle = str2double(out{2}(strcmp('T3angle',out{1})));
-
+power 		= str2double(out{2}(strcmp('SPEED_T',out{1})));
+T3addr 		= char(out{2}(strcmp('Transfer3',out{1})));
+T3angle 	= str2double(out{2}(strcmp('T3angle',out{1})));
+T3armwait	= str2double(out{2}(strcmp('T3armwait',out{1})));
+Tthreshold = str2double(out{2}(strcmp('Tthreshold',out{1})));	
 %open connection and activate sensors
 nxtT3 = COM_OpenNXTEx('USB', T3addr);
 OpenLight(SENSOR_3, 'ACTIVE', nxtT3);
@@ -54,7 +55,7 @@ while (fstatus.Data(1) == 49)
 	if (abs(GetLight(SENSOR_1, nxtT3) - currentLight1) > 100)
     
 		b3.Data(2) = b3.Data(2) + 1;
-		movePalletToLightSensor(MOTOR_A, -power, nxtT3, SENSOR_3, currentLight3, 4,20);
+		movePalletToLightSensor(MOTOR_A, -power, nxtT3, SENSOR_3, currentLight3, 4,Tthreshold);
 		
 		while m2.Data(1) > 48
 			pause(0.5);
@@ -72,7 +73,7 @@ while (fstatus.Data(1) == 49)
         
 		TransferArmRun(MOTOR_B, nxtT3, 105);
 		b3.Data(2) = b3.Data(2) - 1;
-		pause(0.5);
+		pause(T3armwait);
 		TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
 		
         disp(['transfer buffer = ', num2str(b3.Data(2))]);

@@ -12,6 +12,8 @@ power = str2double(out{2}(strcmp('SPEED_T',out{1})));
 T2addr = char(out{2}(strcmp('Transfer2',out{1})));
 T2angle = str2double(out{2}(strcmp('T2angle',out{1})));
 T2delay = str2double(out{2}(strcmp('T2delay',out{1})));	
+T2armwait	= str2double(out{2}(strcmp('T2armwait',out{1})));
+Tthreshold = str2double(out{2}(strcmp('Tthreshold',out{1})));	
 %open connection and activate sensors
 nxtT2 = COM_OpenNXTEx('USB', T2addr);
 OpenLight(SENSOR_3, 'ACTIVE', nxtT2);
@@ -58,7 +60,7 @@ while (fstatus.Data(1) == 49)
 	if (abs(GetLight(SENSOR_1, nxtT2) - currentLight1) > 100)
     
 		b2.Data(2) = b2.Data(2) + 1;
-		movePalletToLightSensor(MOTOR_A, -power, nxtT2, SENSOR_3, currentLight3, 10, 20);
+		movePalletToLightSensor(MOTOR_A, -power, nxtT2, SENSOR_3, currentLight3, 10, Tthreshold);
 		
 		while m1.Data(1) > 48
 			pause(0.5); %wait for mainline to be empty to transfer pallet
@@ -76,7 +78,7 @@ while (fstatus.Data(1) == 49)
         k=k+1
 		TransferArmRun(MOTOR_B, nxtT2, 100);
 		start(clearPalletT2(k));%start timer, which executes m2 = m2 - 1 after T2delay seconds.
-		pause(0.5);
+		pause(T2armwait);
 		m2.Data(1) = m2.Data(1) + 1;
 		b2.Data(2) = b2.Data(2) - 1;
 		TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);

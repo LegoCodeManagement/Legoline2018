@@ -12,6 +12,7 @@ fclose(config);
 power = str2double(out{2}(strcmp('SPEED_F',out{1})));
 F3addr = char(out{2}(strcmp('Feed3',out{1})));
 T_F3 = str2double(out{2}(strcmp('T_F3',out{1})));
+Fthreshold = str2double(out{2}(strcmp('Fthreshold',out{1})));	
 nxtF3 = COM_OpenNXTEx('USB', F3addr);
 
 %activate sensors
@@ -78,7 +79,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 				case 48
 					pause(0.1);
 				case 49
-					movePalletPastLightSensor(MOTOR_B, power, nxtF3, SENSOR_3, currentLight3, 6, 17);
+					movePalletPastLightSensor(MOTOR_B, power, nxtF3, SENSOR_3, currentLight3, 6, Fthreshold);
 					b3.Data(1) = b3.Data(1) - 1;
                     disp('attempting to move pallet to LS')
 				case 50

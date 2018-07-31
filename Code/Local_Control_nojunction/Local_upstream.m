@@ -14,6 +14,8 @@ power = str2double(out{2}(strcmp('SPEED_U',out{1})));
 Uaddr = char(out{2}(strcmp('Upstream',out{1})));
 Udelay = str2double(out{2}(strcmp('Udelay',out{1})));	
 T_U = str2double(out{2}(strcmp('T_U',out{1})));	
+Uthreshold = str2double(out{2}(strcmp('Uthreshold',out{1})));	
+
 nxtU = COM_OpenNXTEx('USB', Uaddr);
 
 
@@ -46,6 +48,7 @@ palletHasLeft = [timer('TimerFcn','u.Data(1) = u.Data(1) - 1;','StartDelay',Udel
 
 toc = T_U + 1;
 k=0;
+
 while (k<12) && (fstatus.Data(1) == 49)
     
 	if (toc > T_U)
@@ -60,7 +63,7 @@ while (k<12) && (fstatus.Data(1) == 49)
         end
         
         k=k+1;
-        movePalletPastLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,3,11);
+        movePalletPastLightSensor(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,3,Uthreshold);
         start(palletHasLeft(k))
         
     end

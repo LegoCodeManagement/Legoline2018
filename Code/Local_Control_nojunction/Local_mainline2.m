@@ -13,6 +13,7 @@ fclose(config);
 power = str2double(out{2}(strcmp('SPEED_M',out{1})));
 M2addr = char(out{2}(strcmp('Main2',out{1})));
 M2delay = str2double(out{2}(strcmp('M2delay',out{1})));	
+Mthreshold = str2double(out{2}(strcmp('Mthreshold',out{1})));	
 %open connection and activate sensors
 nxtM2 = COM_OpenNXTEx('USB', M2addr);
 OpenLight(SENSOR_1, 'ACTIVE', nxtM2);
@@ -57,36 +58,25 @@ clearPalletM = [timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', 
 %If not detected before timeout, display error.
 
 k=0;
+array = ones(1,10)*GetLight(port,nxt);
+avg = mean(array);
 while (fstatus.Data(1) == 49)
-	while abs(GetLight(SENSOR_1, nxtM2) - ambientLight2) < 10
-		pause(0.05);
-	end
+
+	waitForDetectionExit(nxtM2, SENSOR_1, ambientLight2, 4, Mthreshold);
+	
 	k=k+1;
-	waitForPalletExit(nxtM2, SENSOR_1, ambientLight2,7, 10);
-	
+	disp(['pallet detected. Pallets on mainline 2: ',num2str(m2.Data(1)-48)]);
 	start(clearPalletM(k)); %start timer, which executes m2 = m2 - 1 after M1delay seconds.
-	pause(1)
+	pause(0.5)
 	m2.Data(1) = m2.Data(1) + 1;
-	disp('Main2 clear');
 	
-	%{
 	if fstatus.Data(1) ~= 49
-        break
-		disp('break');
-    end
-	if waitForPalletExit(nxtM2, SENSOR_1, ambientLight2,7, 10) == false
-		disp('Error');
-	end
-	%}
-	   
-    if fstatus.Data(1) ~= 49
         break
 		disp('break');
     end
     
 	pause(0.2); %prevents updating to quickly
 end
-
 
 mainline.Stop('off', nxtM2);
 disp('Main 2 STOPPED');

@@ -13,6 +13,7 @@ fclose(config);
 power = str2double(out{2}(strcmp('SPEED_F',out{1})));
 F1addr = char(out{2}(strcmp('Feed1',out{1})));
 T_F1 = str2double(out{2}(strcmp('T_F1',out{1})));
+Fthreshold = str2double(out{2}(strcmp('Fthreshold',out{1})));	
 nxtF1 = COM_OpenNXTEx('USB', F1addr);
 
 %activate sensors
@@ -80,7 +81,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 				case 48
 					pause(0.1);
 				case 49
-					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 15);
+					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, Fthreshold);
 					b1.Data(1) = b1.Data(1) - 1;
 			
                 case 50 
