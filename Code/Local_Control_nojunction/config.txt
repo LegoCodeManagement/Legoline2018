@@ -41,10 +41,10 @@ T1delay 3
 T2delay 3
 Udelay 1.3
 
-Light_sensor_threshold_for_detection
+STD_Light_sensor_threshold_for_detection
 Mthreshold 15
 Tthreshold 20
-Uthreshold 14
+Uthreshold 5
 Fthreshold 17
 
 timeOut_for_pallet_detection
