@@ -22,7 +22,9 @@ nxtU = COM_OpenNXTEx('USB', Uaddr);
 
 
 %establish memory map to junction file
-j1 = memmapfile('Junction1.txt','Writable',true);
+%j1 = memmapfile('Junction1.txt','Writable',true);
+u1 = memmapfile('u1.txt', 'Writable', true, 'Format', 'int8');
+u1.Data(1) = 48;
 disp(j1.Data(1));
 
 OpenLight(SENSOR_2,'ACTIVE',nxtU);
@@ -35,17 +37,6 @@ while fstatus.Data(1) == 48
 end
 currentValueU = GetLight(SENSOR_2,nxtU);
 %one timer for each pallet.
-palletHasLeft = [timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay);
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay); 
-                 timer('TimerFcn','j1.Data(1) = j1.Data(1) - 1;','StartDelay',Udelay);];
 
 
 toc = T_U + 1;
@@ -57,21 +48,23 @@ while (k<12) && (fstatus.Data(1) == 49)
 		clear toc
 		tic;
 		feedPallet(nxtU,SENSOR_1,MOTOR_A);
-        j1.Data(1) = j1.Data(1) + 1;
+        u1.Data(1) = u1.Data(1) + 1;
 		k=k+1;
         if fstatus.Data(1) ~= 49
             break
             disp('break');
         end
 		movePalletToLightSensorU(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,16);
-		start(palletHasLeft(k)); %start timer, which executes j1 = j1 - 1 after Udelay seconds.
+		pause(0.1)
+		u1.Data(1) = u1.Data(1) - 1;
+		
 	end
 	pause(0.1)
 end
 
 delete(timerfind);
 disp('Upstream STOPPED')
-clear j1;
+clear u1;
 CloseSensor(SENSOR_1, nxtU);
 CloseSensor(SENSOR_2, nxtU);
 COM_CloseNXT(nxtU);

@@ -79,7 +79,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 				case 48
 					pause(0.1);
 				case 49
-					movePalletPastLightSensor(MOTOR_B, power, nxtF3, SENSOR_3, currentLight3, 6, Fthreshold);
+					movePalletPastLSfeed(MOTOR_B, power, nxtF3, SENSOR_3, 6, Fthreshold);
 					b3.Data(1) = b3.Data(1) - 1;
                     disp('attempting to move pallet to LS')
 				case 50

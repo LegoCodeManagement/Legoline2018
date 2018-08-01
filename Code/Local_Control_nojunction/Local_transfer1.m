@@ -55,7 +55,7 @@ clearPalletT1 = [timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay',
 k=0;
 while (fstatus.Data(1) == 49)
     %if we detect a pallet at start of transfer line, move it to transfer arm
-	if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 100) 
+	if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 100)  
     
 		b1.Data(2) = b1.Data(2) + 1;
 		movePalletToLightSensor(MOTOR_A, -power, nxtT1, SENSOR_3, currentLight3, 10, Tthreshold);

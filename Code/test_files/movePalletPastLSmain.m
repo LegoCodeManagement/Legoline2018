@@ -1,4 +1,8 @@
-function result = waitForDetectionExit(nxt, port, timeOut,threshold)
+function result = movePalletPastLightSensor(motor, power, nxt, port, timeOut, threshold)
+
+movePallet = NXTMotor(motor, 'Power', power);
+movePallet.SpeedRegulation = 0;
+movePallet.SendToNXT(nxt);
 
 array = ones(1,10)*GetLight(port,nxt);
 stdarray = zeros(1,7)
@@ -24,4 +28,6 @@ while stdavg > threshold*0.5
     
 end
 
+pause(0.3);
+movePallet.Stop('off', nxt);
 end

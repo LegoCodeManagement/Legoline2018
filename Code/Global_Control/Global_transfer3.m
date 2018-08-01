@@ -19,9 +19,10 @@ OpenSwitch(SENSOR_2, nxtT3);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT3);
 
 %allow feed to read and edit junction/buffer files
-j3 = memmapfile('junction3.txt', 'Writable', true);
+m2 = memmapfile('count_m2.txt', 'Writable', true);
 b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
 wait = memmapfile('wait.txt', 'Writable', true);
+global wait
 priority = memmapfile('priority.txt', 'Writable', true);
 
 TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
@@ -36,49 +37,59 @@ end
 currentLight1 = GetLight(SENSOR_1, nxtT3);
 currentLight3 = GetLight(SENSOR_3, nxtT3);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 k=0;
-while (k<12) && (fstatus.Data(1) == 49) 
-    	
-	if (abs(GetLight(SENSOR_1, nxtT3) - currentLight1) > 100)
-    
+transferpallet3 = 51;
+upstreampallet = 48;
+
+while (k<12) && (fstatus.Data(1) == 49)
+	if (abs(GetLight(SENSOR_1, nxtT3) - currentLight1) > 100) %triggers if pallet is detected
 		b3.Data(2) = b3.Data(2) + 1;
-		movePalletToLightSensor(MOTOR_A, -power, nxtT3, SENSOR_3, currentLight3, 4);
+		movePalletToLightSensorT(MOTOR_A, -power, nxtT3, SENSOR_3, currentLight3, 10, 20);
 		
-		while j3.Data(1) == 1
-			pause(0.25);
-			disp('mainline is busy') %this clogs up console, need another method
-		end
+		if m3.Data(1) > 48
+			while m3.Data(1) > 48
+				pause(0.25);
+				disp('mainline is busy')
+			end
+			
+			k=k+1;
+			TransferArmRun(MOTOR_B, nxtT3, 105);
+			m3.Data(1) = m3.Data(1) + 1;
+			b3.Data(2) = b3.Data(2) - 1; %remove one pallet from transfer line section of buffer
+			pause(0.8);
+			TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
+			
+			
+		else
+			if m3.Data(1) > 48 
 		
-		if fstatus.Data(1) ~= 49
-            break
-            disp('break');
+				if checkpriority(transferpallet3,upstreampallet)
+				
+					k=k+1;
+					wait.Data(3) = 49;						%tell upstream to stop
+					TransferArmRun(MOTOR_B, nxtT3, 105);
+					m3.Data(1) = m3.Data(1) + 1;
+					b3.Data(2) = b3.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
+					pause(0.8);
+					TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
+					wait.Data(3) = 48; 						%tell upstream to resume
+			
+				else
+					while m3.Data(1) > 48
+						pause(0.5);
+						disp('upstream is busy')
+					end
+					
+					k=k+1;
+					TransferArmRun(MOTOR_B, nxtT3, 105);
+					m3.Data(1) = m3.Data(1) + 1;
+					b3.Data(2) = b3.Data(2) - 1; %remove one pallet from transfer line section of buffer
+					pause(0.8);
+					TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
+				
+				end
+			end
         end
-        
-        k=k+1;
-		j3.Data(1) = j3.Data(1) + 1;
-		TransferArmRun(MOTOR_B, nxtT3, 105);
-		start(clearPalletT3(k))
-		b3.Data(2) = b3.Data(2) - 1;
-		pause(0.6);
-		TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
-		
-        disp(['transfer buffer = ', num2str(b3.Data(2))]);
-        disp(['feed buffer = ', num2str(b3.Data(1))]);
-        disp(['junction 1 = ', num2str(j1.Data(1))]);
-        
     end
 	pause(0.2);
 end

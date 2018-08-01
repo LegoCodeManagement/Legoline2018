@@ -62,7 +62,7 @@ array = ones(1,10)*GetLight(port,nxt);
 avg = mean(array);
 while (fstatus.Data(1) == 49)
 
-	waitForDetectionExit(nxtM2, SENSOR_1, ambientLight2, 4, Mthreshold);
+	waitForDetectionExit(nxtM2, SENSOR_1, 4, Mthreshold);
 	
 	k=k+1;
 	disp(['pallet detected. Pallets on mainline 2: ',num2str(m2.Data(1)-48)]);
