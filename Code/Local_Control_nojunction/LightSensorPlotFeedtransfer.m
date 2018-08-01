@@ -25,7 +25,7 @@ movePalletT = NXTMotor(MOTOR_A);
 movePalletT.Power = -40; 
 movePalletT.SpeedRegulation = 0;
 
-n=500;
+n=300;
 
 x=linspace(0,5,n);    
 y1  = zeros(1, n); stdarray1 = zeros(1,7);
