@@ -8,5 +8,6 @@ movePallet.SendToNXT(nxt);
 
 waitForDetectionExit(nxt, port, currentValue, timeOut, threshold);
 
+pause(0.3);
 movePallet.Stop('off', nxt);
 end
