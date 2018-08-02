@@ -12,7 +12,7 @@ Splitter1 001653132A78
 Upstream 0016530EE120
 
 Speed_Settings:
-SPEED_S 40
+SPEED_S 30
 SPEED_T 40
 SPEED_M 40
 SPEED_F 40
@@ -29,22 +29,22 @@ T2armwait 0.6
 T3armwait 0.6
 
 Feed_Frequencies
-T_U 6
+T_U 12
 T_F1 8
 T_F2 7
 T_F3 13
 
 Pallet_has_left delay:
-M1delay 7
-M2delay 7
-T1delay 3
-T2delay 3
-Udelay 1.3
+M1delay 4.6
+M2delay 4.6
+T1delay 4
+T2delay 4
+Udelay 1.5
 
 STD_Light_sensor_threshold_for_detection
-Mthreshold 15
+Mthreshold 25
 Tthreshold 30
-Uthreshold 5
+Uthreshold 15
 Fthreshold 60
 
 timeOut_for_pallet_detection

@@ -58,7 +58,7 @@ clearPalletM = [timer('TimerFcn', 'm2.Data(1) = m2.Data(1) - 1;', 'StartDelay', 
 %If not detected before timeout, display error.
 
 k=0;
-array = ones(1,10)*GetLight(port,nxt);
+array = ones(1,10)*GetLight(SENSOR_1,nxtM2);
 avg = mean(array);
 while (fstatus.Data(1) == 49)
 

@@ -11,23 +11,26 @@ COM_CloseNXT('all');
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(1) = 48;
 
-for i=1:1:11
+for i=1:1:12
     fstatus.Data(i) = 48;
 end
 
 run initialise
 
-%!matlab  -nodesktop -minimize -nosplash -r Local_display&
-!matlab  -nodesktop -minimize -nosplash -r Local_feed1&
-!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&
-%!matlab  -nodesktop -minimize -nosplash -r Local_mainline1&
-%!matlab  -nodesktop -minimize -nosplash -r Local_upstream&
+
+!matlab  -nodesktop -minimize -nosplash -r Local_display&
+%!matlab  -nodesktop -minimize -nosplash -r Local_feed1&
+%!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&
+!matlab  -nodesktop -minimize -nosplash -r Local_mainline1&
+!matlab  -nodesktop -minimize -nosplash -r Local_upstream&
 %!matlab  -nodesktop -minimize -nosplash -r Local_feed2&
 %!matlab  -nodesktop -minimize -nosplash -r Local_transfer2&
-%!matlab  -nodesktop -minimize -nosplash -r Local_mainline2&
+!matlab  -nodesktop -minimize -nosplash -r Local_mainline2&
 %!matlab  -nodesktop -minimize -nosplash -r Local_feed3&
 %!matlab  -nodesktop -minimize -nosplash -r Local_transfer3&
-%!matlab  -nodesktop -minimize -nosplash -r Local_mainline3&
+!matlab  -nodesktop -minimize -nosplash -r Local_mainline3&
+
+!matlab  -nodesktop -minimize -nosplash -r Local_splitter&
 
 u = memmapfile('count_u.txt', 'Writable', true,'Format','int8');
 m1 = memmapfile('count_m1.txt', 'Writable', true,'Format','int8');
@@ -141,7 +144,7 @@ for i=1:100
 			otherwise
 				disp('Feed3: Error');
 		end
-        %{
+        
 		switch fstatus.Data(12)
 			case 48
 				disp('Splitter1:......');
@@ -152,7 +155,7 @@ for i=1:100
 			otherwise
 				disp('Splitter1: Error');
 		end
-        %}
+        
 		
 	elseif result == 1
 		fstatus.Data(1) = 50; %Let all the other MATLAB instances know that we are shutting down
