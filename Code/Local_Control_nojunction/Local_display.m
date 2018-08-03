@@ -13,8 +13,6 @@ while fstatus.Data(1) == 48
 end
 %i=0;
 while (fstatus.Data(1) == 49)
-    disp(['Feed line: ', num2str(b1.Data(1)-48)]);
-    disp(['Transfer line: ', num2str(b1.Data(2)-48)]);
 	disp(['Pallets on Upstream: ', num2str(u.Data(1)-48)]);
     disp(['Pallets on Main 1: ', num2str(m1.Data(1)-48)]);
     disp(['Pallets on Main 2: ', num2str(m2.Data(1)-48)]);

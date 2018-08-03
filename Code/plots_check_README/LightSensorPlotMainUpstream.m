@@ -33,7 +33,7 @@ stdarray2 = zeros(1,7);
 for i=1:1:300
     [y1(i),y3(i),stdarray1,array1] = averagestd(nxtM1,SENSOR_1,stdarray1,array1);
     [y2(i),y4(i),stdarray2,array2] = averagestd(nxtU,SENSOR_2,stdarray2,array2);
-    pause(0.04);
+    pause(0.02);
 end
 movePalletM.Stop('off', nxtM1);
 movePalletU.Stop('off', nxtU);
