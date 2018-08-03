@@ -13,8 +13,10 @@ b2.Data(1) = 48;
 b2.Data(2) = 48;
 b3.Data(1) = 48;
 b3.Data(2) = 48;
-u.Data(1) = 48;
-m1.Data(1) = 48;
-m2.Data(1) = 48;
+for i = 1:1:length(u.Data)
+	u.Data(i) = 48;
+	m1.Data(i) = 48;
+	m2.Data(i) = 48;
+end
 
 disp('values have been reset');
