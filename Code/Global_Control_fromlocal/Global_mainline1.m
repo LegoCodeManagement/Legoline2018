@@ -3,7 +3,7 @@ addpath RWTHMindstormsNXT;
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(3) = 49;
 %j2 = memmapfile('junction2.txt', 'Writable', true);
-m1 = memmapfile('m1.txt', 'Writable', true, 'Format', 'int8');
+m1 = memmapfile('count_m1.txt', 'Writable', true, 'Format', 'int8');
 m1.Data(1) = 48;
 wait = memmapfile('wait.txt', 'Writable', true);
 
@@ -43,7 +43,7 @@ while (k<23) && (fstatus.Data(1) == 49)
 
 	if abs(GetLight(SENSOR_1, nxtM1) - ambientLight1) > 30 
 		k = k+1; 
-		m1.Data(1) = m1.Data(1) + 1;
+		%%%% upstream increments count_m1.txt
 		waitForPalletExit(nxtM1,SENSOR_1,ambientLight1,6)
 	end
 	
@@ -58,7 +58,9 @@ while (k<23) && (fstatus.Data(1) == 49)
 	end
 	
 	waitForDetectionExit(nxtM1,SENSOR_1,4,Mthreshold) %cant use timer incase mainline stops.
-	m1.Data(1) = m1.Data(1) - 1;
+	
+	addpallet(count_m1.Data(1),'count_m2.txt')
+	removepallet('count_m1.txt')
 	
 	%need to add: wait for pallet exit
 	pause(0.1); %prevents updating to quickly

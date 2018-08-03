@@ -58,7 +58,9 @@ while (k<12) && (fstatus.Data(1) == 49)
 				k=k+1;
 				wait.Data(3) = 49;						%tell upstream to stop
 				TransferArmRun(MOTOR_B, nxtT3, 105);
-				m3.Data(1) = m3.Data(1) + 1;
+				
+				addpallet(transferpallet3,'count_m3.txt')
+				
 				b3.Data(2) = b3.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
 				pause(0.8);
 				TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
@@ -72,13 +74,24 @@ while (k<12) && (fstatus.Data(1) == 49)
 
 				k=k+1;
 				TransferArmRun(MOTOR_B, nxtT3, 105);
-				m3.Data(1) = m3.Data(1) + 1;
+				
+				addpallet(transferpallet3,'count_m3.txt')
+				
 				b3.Data(2) = b3.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
 				pause(0.8);
 				TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
 			
 			end
+		else
+			TransferArmRun(MOTOR_B, nxtT3, 105);
+			
+			addpallet(transferpallet3,'count_m3.txt')
+			
+			b3.Data(2) = b3.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
+			pause(0.8);
+			TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);		
         end
+   
     end
 	pause(0.2);
 end

@@ -20,8 +20,8 @@ OpenLight(SENSOR_1, 'ACTIVE', nxtT1);
 
 %allow feed to read and edit junction/buffer files
 b1 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
-m1 = memmapfile('m1.txt', 'Writable', true, 'Format', 'int8');
-u1 = memmapfile('u1.txt', 'Writable', true, 'Format', 'int8');
+m1 = memmapfile('count_m1.txt', 'Writable', true, 'Format', 'int8');
+u1 = memmapfile('count_u1.txt', 'Writable', true, 'Format', 'int8');
 wait = memmapfile('wait.txt', 'Writable', true);
 global wait
 priority = memmapfile('priority.txt', 'Writable', true);
@@ -61,7 +61,9 @@ while (k<12) && (fstatus.Data(1) == 49)
 				k=k+1;
 				wait.Data(1) = 49;						%tell upstream to stop
 				TransferArmRun(MOTOR_B, nxtT1, 105);
-				m1.Data(1) = m1.Data(1) + 1;
+				
+				addpallet(transferpallet1,'count_m1.txt')
+				
 				b1.Data(2) = b1.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
 				pause(0.8);
 				TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
@@ -75,12 +77,25 @@ while (k<12) && (fstatus.Data(1) == 49)
 
 				k=k+1;
 				TransferArmRun(MOTOR_B, nxtT1, 105);
-				m1.Data(1) = m1.Data(1) + 1;
+				
+				addpallet(transferpallet1,'count_m1.txt')
+				
 				b1.Data(2) = b1.Data(2) - 1; %remove one pallet from transfer line section of buffer
 				pause(0.8);
 				TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
 			
 			end
+			
+		else
+			TransferArmRun(MOTOR_B, nxtT1, 105);
+			
+			addpallet(transferpallet1,'count_m1.txt')
+			
+			b1.Data(2) = b1.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
+			pause(0.8);
+			TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
+			
+			
         end
     end
 	pause(0.2);

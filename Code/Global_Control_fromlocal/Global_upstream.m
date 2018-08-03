@@ -26,6 +26,8 @@ u1 = memmapfile('u1.txt', 'Writable', true, 'Format', 'int8');
 u1.Data(1) = 48;
 disp(j1.Data(1));
 
+upstreampallet = 48;
+
 OpenLight(SENSOR_2,'ACTIVE',nxtU);
 OpenSwitch(SENSOR_1,nxtU);
 fstatus.Data(2) = 50; %ready
@@ -38,7 +40,9 @@ currentValueU = GetLight(SENSOR_2,nxtU);
 
 %feed all the pallets or until told to stop.
 feedPallet(nxtF1, SENSOR_1, MOTOR_A); %so that feed starts immediately
-u1.Data(1) = u1.Data(1) + 1;
+
+addpallet(upstreampallet,'count_u1.txt')
+			
 tic;
 k=0;
 while (k<12) && (fstatus.Data(1) == 49)
@@ -47,7 +51,9 @@ while (k<12) && (fstatus.Data(1) == 49)
 		clear toc
 		tic;
 		feedPallet(nxtU,SENSOR_1,MOTOR_A);
-        u1.Data(1) = u1.Data(1) + 1;
+		
+		addpallet(upstreampallet,'count_u1.txt')
+		
 		k=k+1;
         if fstatus.Data(1) ~= 49
             break
@@ -55,7 +61,10 @@ while (k<12) && (fstatus.Data(1) == 49)
         end
 		movePalletToLightSensorU(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,16);
 		pause(0.2)
-		u1.Data(1) = u1.Data(1) - 1;
+		
+		removepallet('count_u1.txt')
+		
+		addpallet(upstream,'count_m1.txt')
 		
 	end
 	pause(0.1)
