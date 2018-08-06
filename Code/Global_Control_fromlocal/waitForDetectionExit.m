@@ -8,7 +8,7 @@ tic;
 
 while stdavg < threshold
 	[stdavg,avg,stdarray,array] = averagestd(nxt,port,stdarray,array);
-    pause(0.1)
+    pause(0.02)
     
     checkTimeOut(timeOut)
     
@@ -18,7 +18,7 @@ tic;
 
 while stdavg > threshold*0.5
 	[stdavg,avg,stdarray,array] = averagestd(nxt,port,stdarray,array);
-    pause(0.1)
+    pause(0.02)
     
     checkTimeOut(timeOut)
     

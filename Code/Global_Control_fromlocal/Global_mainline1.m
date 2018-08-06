@@ -15,6 +15,8 @@ fclose(config);
 %retrieve parameters
 power = str2double(out{2}(strcmp('SPEED_M',out{1})));
 M1addr = char(out{2}(strcmp('Main1',out{1})));
+M1delay = str2double(out{2}(strcmp('M1delay',out{1})));	
+Mthreshold = str2double(out{2}(strcmp('Mthreshold',out{1})));	
 %open connection and activate sensors
 nxtM1 = COM_OpenNXTEx('USB', M1addr);
 OpenLight(SENSOR_1, 'ACTIVE', nxtM1);
@@ -57,10 +59,10 @@ while (k<23) && (fstatus.Data(1) == 49)
 		mainline.SendToNXT(nxtM1);
 	end
 	
-	waitForDetectionExit(nxtM1,SENSOR_1,4,Mthreshold) %cant use timer incase mainline stops.
-	
-	addpallet(m1.Data(1),'count_m2.txt')
+	waitForDetectionExit(nxtM1,SENSOR_2,4,Mthreshold) %cant use timer incase mainline stops.
 	removepallet('count_m1.txt')
+	addpallet(m1.Data(1),'count_m2.txt')
+	
 	
 	%need to add: wait for pallet exit
 	pause(0.1); %prevents updating to quickly

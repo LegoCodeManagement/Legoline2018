@@ -40,8 +40,8 @@ currentLight3 = GetLight(SENSOR_3, nxtT2);
 
 k=0;
 %run for 11 pallets or until told to stop
-transferpallet2 = 50;
-upstreampallet = 48;
+transferpallet2 = 51;
+upstreampallet = 49;
 
 while (k<12) && (fstatus.Data(1) == 49)
     if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 100) %triggers if pallet is detected

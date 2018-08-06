@@ -12,6 +12,8 @@ power = str2double(out{2}(strcmp('SPEED_T',out{1})));
 T1addr = char(out{2}(strcmp('Transfer1',out{1})));
 T1angle = str2double(out{2}(strcmp('T1angle',out{1})));
 T1delay = str2double(out{2}(strcmp('T1delay',out{1})));	
+T1armwait	= str2double(out{2}(strcmp('T1armwait',out{1})));
+Tthreshold = str2double(out{2}(strcmp('Tthreshold',out{1})));	
 %open connection and activate sensors
 nxtT1 = COM_OpenNXTEx('USB', T1addr);
 OpenLight(SENSOR_3, 'ACTIVE', nxtT1);
@@ -40,17 +42,17 @@ currentLight3 = GetLight(SENSOR_3, nxtT1);
 
 k=0;
 %run for 11 pallets or until told to stop
-transferpallet1 = 49;
-upstreampallet = 48;
+transferpallet1 = 50;
+upstreampallet = 49;
 
 while (k<12) && (fstatus.Data(1) == 49)
 
 	if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 100) %triggers if pallet is detected
 		b1.Data(2) = b1.Data(2) + 1;
-		movePalletToLightSensorT(MOTOR_A, -power, nxtT1, SENSOR_3, currentLight3, 10, 20);
+		movePalletToLightSensor(MOTOR_A, -power, nxtT1, SENSOR_3, currentLight3, 10, Tthreshold);
 		
 		while m1.Data(1) > 48
-			pause(0.25);
+			pause(0.1);
 			disp('mainline is busy')
 		end
 		
@@ -70,9 +72,9 @@ while (k<12) && (fstatus.Data(1) == 49)
 				wait.Data(1) = 48; 						%tell upstream to resume
 		
 			else
-				while (u1.Data(1)>48) && (m1.Data(1)>48) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
-					pause(0.5);
-					disp('upstream is busy')
+				while (u1.Data(1)>48) || (m1.Data(1)>48) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
+					pause(0.3);
+					disp('upstream/main is busy')
 				end
 
 				k=k+1;
@@ -98,7 +100,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 			
         end
     end
-	pause(0.2);
+	pause(0.1);
 end
 
 disp('Transfer 1 STOPPED');

@@ -18,15 +18,15 @@ power = str2double(out{2}(strcmp('SPEED_U',out{1})));
 Uaddr = char(out{2}(strcmp('Upstream',out{1})));
 Udelay = str2double(out{2}(strcmp('Udelay',out{1})));	
 T_U = str2double(out{2}(strcmp('T_U',out{1})));	
+Uthreshold = str2double(out{2}(strcmp('Uthreshold',out{1})));	
 nxtU = COM_OpenNXTEx('USB', Uaddr);
 
 %establish memory map to junction file
 %j1 = memmapfile('Junction1.txt','Writable',true);
-u1 = memmapfile('u1.txt', 'Writable', true, 'Format', 'int8');
+u1 = memmapfile('count_u1.txt', 'Writable', true, 'Format', 'int8');
 u1.Data(1) = 48;
-disp(j1.Data(1));
 
-upstreampallet = 48;
+upstreampallet = 49;
 
 OpenLight(SENSOR_2,'ACTIVE',nxtU);
 OpenSwitch(SENSOR_1,nxtU);
@@ -38,11 +38,8 @@ while fstatus.Data(1) == 48
 end
 currentValueU = GetLight(SENSOR_2,nxtU);
 
-%feed all the pallets or until told to stop.
-feedPallet(nxtF1, SENSOR_1, MOTOR_A); %so that feed starts immediately
-
-addpallet(upstreampallet,'count_u1.txt')
-			
+upstreampallet = 49;
+toc = T_U + 1;
 tic;
 k=0;
 while (k<12) && (fstatus.Data(1) == 49)
@@ -59,12 +56,11 @@ while (k<12) && (fstatus.Data(1) == 49)
             break
             disp('break');
         end
-		movePalletToLightSensorU(MOTOR_B,power,nxtU,SENSOR_2,currentValueU,20,16);
-		pause(0.2)
+		movePalletPastLSupstream(MOTOR_B,power,nxtU,SENSOR_2,3,Uthreshold);
 		
-		removepallet('count_u1.txt')
-		
-		addpallet(upstream,'count_m1.txt')
+		addpallet(upstreampallet,'count_m1.txt')
+        pause(0.1);
+        removepallet('count_u1.txt')
 		
 	end
 	pause(0.1)

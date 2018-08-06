@@ -29,8 +29,8 @@ T2armwait 0.6
 T3armwait 0.6
 
 Feed_Frequencies
-T_U 6
-T_F1 8
+T_U 7
+T_F1 6
 T_F2 7
 T_F3 13
 
@@ -51,7 +51,6 @@ timeOut_for_pallet_detection
 timeOut 5
 
 Timing_Values:
-
 
 MainlinePass 14
 PalletUnloadPause 5
