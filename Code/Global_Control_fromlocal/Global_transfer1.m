@@ -73,7 +73,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 		
 			else
 				while (u1.Data(1)>48) || (m1.Data(1)>48) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
-					pause(0.3);
+					pause(0.1);
 					disp('upstream/main is busy')
 				end
 
@@ -97,7 +97,6 @@ while (k<12) && (fstatus.Data(1) == 49)
 			pause(0.8);
 			TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
 			
-			
         end
     end
 	pause(0.1);
@@ -105,7 +104,7 @@ end
 
 disp('Transfer 1 STOPPED');
 delete(timerfind);
-clearvars j1 j2 b1;
+clearvars m1 b1 u1;
 CloseSensor(SENSOR_1, nxtT1);
 CloseSensor(SENSOR_2, nxtT1);
 CloseSensor(SENSOR_3, nxtT1);

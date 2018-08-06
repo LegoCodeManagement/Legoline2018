@@ -10,7 +10,15 @@ while stdavg < threshold
 	[stdavg,avg,stdarray,array] = averagestd(nxt,port,stdarray,array);
     pause(0.02)
     
-    checkTimeOut(timeOut)
+    if wait.Data(2) == 1
+		mainline.Stop('off', nxtM1);
+		while wait.Data(2) == 1
+			pause(0.2);
+		end
+		mainline.SendToNXT(nxtM1);
+	end
+    
+    %checkTimeOut(timeOut)
     
 end
 
@@ -20,7 +28,7 @@ while stdavg > threshold*0.5
 	[stdavg,avg,stdarray,array] = averagestd(nxt,port,stdarray,array);
     pause(0.02)
     
-    checkTimeOut(timeOut)
+    %checkTimeOut(timeOut)
     
 end
 

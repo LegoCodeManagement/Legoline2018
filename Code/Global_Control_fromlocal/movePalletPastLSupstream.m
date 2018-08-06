@@ -12,6 +12,7 @@ stdavg = mean(stdarray)
 tic;
 
 while stdavg < threshold
+
     if wait.Data(1) == 49
 		movePallet.Stop('off',nxt);
 		while wait.Data(1) == 49
