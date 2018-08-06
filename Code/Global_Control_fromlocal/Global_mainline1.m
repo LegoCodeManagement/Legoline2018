@@ -59,7 +59,7 @@ while (k<23) && (fstatus.Data(1) == 49)
 	
 	waitForDetectionExit(nxtM1,SENSOR_1,4,Mthreshold) %cant use timer incase mainline stops.
 	
-	addpallet(count_m1.Data(1),'count_m2.txt')
+	addpallet(m1.Data(1),'count_m2.txt')
 	removepallet('count_m1.txt')
 	
 	%need to add: wait for pallet exit

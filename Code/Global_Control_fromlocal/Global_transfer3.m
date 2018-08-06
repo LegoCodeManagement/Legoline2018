@@ -53,7 +53,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 		
 		if m2.Data(1) > 48
 	
-			if checkpriority(transferpallet3,upstreampallet)
+			if checkpriority(transferpallet3,m2.Data(1))
 			
 				k=k+1;
 				wait.Data(3) = 49;						%tell upstream to stop
