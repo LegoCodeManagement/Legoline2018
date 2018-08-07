@@ -5,14 +5,14 @@
 
 Uaddr = '0016530EE120';
 nxtU = COM_OpenNXTEx('USB', Uaddr);
-nxtM1Addr = '0016530EE594';
-nxtM1 = COM_OpenNXTEx('USB', nxtM1Addr);
-nxtM2Addr = '001653118AC9';
-nxtM2 = COM_OpenNXTEx('USB', nxtM2Addr);
-nxtM3Addr = '001653118B91';
-nxtM3 = COM_OpenNXTEx('USB', nxtM3Addr);
-nxtSAddr = '001653132A78';
-nxtS = COM_OpenNXTEx('USB', nxtSAddr);
+M1Addr = '0016530EE594';
+nxtM1 = COM_OpenNXTEx('USB', M1Addr);
+M2Addr = '001653118AC9';
+nxtM2 = COM_OpenNXTEx('USB', M2Addr);
+M3Addr = '001653118B91';
+nxtM3 = COM_OpenNXTEx('USB', M3Addr);
+SAddr = '001653132A78';
+nxtS = COM_OpenNXTEx('USB', SAddr);
 
 OpenLight(SENSOR_2, 'ACTIVE', nxtU);
 OpenLight(SENSOR_1, 'ACTIVE', nxtM1);
@@ -21,6 +21,8 @@ OpenLight(SENSOR_1, 'ACTIVE', nxtM3);
 OpenLight(SENSOR_2, 'ACTIVE', nxtM1);
 OpenLight(SENSOR_2, 'ACTIVE', nxtM2);
 OpenLight(SENSOR_2, 'ACTIVE', nxtM3);
+
+input('press ENTER to start');
 
 movePalletM = NXTMotor(MOTOR_A);
 movePalletM.Power = -40; 
