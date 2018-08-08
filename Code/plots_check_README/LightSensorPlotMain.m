@@ -1,4 +1,4 @@
-%Plot the value of light sensor against time when the pallet passes through
+--%Plot the value of light sensor against time when the pallet passes through
 %Notice that when two lights shine at each other their reading is different
 %Now I am using the difference > 10 method. If this method does not work
 %I will go back to setting thresholds for light sensors
@@ -21,6 +21,7 @@ OpenLight(SENSOR_1, 'ACTIVE', nxtM3);
 OpenLight(SENSOR_2, 'ACTIVE', nxtM1);
 OpenLight(SENSOR_2, 'ACTIVE', nxtM2);
 OpenLight(SENSOR_2, 'ACTIVE', nxtM3);
+OpenLight(SENSOR_2, 'ACTIVE', nxtS);
 
 input('press ENTER to start');
 

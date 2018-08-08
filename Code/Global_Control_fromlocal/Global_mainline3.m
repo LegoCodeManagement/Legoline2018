@@ -30,8 +30,20 @@ end
 
 mainline.SendToNXT(nxtM3);
 
-while fstatus.Data(1) == 49
-	pause(0.25);
+while (fstatus.Data(1) == 49)
+	%tic
+	[stdavg,avg,stdarray,array] = averagestd(nxtM3,SENSOR_2,stdarray,array);
+	
+	if stdavg > Mthreshold
+		pause(0.2)
+		bool = removepallet('count_m3.txt');
+		if bool == false
+			pause(0.1)
+		end
+		%checkTimeOut(timeOut)
+	end
+	
+	pause(0.1); %prevents updating to quickly
 end
 
 mainline.Stop('off', nxtM3);
