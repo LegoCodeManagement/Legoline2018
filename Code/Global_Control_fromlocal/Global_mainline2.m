@@ -34,9 +34,10 @@ ambientLight2 = GetLight(SENSOR_1, nxtM2);
 mainline.SendToNXT(nxtM2);
 %one timer for each pallet.
 
-k=0;
-%If pallet detected at start of mainline, wait for pallet to be detected at end.
-%If not detected before timeout, display error.
+array = ones(1,10)*GetLight(SENSOR_2,nxtM2);
+stdarray = zeros(1,7)
+stdavg = mean(stdarray)
+
 while (fstatus.Data(1) == 49)
 	%tic
 	[stdavg,avg,stdarray,array] = averagestd(nxtM2,SENSOR_2,stdarray,array);

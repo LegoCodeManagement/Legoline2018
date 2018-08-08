@@ -24,9 +24,9 @@ T2angle 19
 T3angle 13
 
 Transfer_Arm_Wait_Before_Reset
-T1armwait 0.6
-T2armwait 0.6
-T3armwait 0.6
+T1armwait 0.8
+T2armwait 0.8
+T3armwait 0.8
 
 Feed_Frequencies
 T_U 7

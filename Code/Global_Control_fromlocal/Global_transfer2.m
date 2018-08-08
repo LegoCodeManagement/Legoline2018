@@ -45,7 +45,7 @@ k=0;
 transferpallet2 = 51;
 upstreampallet = 49;
 
-while (k<12) && (fstatus.Data(1) == 49)
+while (fstatus.Data(1) == 49)
     if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 100) %triggers if pallet is detected
 		b2.Data(2) = b2.Data(2) + 1;
 		movePalletToLightSensorT(MOTOR_A, -power, nxtT2, SENSOR_3, currentLight3, 10, Tthreshold);
@@ -66,7 +66,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 				addpallet(transferpallet2,'count_m2.txt')
 				
 				b2.Data(2) = b2.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
-				pause(0.8);
+				pause(T2armwait);
 				TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);
 				wait.Data(2) = 48; 						%tell upstream to resume
 		
@@ -82,7 +82,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 				addpallet(transferpallet2,'count_m2.txt')
 				
 				b2.Data(2) = b2.Data(2) - 1; %remove one pallet from transfer line section of buffer
-				pause(0.8);
+				pause(T2armwait);
 				TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);
 			
 			end
@@ -93,7 +93,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 			addpallet(transferpallet2,'count_m2.txt')
 			
 			b2.Data(2) = b2.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
-			pause(0.8);
+			pause(T2armwait);
 			TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);	
 			
         end
