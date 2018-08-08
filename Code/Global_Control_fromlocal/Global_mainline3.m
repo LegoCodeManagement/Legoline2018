@@ -14,7 +14,7 @@ fclose(config);
 power = str2double(out{2}(strcmp('SPEED_M',out{1})));
 M3addr = char(out{2}(strcmp('Main3',out{1})));
 %open connection and activate sensors
-nxtM3 = COM_OpenNXTEx('USB', Uaddr);
+nxtM3 = COM_OpenNXTEx('USB', M3addr);
 OpenLight(SENSOR_1, 'ACTIVE', nxtM3);
 OpenLight(SENSOR_2, 'ACTIVE', nxtM3);
 
@@ -39,4 +39,4 @@ disp('Main 3 STOPPED');
 CloseSensor(SENSOR_1, nxtM3);
 CloseSensor(SENSOR_2, nxtM3);
 COM_CloseNXT(nxtM3);
-
+quit;

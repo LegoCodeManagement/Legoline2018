@@ -42,13 +42,15 @@ while (fstatus.Data(1) == 49)
 	[stdavg,avg,stdarray,array] = averagestd(nxtM1,SENSOR_2,stdarray,array);
 	
 	if stdavg > Mthreshold
-		pause(0.2)
 		addpallet(m1.Data(1),'count_m2.txt')
-		pause(0.1)
-		removepallet('count_m1.txt')
+		pause(0.2)
+		bool = removepallet('count_m1.txt');
+		if bool == false
+			pause(0.1)
+		end
 		%checkTimeOut(timeOut)
 	end
-	
+
 	if wait.Data(2) == 1
 		mainline.Stop('off', nxtM1);
 		while wait.Data(2) == 1

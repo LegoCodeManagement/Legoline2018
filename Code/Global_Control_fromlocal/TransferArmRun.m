@@ -6,5 +6,5 @@ function result = runTransferArm(motor, nxt, degree)
     transfer.ActionAtTachoLimit='brake';
     transfer.SendToNXT(nxt);
     result = transfer.WaitFor(4, nxt);
-    transfer.Stop('off', nxt);
+    transfer.Stop('on', nxt);
 end

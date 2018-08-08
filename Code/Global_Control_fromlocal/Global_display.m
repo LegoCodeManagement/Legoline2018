@@ -13,7 +13,6 @@ while fstatus.Data(1) == 48
 end
 %i=0;
 while (fstatus.Data(1) == 49)
-    disp(['Pallets on Buffer 1: ', num2str(transpose(b1.Data-48))]);
 	disp(['Pallets on Upstream: ', num2str(transpose(u1.Data-48))]);
     disp(['Pallets on Main 1: ', num2str(transpose(m1.Data-48))]);
     disp(['Pallets on Main 2: ', num2str(transpose(m2.Data-48))]);

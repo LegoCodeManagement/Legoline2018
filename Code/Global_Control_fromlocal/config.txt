@@ -12,14 +12,14 @@ Splitter1 001653132A78
 Upstream 0016530EE120
 
 Speed_Settings:
-SPEED_S 40
-SPEED_T 40
-SPEED_M 40
-SPEED_F 40
-SPEED_U 40
+SPEED_S 48
+SPEED_T 45
+SPEED_M 45
+SPEED_F 45
+SPEED_U 48
 
 Transfer_Arm_Calibration_Angles:
-T1angle 23
+T1angle 21
 T2angle 19
 T3angle 13
 

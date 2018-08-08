@@ -45,7 +45,7 @@ while (fstatus.Data(1) == 49)
 	if stdavg > Mthreshold
 		pause(0.2)
 		addpallet(m2.Data(1),'count_m3.txt')
-		pause(0.1)
+		pause(0.2)
 		removepallet('count_m2.txt')
 		%checkTimeOut(timeOut)
 	end

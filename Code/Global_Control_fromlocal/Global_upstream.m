@@ -59,7 +59,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 		movePalletPastLSupstream(MOTOR_B,power,nxtU,SENSOR_2,3,Uthreshold);
 		
 		addpallet(upstreampallet,'count_m1.txt')
-        pause(0.1);
+        pause(0.3);
         removepallet('count_u1.txt')
 		
 	end
