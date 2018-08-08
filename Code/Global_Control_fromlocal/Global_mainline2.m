@@ -42,7 +42,7 @@ while (fstatus.Data(1) == 49)
 	%tic
 	[stdavg,avg,stdarray,array] = averagestd(nxtM2,SENSOR_2,stdarray,array);
 	
-	if stdavg > threshold
+	if stdavg > Mthreshold
 		pause(0.2)
 		addpallet(m2.Data(1),'count_m3.txt')
 		pause(0.1)
@@ -68,3 +68,4 @@ delete(timerfind);%Remove all timers from memory
 CloseSensor(SENSOR_1, nxtM2);
 CloseSensor(SENSOR_2, nxtM2);
 COM_CloseNXT(nxtM2);
+quit;

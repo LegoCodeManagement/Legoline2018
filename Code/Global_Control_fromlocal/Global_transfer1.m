@@ -54,6 +54,10 @@ while (fstatus.Data(1) == 49)
 		while m1.Data(1) > 48
 			pause(0.1);
 			disp('mainline is busy')
+			if fstatus.Data(1) ~= 49
+                disp('break');
+				break
+            end
 		end
 		
 		if u1.Data(1) > 48
@@ -109,3 +113,4 @@ CloseSensor(SENSOR_1, nxtT1);
 CloseSensor(SENSOR_2, nxtT1);
 CloseSensor(SENSOR_3, nxtT1);
 COM_CloseNXT(nxtT1);
+quit;

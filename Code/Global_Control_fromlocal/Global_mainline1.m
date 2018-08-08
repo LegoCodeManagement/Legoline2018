@@ -34,14 +34,14 @@ mainline.SendToNXT(nxtM1);
 %one timer for each pallet.
 
 array = ones(1,10)*GetLight(SENSOR_2,nxtM1);
-stdarray = zeros(1,7)
-stdavg = mean(stdarray)
+stdarray = zeros(1,7);
+stdavg = mean(stdarray);
 
 while (fstatus.Data(1) == 49)
 	%tic
 	[stdavg,avg,stdarray,array] = averagestd(nxtM1,SENSOR_2,stdarray,array);
 	
-	if stdavg > threshold
+	if stdavg > Mthreshold
 		pause(0.2)
 		addpallet(m1.Data(1),'count_m2.txt')
 		pause(0.1)
@@ -67,3 +67,4 @@ delete(timerfind); %Remove all timers from memory
 CloseSensor(SENSOR_1, nxtM1);
 CloseSensor(SENSOR_2, nxtM1);
 COM_CloseNXT(nxtM1);
+quit;

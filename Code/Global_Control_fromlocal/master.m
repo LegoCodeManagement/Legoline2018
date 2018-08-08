@@ -24,7 +24,7 @@ run initialise
 !matlab  -nodesktop -minimize -nosplash -r Global_upstream&
 %!matlab  -nodesktop -minimize -nosplash -r Global_feed2&
 %!matlab  -nodesktop -minimize -nosplash -r Global_transfer2&
-%!matlab  -nodesktop -minimize -nosplash -r Global_mainline2&
+!matlab  -nodesktop -minimize -nosplash -r Global_mainline2&
 %!matlab  -nodesktop -minimize -nosplash -r Global_feed3&
 %!matlab  -nodesktop -minimize -nosplash -r Global_transfer3&
 %!matlab  -nodesktop -minimize -nosplash -r Global_mainline3&
@@ -161,7 +161,6 @@ for i=1:100
 		clear result;
 		clear fstatusStatus;
 		clear fileConfig;
-		quit;
 	elseif result == 2
         break 
     %{
@@ -183,4 +182,4 @@ input('press ENTER to start Legoline');
 fstatus.Data(1) = 49;
 input('press ENTER to stop Legoline');
 fstatus.Data(1) = 50;
-
+COM_CloseNXT('all')
