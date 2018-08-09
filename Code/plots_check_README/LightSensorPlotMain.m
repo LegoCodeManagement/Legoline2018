@@ -33,7 +33,7 @@ movePalletU = NXTMotor(MOTOR_B);
 movePalletU.Power = 35; 
 movePalletU.SpeedRegulation = 0;
 
-n=500;
+n=400;
 m=7;
 k=10;
 x=linspace(0,5,n);    
@@ -65,7 +65,7 @@ for i=1:1:n
     [y5(i),y12(i),stdarray5,array5] = averagestd(nxtM2,SENSOR_2,stdarray5,array5);
     [y6(i),y13(i),stdarray6,array6] = averagestd(nxtM3,SENSOR_1,stdarray6,array6);
     [y7(i),y14(i),stdarray7,array7] = averagestd(nxtM3,SENSOR_2,stdarray7,array7);
-    pause(0.03);
+    pause(0.04);
 
 end
 movePalletU.Stop('off', nxtU);
