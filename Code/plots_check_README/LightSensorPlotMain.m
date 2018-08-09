@@ -1,4 +1,4 @@
---%Plot the value of light sensor against time when the pallet passes through
+%Plot the value of light sensor against time when the pallet passes through
 %Notice that when two lights shine at each other their reading is different
 %Now I am using the difference > 10 method. If this method does not work
 %I will go back to setting thresholds for light sensors
@@ -33,8 +33,8 @@ movePalletU = NXTMotor(MOTOR_B);
 movePalletU.Power = 35; 
 movePalletU.SpeedRegulation = 0;
 
-n=400;
-m=5;
+n=500;
+m=7;
 k=10;
 x=linspace(0,5,n);    
 y1  = zeros(1, n); stdarray1 = zeros(1,m);
@@ -65,7 +65,7 @@ for i=1:1:n
     [y5(i),y12(i),stdarray5,array5] = averagestd(nxtM2,SENSOR_2,stdarray5,array5);
     [y6(i),y13(i),stdarray6,array6] = averagestd(nxtM3,SENSOR_1,stdarray6,array6);
     [y7(i),y14(i),stdarray7,array7] = averagestd(nxtM3,SENSOR_2,stdarray7,array7);
-    pause(0.04);
+    pause(0.03);
 
 end
 movePalletU.Stop('off', nxtU);
@@ -73,6 +73,7 @@ movePalletU.Stop('off', nxtS);
 movePalletM.Stop('off', nxtM1);
 movePalletM.Stop('off', nxtM2);
 movePalletM.Stop('off', nxtM3);
+data = transpose([x;y1;y2;y3;y4;y5;y6;y7]);
 figure
 plot(x,y1,x,y2,x,y3,x,y4,x,y5,x,y6,x,y7)
 legend('upstream','main1','main1','main2','main2','main3','main3')
@@ -88,4 +89,5 @@ CloseSensor(SENSOR_2, nxtM2);
 CloseSensor(SENSOR_1, nxtM3);
 CloseSensor(SENSOR_2, nxtM3);
 CloseSensor(SENSOR_2, nxtU);
+CloseSensor(SENSOR_2, nxtS);
 COM_CloseNXT('all');
