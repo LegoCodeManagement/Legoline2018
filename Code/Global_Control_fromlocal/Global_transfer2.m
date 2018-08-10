@@ -74,6 +74,11 @@ while (fstatus.Data(1) == 49)
 				while (m1.Data(1)>48) || (m2.Data(1)>48) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
 					pause(0.1);
 					disp('upstream is busy')
+					if fstatus.Data(1) ~= 49
+                		disp('break');
+						break
+            		end
+
 				end
 
 				k=k+1;
