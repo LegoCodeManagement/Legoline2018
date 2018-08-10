@@ -29,20 +29,23 @@ while fstatus.Data(1) == 48
 end
 
 mainline.SendToNXT(nxtM3);
+array = ones(1,10)*GetLight(SENSOR_2,nxtM3);
+stdarray = zeros(1,7)
+stdavg = mean(stdarray)
+ambient = array(1);
 
 while (fstatus.Data(1) == 49)
 	%tic
 	[stdavg,avg,stdarray,array] = averagestd(nxtM3,SENSOR_2,stdarray,array);
-	
-	if stdavg > Mthreshold
-		pause(0.2)
-		bool = removepallet('count_m3.txt');
-		if bool == false
-			pause(0.1)
+	if stdavg > 10
+		while stdavg > 10
+			pause(0.05)
+			[stdavg,avg,stdarray,array] = averagestd(nxtM3,SENSOR_2,stdarray,array);
 		end
-		%checkTimeOut(timeOut)
+		removepallet('count_m3.txt')
+		pause(0.08)
 	end
-	
+
 	pause(0.1); %prevents updating to quickly
 end
 

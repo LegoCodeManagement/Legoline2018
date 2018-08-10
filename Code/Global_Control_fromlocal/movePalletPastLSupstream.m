@@ -13,9 +13,9 @@ tic;
 
 while stdavg < threshold
 
-    if wait.Data(1) == 49
+    if (wait.Data(1) == 49) || (wait.Data(2) == 49)
 		movePallet.Stop('off',nxt);
-		while wait.Data(1) == 49
+		while (wait.Data(1) == 49) || (wait.Data(2) == 49) || (wait.Data(3) == 49)
 			pause(0.2);
 		end
 		movePallet.SendToNXT(nxt);

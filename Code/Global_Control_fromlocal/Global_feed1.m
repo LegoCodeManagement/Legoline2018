@@ -33,11 +33,13 @@ end
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
 %feed all the pallets or until told to stop.
-feedPallet(nxtF1, SENSOR_1, MOTOR_A); %so that feed starts immediately
-b1.Data(1) = b1.Data(1) + 1;
-pause(0.1)
-tic;
-k=0;
+if fstatus.Data(1) == 49
+	feedPallet(nxtF1, SENSOR_1, MOTOR_A); %so that feed starts immediately
+	b1.Data(1) = b1.Data(1) + 1;
+	pause(0.1)
+	tic;
+	k=0;
+end
 while (k<12) && (fstatus.Data(1) == 49) 
 	if (toc >= T_F1) %true if it's time to feed
 		switch b1.Data(1)

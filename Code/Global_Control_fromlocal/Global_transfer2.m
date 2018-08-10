@@ -46,9 +46,9 @@ transferpallet2 = 51;
 upstreampallet = 49;
 
 while (fstatus.Data(1) == 49)
-    if (abs(GetLight(SENSOR_1, nxtT1) - currentLight1) > 100) %triggers if pallet is detected
+    if (abs(GetLight(SENSOR_1, nxtT2) - currentLight1) > 100) %triggers if pallet is detected
 		b2.Data(2) = b2.Data(2) + 1;
-		movePalletToLightSensorT(MOTOR_A, -power, nxtT2, SENSOR_3, currentLight3, 10, Tthreshold);
+		movePalletToLightSensor(MOTOR_A, -power, nxtT2, SENSOR_3, currentLight3, 10, Tthreshold);
 		
 		while m2.Data(1) > 48
 			pause(0.1);
@@ -103,7 +103,7 @@ end
 
 disp('Transfer 2 STOPPED')
 delete(timerfind);
-clearvals m1 m2 b2;
+clearvars m1 m2 b2;
 CloseSensor(SENSOR_1, nxtT2);
 CloseSensor(SENSOR_2, nxtT2);
 CloseSensor(SENSOR_3, nxtT2);

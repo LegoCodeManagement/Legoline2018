@@ -36,27 +36,27 @@ mainline.SendToNXT(nxtM1);
 array = ones(1,10)*GetLight(SENSOR_2,nxtM1);
 stdarray = zeros(1,7);
 stdavg = mean(stdarray);
+ambient = array(1);
 
 while (fstatus.Data(1) == 49)
 	%tic
+	[stdavg,avg,stdarray,array] = averagestd(nxtM1,SENSOR_2,stdarray,array);
+	if stdavg > 10
+		addpallet(m1.Data(1),'count_m2.txt')
+		while stdavg > 10
+			pause(0.05)
+			[stdavg,avg,stdarray,array] = averagestd(nxtM1,SENSOR_2,stdarray,array);
+		end
+		removepallet('count_m1.txt')
+		pause(0.08)
+	end
+
 	if wait.Data(2) == 1
 		mainline.Stop('off', nxtM1);
 		while wait.Data(2) == 1
 			pause(0.2);
 		end
 		mainline.SendToNXT(nxtM1);
-	end
-	
-	[stdavg,avg,stdarray,array] = averagestd(nxtM1,SENSOR_2,stdarray,array);
-	ambient = avg;
-	if stdavg > Mthreshold
-		addpallet(m1.Data(1),'count_m2.txt')
-		pause(0.2)
-		while avg < ambient
-			[stdavg,avg,stdarray,array] = averagestd(nxtM1,SENSOR_2,stdarray,array);
-			pause(0.04)
-		end	
-		removepallet('count_m1.txt')
 	end
 
 	pause(0.1); %prevents updating to quickly

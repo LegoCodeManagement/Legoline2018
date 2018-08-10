@@ -34,8 +34,8 @@ movePalletU.Power = 35;
 movePalletU.SpeedRegulation = 0;
 
 n=400;
-m=7;
-k=10;
+m=5;
+k=7;
 x=linspace(0,5,n);    
 y1  = zeros(1, n); stdarray1 = zeros(1,m);
 y2  = zeros(1, n); stdarray2 = zeros(1,m);

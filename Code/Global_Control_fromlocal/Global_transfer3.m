@@ -22,6 +22,7 @@ OpenLight(SENSOR_1, 'ACTIVE', nxtT3);
 
 %allow feed to read and edit junction/buffer files
 m2 = memmapfile('count_m2.txt', 'Writable', true);
+m3 = memmapfile('count_m3.txt', 'Writable', true);
 b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
 wait = memmapfile('wait.txt', 'Writable', true);
 global wait
@@ -47,7 +48,7 @@ upstreampallet = 48;
 while (k<12) && (fstatus.Data(1) == 49)
     if (abs(GetLight(SENSOR_1, nxtT3) - currentLight1) > 100) %triggers if pallet is detected
 		b3.Data(2) = b3.Data(2) + 1;
-		movePalletToLightSensorT(MOTOR_A, -power, nxtT3, SENSOR_3, currentLight3, 10, Tthreshold);
+		movePalletToLightSensor(MOTOR_A, -power, nxtT3, SENSOR_3, currentLight3, 10, Tthreshold);
 		
 		while m3.Data(1) > 48
 			pause(0.25);
@@ -101,7 +102,7 @@ end
 
 disp('Transfer 3 STOPPED');
 delete(timerfind);
-clearvals m2 b3;
+clearvars m2 b3 m3;
 CloseSensor(SENSOR_1, nxtT3);
 CloseSensor(SENSOR_2, nxtT3);
 CloseSensor(SENSOR_3, nxtT3);
