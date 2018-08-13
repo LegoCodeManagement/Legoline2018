@@ -55,7 +55,7 @@ while (fstatus.Data(1) == 49)
 
 	if (wait.Data(2) == 49) || (wait.Data(3) == 49)
 		mainline.Stop('off', nxtM1);
-		while wait.Data(2) == 49
+		while (wait.Data(2) == 49) || (wait.Data(3) == 49)
 			pause(0.2);
 		end
 		mainline.SendToNXT(nxtM1);

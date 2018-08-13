@@ -53,6 +53,10 @@ while (k<12) && (fstatus.Data(1) == 49)
 		while m3.Data(1) > 48
 			pause(0.25);
 			disp('mainline is busy')
+			if fstatus.Data(1) ~= 49
+                disp('break');
+				break
+            end
 		end
 		
 		if m2.Data(1) > 48
@@ -73,7 +77,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 			else
 				while (m2.Data(1)>48) || (m3.Data(1)>48) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
 					pause(0.1);
-					disp('upstream is busy')
+					disp('mainline is busy')
 					if fstatus.Data(1) ~= 49
                 		disp('break');
 						break
@@ -111,3 +115,4 @@ CloseSensor(SENSOR_1, nxtT3);
 CloseSensor(SENSOR_2, nxtT3);
 CloseSensor(SENSOR_3, nxtT3);
 COM_CloseNXT(nxtT3);
+quit;

@@ -20,7 +20,7 @@ SPEED_U 42
 
 Transfer_Arm_Calibration_Angles:
 T1angle 21
-T2angle 16
+T2angle 13
 T3angle 13
 
 Transfer_Arm_Wait_Before_Reset
@@ -29,9 +29,9 @@ T2armwait 0.8
 T3armwait 0.8
 
 Feed_Frequencies
-T_U 9
-T_F1 8
-T_F2 7
+T_U 12
+T_F1 14
+T_F2 12
 T_F3 13
 
 Pallet_has_left delay:

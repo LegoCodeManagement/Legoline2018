@@ -113,3 +113,4 @@ CloseSensor(SENSOR_1, nxtT2);
 CloseSensor(SENSOR_2, nxtT2);
 CloseSensor(SENSOR_3, nxtT2);
 COM_CloseNXT(nxtT2);
+quit;
