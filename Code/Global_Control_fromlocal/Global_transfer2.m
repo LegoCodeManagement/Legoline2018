@@ -55,53 +55,48 @@ while (fstatus.Data(1) == 49)
 			disp('mainline is busy')
 		end
 		
-		if m1.Data(1) > 48
+		while b2.Data(2) > 48
+		
+			if m1.Data(1) > 48
 	
-			if checkpriority(transferpallet2,m1.Data(1)) %
+				if checkpriority(transferpallet2,m1.Data(1)) %
 			
-				k=k+1;
-				wait.Data(2) = 49;						%tell upstream to stop
-				TransferArmRun(MOTOR_B, nxtT2, 105);
+					k=k+1;
+					wait.Data(2) = 49;						%tell upstream to stop
+					TransferArmRun(MOTOR_B, nxtT2, 105);
 				
-				addpallet(transferpallet2,'count_m2.txt')
+					addpallet(transferpallet2,'count_m2.txt')
 				
-				b2.Data(2) = b2.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
-				pause(T2armwait);
-				TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);
-				wait.Data(2) = 48; 						%tell upstream to resume
+					b2.Data(2) = b2.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
+					pause(T2armwait);
+					TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);
+					wait.Data(2) = 48; 						%tell upstream to resume
+		
+				else
+			
+					while (m2.Data(1)>48) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
+						pause(0.1);
+						disp('upstream is busy')
+						if fstatus.Data(1) ~= 49
+							disp('break');
+							break
+						end
+					end
+				
+			
+				end
 		
 			else
-				while (m1.Data(1)>48) || (m2.Data(1)>48) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
-					pause(0.1);
-					disp('upstream is busy')
-					if fstatus.Data(1) ~= 49
-                		disp('break');
-						break
-            		end
-
-				end
-
-				k=k+1;
 				TransferArmRun(MOTOR_B, nxtT2, 105);
-				
+			
 				addpallet(transferpallet2,'count_m2.txt')
-				
-				b2.Data(2) = b2.Data(2) - 1; %remove one pallet from transfer line section of buffer
+			
+				b2.Data(2) = b2.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
 				pause(T2armwait);
-				TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);
+				TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);	
 			
 			end
-		
-		else
-			TransferArmRun(MOTOR_B, nxtT2, 105);
-			
-			addpallet(transferpallet2,'count_m2.txt')
-			
-			b2.Data(2) = b2.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
-			pause(T2armwait);
-			TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);	
-			
-        end
+		end
     end
 	pause(0.1);
 end
