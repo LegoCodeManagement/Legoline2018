@@ -30,13 +30,12 @@ while fstatus.Data(1) == 48
     pause(0.1);
 end
 
-ambientLight2 = GetLight(SENSOR_1, nxtM2);
 mainline.SendToNXT(nxtM2);
 %one timer for each pallet.
 
 array = ones(1,10)*GetLight(SENSOR_2,nxtM2);
-stdarray = zeros(1,7)
-stdavg = mean(stdarray)
+stdarray = zeros(1,7);
+stdavg = mean(stdarray);
 ambient = array(1);
 
 while (fstatus.Data(1) == 49)
