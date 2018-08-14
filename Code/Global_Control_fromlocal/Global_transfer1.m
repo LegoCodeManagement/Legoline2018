@@ -75,7 +75,7 @@ while (fstatus.Data(1) == 49)
 				wait.Data(1) = 48; 						%tell upstream to resume
 		
 			else
-				while u1.Data(1)>48) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
+				while u1.Data(1)>48 %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
 					pause(0.2);
 					disp('upstream/main is busy')
 				end

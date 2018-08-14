@@ -1,12 +1,12 @@
 COM_CloseNXT('all');
 disp('Running transfer 1');
-nxtT1Addr = '0016530AABDF';
+nxtT1Addr = '0016530EE129';
 nxtT1 = COM_OpenNXTEx('USB', nxtT1Addr);
 OpenLight(SENSOR_3, 'ACTIVE', nxtT1);
 OpenSwitch(SENSOR_2, nxtT1);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT1);
 
-resetTransferArm(MOTOR_B, SENSOR_2, nxtT1, 16);
+TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, 16);
 j = memmapfile('Junction1.txt', 'Writable', true);
 
 b = memmapfile('buffer.txt', 'Writable', true, 'Format', 'int8');
@@ -35,11 +35,11 @@ while k < 4
                 disp('mainline is busy')
                 disp(['mainline is busy, pallets:', num2str(j.Data(1))]);
 			end
-			runTransferArm(MOTOR_B, nxtT1, 105);
+			TransferArmRun(MOTOR_B, nxtT1, 105);
 			pause(0.5);
 			
 			
-    		resetTransferArm(MOTOR_B, SENSOR_2, nxtT1, 16);
+    		TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, 16);
             b.Data(2) = b.Data(2) - 1;
 			
             k=k+1;

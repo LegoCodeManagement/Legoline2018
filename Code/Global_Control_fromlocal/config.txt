@@ -45,7 +45,7 @@ STD_Light_sensor_threshold_for_detection
 Mthreshold 25
 Tthreshold 30
 Uthreshold 20
-Fthreshold 60
+Fthreshold 40
 
 timeOut_for_pallet_detection
 timeOut 5
