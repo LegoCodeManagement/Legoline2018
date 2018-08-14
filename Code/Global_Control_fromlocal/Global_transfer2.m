@@ -1,7 +1,16 @@
 addpath RWTHMindstormsNXT;
-%establish memory map to status.txt. 
-fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+
+%establish memory map to files
+b2 			= memmapfile('buffer2.txt', 'Writable', true, 'Format', 'int8');
+m1 			= memmapfile('count_m1.txt', 'Writable', true);
+m2		 	= memmapfile('count_m2.txt', 'Writable', true);
+wait 		= memmapfile('wait.txt', 'Writable', true);
+priority	= memmapfile('priority.txt', 'Writable', true);
+fstatus 	= memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(7) = 49;
+
+global wait
+global fstatus
 
 %open config file and save variable names and values column 1 and 2 respectively.
 config = fopen('config.txt','rt');
@@ -20,13 +29,8 @@ OpenLight(SENSOR_3, 'ACTIVE', nxtT2);
 OpenSwitch(SENSOR_2, nxtT2);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT2);
 
-%allow feed to read and edit junction/buffer files
-b2 = memmapfile('buffer2.txt', 'Writable', true, 'Format', 'int8');
-m1 = memmapfile('count_m1.txt', 'Writable', true);
-m2 = memmapfile('count_m2.txt', 'Writable', true);
-wait = memmapfile('wait.txt', 'Writable', true);
-global wait
-priority = memmapfile('priority.txt', 'Writable', true);
+
+
 
 TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);
 fstatus.Data(7) = 50;
@@ -74,7 +78,7 @@ while (fstatus.Data(1) == 49)
 		
 				else
 			
-					while (m2.Data(1)>48) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
+					while (m2.Data(1)>48) && (checkStop) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
 						pause(0.1);
 						disp('upstream is busy')
 						if fstatus.Data(1) ~= 49

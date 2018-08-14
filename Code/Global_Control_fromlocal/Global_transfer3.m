@@ -45,67 +45,55 @@ k=0;
 transferpallet3 = 51;
 upstreampallet = 48;
 
-while (k<12) && (fstatus.Data(1) == 49)
+while (fstatus.Data(1) == 49)
     if (abs(GetLight(SENSOR_1, nxtT3) - currentLight1) > 100) %triggers if pallet is detected
 		b3.Data(2) = b3.Data(2) + 1;
 		movePalletToLightSensor(MOTOR_A, -power, nxtT3, SENSOR_3, currentLight3, 10, Tthreshold);
 		
-		while m3.Data(1) > 48
-			pause(0.25);
+		while (m3.Data(1) > 48) && (checkStop)
+			pause(0.1);
 			disp('mainline is busy')
-			if fstatus.Data(1) ~= 49
-                disp('break');
-				break
-            end
 		end
 		
-		if m2.Data(1) > 48
+		while b3.Data(2) > 48
+		
+			if m2.Data(1) > 48
 	
-			if checkpriority(transferpallet3,m2.Data(1))
+				if checkpriority(transferpallet3,m2.Data(1)) %
 			
-				k=k+1;
-				wait.Data(3) = 49;						%tell upstream to stop
-				TransferArmRun(MOTOR_B, nxtT3, 105);
+					k=k+1;
+					wait.Data(3) = 49;						%tell upstream to stop
+					TransferArmRun(MOTOR_B, nxtT3, 105);
 				
-				addpallet(transferpallet3,'count_m3.txt')
+					addpallet(transferpallet3,'count_m3.txt')
 				
-				b3.Data(2) = b3.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
-				pause(0.8);
-				TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
-				wait.Data(3) = 48; 						%tell upstream to resume
+					b3.Data(2) = b3.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
+					pause(T3armwait);
+					TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
+					wait.Data(3) = 48; 						%tell upstream to resume
+		
+				else
+			
+					while (m3.Data(1)>48) && (checkStop) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
+						pause(0.1);
+						disp('upstream is busy')
+					end
+				
+				end
 		
 			else
-				while (m2.Data(1)>48) || (m3.Data(1)>48) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
-					pause(0.1);
-					disp('mainline is busy')
-					if fstatus.Data(1) ~= 49
-                		disp('break');
-						break
-            		end
-				end
-
-				k=k+1;
 				TransferArmRun(MOTOR_B, nxtT3, 105);
-				
+			
 				addpallet(transferpallet3,'count_m3.txt')
-				
+			
 				b3.Data(2) = b3.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
-				pause(0.8);
-				TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
+				pause(T3armwait);
+				TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);	
 			
 			end
-		else
-			TransferArmRun(MOTOR_B, nxtT3, 105);
-			
-			addpallet(transferpallet3,'count_m3.txt')
-			
-			b3.Data(2) = b3.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
-			pause(0.8);
-			TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);		
-        end
-   
+		end
     end
-	pause(0.2);
+	pause(0.1);
 end
 
 disp('Transfer 3 STOPPED');
