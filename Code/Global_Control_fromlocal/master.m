@@ -24,9 +24,9 @@ run initialise
 
 !matlab  -nodesktop -minimize -nosplash -r Global_upstream&
 
-!matlab  -nodesktop -minimize -nosplash -r Global_feed2&
-!matlab  -nodesktop -minimize -nosplash -r Global_transfer2&
-!matlab  -nodesktop -minimize -nosplash -r Global_mainline2&
+%!matlab  -nodesktop -minimize -nosplash -r Global_feed2&
+%!matlab  -nodesktop -minimize -nosplash -r Global_transfer2&
+%!matlab  -nodesktop -minimize -nosplash -r Global_mainline2&
 
 %!matlab  -nodesktop -minimize -nosplash -r Global_feed3&
 %!matlab  -nodesktop -minimize -nosplash -r Global_transfer3&

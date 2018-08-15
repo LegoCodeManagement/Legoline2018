@@ -60,24 +60,24 @@ while (fstatus.Data(1) == 49)
 		while stdavg < Uthreshold
 		
 			if (wait.Data(1) == 49) || (wait.Data(2) == 49) || (wait.Data(3) == 49)
-				movePallet.Stop('off',nxt);
+				movePallet.Stop('off',nxtU);
 				while ((wait.Data(1) == 49) || (wait.Data(2) == 49) || (wait.Data(3) == 49)) && (checkStop)
 					pause(0.2);
 				end
-				movePallet.SendToNXT(nxt);
+				movePallet.SendToNXT(nxtU);
 			end
 
-			[stdavg,avg,stdarray,array] = averagestd(nxt,port,stdarray,array);
+			[stdavg,avg,stdarray,array] = averagestd(nxtU,port,stdarray,array);
 			pause(0.02)
 			%checkTimeOut(timeOut)
 		end
 		%tic;
 		while stdavg > Uthreshold*0.5
-			[stdavg,avg,stdarray,array] = averagestd(nxt,port,stdarray,array);
+			[stdavg,avg,stdarray,array] = averagestd(nxtU,port,stdarray,array);
 			pause(0.02)
 			%checkTimeOut(timeOut)
 		end
-		movePallet.Stop('off', nxt);
+		movePallet.Stop('off', nxtU);
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		addpallet(upstreampallet,'count_m1.txt')
