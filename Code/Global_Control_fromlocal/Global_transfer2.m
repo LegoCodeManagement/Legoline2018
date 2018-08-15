@@ -1,13 +1,13 @@
 addpath RWTHMindstormsNXT;
-
 %establish memory map to files
-b2 			= memmapfile('buffer2.txt', 'Writable', true, 'Format', 'int8');
-m1 			= memmapfile('count_m1.txt', 'Writable', true);
-m2		 	= memmapfile('count_m2.txt', 'Writable', true);
-wait 		= memmapfile('wait.txt', 'Writable', true);
-priority	= memmapfile('priority.txt', 'Writable', true);
-fstatus 	= memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+fstatus  = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(7) = 49;
+b2 		 = memmapfile('buffer2.txt', 'Writable', true, 'Format', 'int8');
+m1 		 = memmapfile('count_m1.txt', 'Writable', true);
+m2		 = memmapfile('count_m2.txt', 'Writable', true);
+wait 	 = memmapfile('wait.txt', 'Writable', true);
+priority = memmapfile('priority.txt', 'Writable', true);
+
 
 global wait
 global fstatus

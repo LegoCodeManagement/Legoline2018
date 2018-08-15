@@ -2,8 +2,8 @@ addpath RWTHMindstormsNXT;
 
 %establish memory maps
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
-wait 	= memmapfile('wait.txt', 'Writable', true);
 fstatus.Data(9) = 49;
+wait 	= memmapfile('wait.txt', 'Writable', true);
 
 
 

@@ -2,6 +2,11 @@ addpath RWTHMindstormsNXT;
 %establish memory map to status.txt. 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(10) = 49;
+m2 = memmapfile('count_m2.txt', 'Writable', true);
+m3 = memmapfile('count_m3.txt', 'Writable', true);
+b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
+wait = memmapfile('wait.txt', 'Writable', true);
+priority = memmapfile('priority.txt', 'Writable', true);
 
 %open config file and save variable names and values column 1 and 2 respectively.
 config = fopen('config.txt','rt');
@@ -21,12 +26,9 @@ OpenSwitch(SENSOR_2, nxtT3);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT3);
 
 %allow feed to read and edit junction/buffer files
-m2 = memmapfile('count_m2.txt', 'Writable', true);
-m3 = memmapfile('count_m3.txt', 'Writable', true);
-b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
-wait = memmapfile('wait.txt', 'Writable', true);
+
 global wait
-priority = memmapfile('priority.txt', 'Writable', true);
+
 
 TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);
 fstatus.Data(10) = 50;

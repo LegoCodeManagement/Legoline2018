@@ -40,13 +40,13 @@ while (fstatus.Data(1) == 49)
 				b3.Data(1) = b3.Data(1) + 1;
 				feedPallet(nxtF3, SENSOR_1, MOTOR_A);
 				clear toc;
-				tic %set timer for next pallet
+				tic;
 			
             case 49            
                 movePalletSpacing(400, MOTOR_B, power, nxtF3); %move pallet already on feed line out the way
                 feedPallet(nxtF3, SENSOR_1, MOTOR_A);
 				clear toc;
-				tic; %set timer for next pallet
+				tic;
 				b3.Data(1) = b3.Data(1) + 1;
 							
 			case 50
