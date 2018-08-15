@@ -6,7 +6,7 @@ fstatus.Data(9) = 49;
 wait 	= memmapfile('wait.txt', 'Writable', true);
 
 
-
+global fstatus
 
 
 %open config file and save variable names and values column 1 and 2 respectively.
@@ -29,8 +29,8 @@ mainline = NXTMotor(MOTOR_A,'Power',-power,'SpeedRegulation',false);
 fstatus.Data(9) = 50;
 disp('MAINLINE 3');
 disp('waiting for ready signal');
-%wait for ready sign so that all matlab instances start simultaneously
 
+%wait for ready sign so that all matlab instances start simultaneously
 while fstatus.Data(1) == 48
     pause(0.5);
 end

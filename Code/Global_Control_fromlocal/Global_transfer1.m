@@ -1,19 +1,18 @@
 addpath RWTHMindstormsNXT;
 
 %establish memory map to status.txt. 
+fstatus	 = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+fstatus.Data(4) = 49;
 b1		 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
 m1		 = memmapfile('count_m1.txt', 'Writable', true, 'Format', 'int8');
 u1		 = memmapfile('count_u1.txt', 'Writable', true, 'Format', 'int8');
 wait	 = memmapfile('wait.txt', 'Writable', true);
 priority = memmapfile('priority.txt', 'Writable', true);
-fstatus	 = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
-fstatus.Data(4) = 49;
 
 global wait
 global fstatus
 
-%open config file and save variable names and values column 1 and 2 respectively
-%set variables accordingly
+%open config file and save variable names and values column 1 and 2 respectively set variables accordingly
 config = fopen('config.txt','rt');
 out = textscan(config, '%s %s');
 fclose(config);
@@ -33,7 +32,6 @@ TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
 
 %signal that this module is ready
 fstatus.Data(4) = 50;
-
 disp('TRANSFER 1');
 disp('waiting for ready signal');
 
@@ -60,38 +58,42 @@ while (fstatus.Data(1) == 49)
 			disp('mainline is busy')
 		end
 		
-		if u1.Data(1) > 48
+		while b1.Data(2) > 48
+		
+			if u1.Data(1) > 48
 	
-			if checkpriority(transferpallet1,upstreampallet)
+				if checkpriority(transferpallet1,u1.Data(1)) %
 			
-				k=k+1;
-				wait.Data(1) = 49;						%tell upstream to stop
-				TransferArmRun(MOTOR_B, nxtT1, 105);
+					wait.Data(2) = 49;						%tell upstream to stop
+					TransferArmRun(MOTOR_B, nxtT1, 105);
 				
-				addpallet(transferpallet1,'count_m1.txt')
+					addpallet(transferpallet1,'count_m1.txt')
 				
-				b1.Data(2) = b1.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
-				pause(T1armwait);
-				TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
-				wait.Data(1) = 48; 						%tell upstream to resume
+					b1.Data(2) = b1.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
+					pause(T1armwait);
+					TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
+					wait.Data(2) = 48; 						%tell upstream to resume
+		
+				else
+			
+					while (m1.Data(1)>48) && (checkStop) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
+						pause(0.1);
+						disp('main is busy')
+					end
+				
+				end
 		
 			else
-				while (u1.Data(1)>48) && (checkStop) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
-					pause(0.2);
-					disp('upstream/main is busy')
-				end
+				TransferArmRun(MOTOR_B, nxtT1, 105);
+			
+				addpallet(transferpallet1,'count_m1.txt')
+			
+				b1.Data(2) = b1.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
+				pause(T1armwait);
+				TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);	
+			
 			end
-			
-		else
-			TransferArmRun(MOTOR_B, nxtT1, 105);
-			
-			addpallet(transferpallet1,'count_m1.txt')
-			
-			b1.Data(2) = b1.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
-			pause(T1armwait);
-			TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);
-			
-        end
+		end
     end
 	pause(0.1);
 end

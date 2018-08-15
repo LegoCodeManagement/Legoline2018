@@ -10,6 +10,7 @@ fstatus  = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(4) = 49;
 
 global wait
+global fstatus
 
 %open config file and save variable names and values column 1 and 2 respectively.
 config = fopen('config.txt','rt');

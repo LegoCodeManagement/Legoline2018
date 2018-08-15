@@ -46,7 +46,7 @@ while (fstatus.Data(1) == 49)
                 movePalletSpacing(400, MOTOR_B, power, nxtF2); %move pallet already on feed line out the way
                 feedPallet(nxtF2, SENSOR_1, MOTOR_A);
 				clear toc;
-				tic 
+				tic;
 				b2.Data(1) = b2.Data(1) + 1;
 				
 			case 50
@@ -70,7 +70,6 @@ while (fstatus.Data(1) == 49)
 				case 50
 					movePalletSpacing(500, MOTOR_B, power, nxtF2);
 					pause(1);
-					
 					b2.Data(1) = b2.Data(1) - 1;
 					movePalletSpacing(450, MOTOR_B, -power, nxtF2);
 					

@@ -64,8 +64,9 @@ while (fstatus.Data(1) == 49)
 					pause(0.1);
 				case 49
 					movePalletPastLSfeed(MOTOR_B, power, nxtF3, SENSOR_3, 6, Fthreshold);
+					disp('pushing one pallet to transfer line')
 					b3.Data(1) = b3.Data(1) - 1;
-                    disp('attempting to move pallet to LS')
+
 				case 50
 					movePalletSpacing(500, MOTOR_B, power, nxtF3);
 					pause(1);
@@ -85,7 +86,6 @@ while (fstatus.Data(1) == 49)
         disp(' ');
         pause(0.3);	
 	end
-	
 	pause(0.2)  %to avoid update error
 end
 

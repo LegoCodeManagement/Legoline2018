@@ -29,8 +29,8 @@ mainline = NXTMotor(MOTOR_A,'Power',-power,'SpeedRegulation',false);
 fstatus.Data(6) = 50;
 disp('MAINLINE 2');
 disp('waiting for ready signal');
-%wait for ready sign so that all matlab instances start simultaneously
 
+%wait for ready sign so that all matlab instances start simultaneously
 while fstatus.Data(1) == 48
     pause(0.5);
 end
@@ -49,7 +49,7 @@ while (fstatus.Data(1) == 49)
 		addpallet(m2.Data(1),'count_m3.txt')
 		pause(0.01)
 		removepallet('count_m2.txt')
-		while stdavg > 10
+		while (stdavg > 10) && (checkstop)
 			pause(0.05)
 			[stdavg,avg,stdarray,array] = averagestd(nxtM2,SENSOR_2,stdarray,array);
 		end
@@ -59,7 +59,7 @@ while (fstatus.Data(1) == 49)
 
 	if wait.Data(3) == 49
 		mainline.Stop('off', nxtM2);
-		while wait.Data(3) == 49
+		while wait.Data(3) == 49 && (checkStop)
 			pause(0.2);
 		end
 		mainline.SendToNXT(nxtM2);
