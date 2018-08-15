@@ -6,24 +6,19 @@ u1 		= memmapfile('count_u1.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(2) = 49;
 global fstatus
 
-%open config file and save variable names and values column 1 and 2
-%respectively.
+%open config file and save variable names and values column 1 and 2 respectively.
 config = fopen('config.txt','rt');
 out = textscan(config, '%s %s');
 fclose(config);
 
 %retrieve parameters
-power 		 = str2double(out{2}(strcmp('SPEED_U',out{1})));
-Uaddr		 = char(out{2}(strcmp('Upstream',out{1})));
-Udelay		 = str2double(out{2}(strcmp('Udelay',out{1})));	
-T_U			 = str2double(out{2}(strcmp('T_U',out{1})));	
-Uthreshold	 = str2double(out{2}(strcmp('Uthreshold',out{1})));	
-nxtU		 = COM_OpenNXTEx('USB', Uaddr);
-upstreampallet = 49;
-
-%establish memory map to junction file
-%j1 = memmapfile('Junction1.txt','Writable',true);
-
+power 			= str2double(out{2}(strcmp('SPEED_U',out{1})));
+Uaddr			= char(out{2}(strcmp('Upstream',out{1})));
+Udelay			= str2double(out{2}(strcmp('Udelay',out{1})));	
+T_U				= str2double(out{2}(strcmp('T_U',out{1})));	
+Uthreshold		= str2double(out{2}(strcmp('Uthreshold',out{1})));	
+nxtU			= COM_OpenNXTEx('USB', Uaddr);
+upstreampallet 	= 49;
 
 movePallet = NXTMotor(MOTOR_B, 'Power', power);
 movePallet.SpeedRegulation = 0;
