@@ -34,7 +34,8 @@ y14 = zeros(1, n); array7 = ones(1,k)*GetLight(SENSOR_2, nxtM3);
 movePalletS.SendToNXT(nxtS);
 
 r = []; g = []; b = [];
-
+n=250;
+x=linspace(0,5,n);
 for i=1:1:n
 %{
     [y1(i),y8(i),stdarray1,array1]  = averagestd(nxtU ,SENSOR_2,stdarray1,array1);
@@ -47,7 +48,7 @@ for i=1:1:n
 %}
 
 	[~, r0 g0 b0] = GetColor(SENSOR_3, 0, nxtS);
-	r = [r,r0]; g = [g,g0]; r = [g,g0]; 
+	r = [r,r0]; g = [g,g0]; b = [b,b0]; 
 	
 
     pause(0.04);
