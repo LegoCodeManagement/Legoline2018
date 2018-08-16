@@ -43,7 +43,7 @@ stdavg = mean(stdarray);
 
 while (fstatus.Data(1) == 49)
     
-	if toc > T_U
+	if (toc > T_U)
 		clear toc
 		%tic;
 		feedPallet(nxtU,SENSOR_1,MOTOR_A);
