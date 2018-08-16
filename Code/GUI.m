@@ -1,35 +1,35 @@
-function varargout = test_GUI(varargin)
-% TEST_GUI MATLAB code for test_GUI.fig
-%      TEST_GUI, by itself, creates a new TEST_GUI or raises the existing
+function varargout = GUI(varargin)
+% GUI MATLAB code for GUI.fig
+%      GUI, by itself, creates a new GUI or raises the existing
 %      singleton*.
 %
-%      H = TEST_GUI returns the handle to a new TEST_GUI or the handle to
+%      H = GUI returns the handle to a new GUI or the handle to
 %      the existing singleton*.
 %
-%      TEST_GUI('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in TEST_GUI.M with the given input arguments.
+%      GUI('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in GUI.M with the given input arguments.
 %
-%      TEST_GUI('Property','Value',...) creates a new TEST_GUI or raises the
+%      GUI('Property','Value',...) creates a new GUI or raises the
 %      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before test_GUI_OpeningFcn gets called.  An
+%      applied to the GUI before GUI_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to test_GUI_OpeningFcn via varargin.
+%      stop.  All inputs are passed to GUI_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help test_GUI
+% Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 16-Aug-2018 09:31:20
+% Last Modified by GUIDE v2.5 16-Aug-2018 11:19:10
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @test_GUI_OpeningFcn, ...
-                   'gui_OutputFcn',  @test_GUI_OutputFcn, ...
+                   'gui_OpeningFcn', @GUI_OpeningFcn, ...
+                   'gui_OutputFcn',  @GUI_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -44,26 +44,26 @@ end
 % End initialization code - DO NOT EDIT
 
 
-% --- Executes just before test_GUI is made visible.
-function test_GUI_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before GUI is made visible.
+function GUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-% varargin   command line arguments to test_GUI (see VARARGIN)
+% varargin   command line arguments to GUI (see VARARGIN)
 
-% Choose default command line output for test_GUI
+% Choose default command line output for GUI
 handles.output = hObject;
 
 % Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes test_GUI wait for user response (see UIRESUME)
+% UIWAIT makes GUI wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
 
 % --- Outputs from this function are returned to the command line.
-function varargout = test_GUI_OutputFcn(hObject, eventdata, handles) 
+function varargout = GUI_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -73,9 +73,19 @@ function varargout = test_GUI_OutputFcn(hObject, eventdata, handles)
 varargout{1} = handles.output;
 
 
-% --- Executes on button press in pushbutton1.
-function pushbutton1_Callback(hObject, eventdata, handles)
-    !matlab  -nodesktop -minimize -nosplash -r master&
-% hObject    handle to pushbutton1 (see GCBO)
+% --- Executes on button press in local_control.
+function local_control_Callback(hObject, eventdata, handles)
+% hObject    handle to local_control (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+cd([pwd,filesep,'Local_Control'])
+!matlab  -nodesktop -nosplash -r master
+
+
+% --- Executes on button press in global_control.
+function global_control_Callback(hObject, eventdata, handles)
+% hObject    handle to global_control (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+cd([pwd,filesep,'Global_Control'])
+!matlab  -nodesktop -nosplash -r master

@@ -33,6 +33,13 @@ currentLight3 = GetLight(SENSOR_3, nxtF1);
 %feed all the pallets or until told to stop.
 toc = T_F1;
 
+
+
+
+
+
+
+
 while (fstatus.Data(1) == 49) 
 	if (toc >= T_F1) %true if it's time to feed
 		switch b1.Data(1)
@@ -42,12 +49,12 @@ while (fstatus.Data(1) == 49)
 				clear toc;
 				tic;
 				
-            case 49            
+            case 49  
+        		b1.Data(1) = b1.Data(1) + 1;          
                 movePalletSpacing(400, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
                 feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 				clear toc;
 				tic;
-				b1.Data(1) = b1.Data(1) + 1;
 				
             case 50
 				disp(['cannot feed there are ',num2str(b1.Data(1)),' pallets on feed line']);
@@ -66,7 +73,6 @@ while (fstatus.Data(1) == 49)
 					movePalletPastLSfeed(MOTOR_B, power, nxtF1, SENSOR_3, 6, Fthreshold);
 					disp('pushing one pallet to transfer line')
 					b1.Data(1) = b1.Data(1) - 1;
-			
                 case 50
                 	movePalletSpacing(500, MOTOR_B, power, nxtF1);
                 	pause(1);

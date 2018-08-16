@@ -12,7 +12,7 @@ fclose(config);
 %retrieve parameters
 power = str2double(out{2}(strcmp('SPEED_F',out{1})));
 F1addr = char(out{2}(strcmp('Feed1',out{1})));
-T_F1 = str2double(out{2}(strcmp('T_F1',out{1})));
+%T_F1 = str2double(out{2}(strcmp('T_F1',out{1})));
 nxtF1 = COM_OpenNXTEx('USB', F1addr);
 
 OpenSwitch(SENSOR_1, nxtF1);
@@ -30,9 +30,8 @@ end
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
 k=0; 
-a = 0.05;
-buffer1 = 0;
-buffer2 = 0;
+a = 0.03;
+T_F1 = 15;
 timer1 = tic;
 timer2 = tic;
 
@@ -40,35 +39,21 @@ timer2 = tic;
 feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 b1.Data(1) = b1.Data(1) + 1;
 
-while (k<12) && (fstatus.Data(1) == 49)
-	if toc(timer1) > T_F1*exp(-a*toc(timer2))
+while (fstatus.Data(1) == 49)
+	if toc(timer1) >= T_F1*exp(-a*toc(timer2))
 		switch b1.Data(1)
-    		case 0
+    		case 48
     			timer1 = tic; %set timer for next pallet
     			b1.Data(1) = b1.Data(1) + 1;
-				feedPallet(nxtF1, SENSOR_1, MOTOR_A);
-				
-				if fstatus.Data(1) ~= 49
-                    disp('break');
-					break
-				end
-								
-				k=k+1;
+				feedPallet(nxtF1, SENSOR_1, MOTOR_A);			
 			
-            case 1     
+            case 49
             	timer1 = tic; %set timer for next pallet
 				b1.Data(1) = b1.Data(1) + 1;      
                 movePalletSpacing(350, MOTOR_B, power, nxtF1);
                 feedPallet(nxtF1, SENSOR_1, MOTOR_A);
-
-                if fstatus.Data(1) ~= 49
-                    disp('break');
-					break
-                end
-				
-				k=k+1; 
-				
-            case 2
+                
+            case 50
 				disp(['cannot feed there are ',num2str(b1.Data(1)),' pallets on feed line']);
 			
 			otherwise
@@ -77,17 +62,17 @@ while (k<12) && (fstatus.Data(1) == 49)
 		end
 	end
 	switch b1.Data(2)
-        case 0
+        case 48
 			switch b1.Data(1)
-			
-				case 0
+				case 48
 
-				case 1
-					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 10);
+				case 49
+					movePalletPastLSfeed(MOTOR_B, power, nxtF1, SENSOR_3, 6, Fthreshold);
 					b1.Data(1) = b1.Data(1) - 1;
 			
-                case 2 
-					movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 10);
+                case 50
+					movePalletSpacing(500, MOTOR_B, power, nxtF1);
+					pause(1)
 					b1.Data(1) = b1.Data(1) - 1;
 					movePalletSpacing(350, MOTOR_B, -power, nxtF1);
 					
@@ -96,7 +81,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 					break;
 			end
 			
-        case 1
+        case 49
 		disp('waiting for pallet on transfer line');
         disp(['transfer buffer = ', num2str(b1.Data(2))]);
         disp(['feed buffer = ', num2str(b1.Data(1))]);

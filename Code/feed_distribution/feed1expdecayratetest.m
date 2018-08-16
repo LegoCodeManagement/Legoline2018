@@ -1,5 +1,5 @@
-T_F1 = 10;
-a = 0.05;
+T_F1 = 15;
+a = 0.03;
 
  %start with a number greater than T_F1 so that feed starts immediately
 
@@ -9,7 +9,7 @@ buffer2 = 0;
 timer1 = tic;
 timer2 = tic;
 disp([num2str(toc(timer1)),', ',num2str(toc(timer2))])
-while (k<12)
+while (k<6)
 	if toc(timer1) > T_F1*exp(-a*toc(timer2))
 		switch buffer1
     		case 0
