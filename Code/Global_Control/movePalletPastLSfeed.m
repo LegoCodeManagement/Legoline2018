@@ -7,8 +7,8 @@ movePallet.SpeedRegulation = 0;
 movePallet.SendToNXT(nxt);
 
 array = ones(1,10)*GetLight(port,nxt);
-stdarray = zeros(1,7)
-stdavg = mean(stdarray)
+stdarray = zeros(1,7);
+stdavg = mean(stdarray);
 
 while stdavg < threshold
 	[stdavg,avg,stdarray,array] = averagestd(nxt,port,stdarray,array);
@@ -16,7 +16,7 @@ while stdavg < threshold
     checkTimeOut(timeOut)
 end
 
-while stdavg > threshold*0.9
+while stdavg > threshold*0.95
 	[stdavg,avg,stdarray,array] = averagestd(nxt,port,stdarray,array);
     pause(0.02)
     checkTimeOut(timeOut)
