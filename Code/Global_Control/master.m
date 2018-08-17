@@ -35,10 +35,13 @@ run initialise
 !matlab  -nodesktop -minimize -nosplash -r Global_splitter&
 %}
 
-!matlab  -nodesktop -minimize -nosplash -r feed1exp&
+%{
+!matlab  -nodesktop -minimize -nosplash -r Global_mainline1&
+!matlab  -nodesktop -minimize -nosplash -r Global_feed1&
 !matlab  -nodesktop -minimize -nosplash -r Global_transfer1&
+%}
 
-
+!matlab  -nodesktop -minimize -nosplash -r Splitter1&
 
 u1 = memmapfile('count_u1.txt', 'Writable', true,'Format','int8');
 m1 = memmapfile('count_m1.txt', 'Writable', true,'Format','int8');
@@ -152,7 +155,7 @@ for i=1:100
 			otherwise
 				disp('Feed3: Error');
 		end
-        %{
+        
 		switch fstatus.Data(12)
 			case 48
 				disp('Splitter1:......');
@@ -163,7 +166,7 @@ for i=1:100
 			otherwise
 				disp('Splitter1: Error');
 		end
-        %}
+        
 		
 	elseif result == 1
 		fstatus.Data(1) = 50; %Let all the other MATLAB instances know that we are shutting down

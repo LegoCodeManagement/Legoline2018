@@ -31,30 +31,33 @@ end
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
 %feed all the pallets or until told to stop.
-toc = T_F1;
 
-
-
-
-
-
-
+timer1 = tic;
+timer2 = tic;
+feedtime = 0;
+lower = T_F1 - 3;
+upper = T_F1 + 3;
 
 while (fstatus.Data(1) == 49) 
-	if (toc >= T_F1) %true if it's time to feed
+	if (toc(timer1) >= feedtime) %true if it's time to feed
 		switch b1.Data(1)
     		case 48
                 b1.Data(1) = b1.Data(1) + 1;
+				disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feedtime)]);
 				feedPallet(nxtF1, SENSOR_1, MOTOR_A);
-				clear toc;
-				tic;
-				
+				timer1 = tic;
+				feedtime = poissrnd(T_F1); %put in a switch statement which reads from other file
+				%feedtime = randraw('tri',[lower,T_F1,upper],1);
+				%feedtime = T_F1;
+
             case 49  
         		b1.Data(1) = b1.Data(1) + 1;          
                 movePalletSpacing(400, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
                 feedPallet(nxtF1, SENSOR_1, MOTOR_A);
-				clear toc;
-				tic;
+				timer1 = tic;
+				feedtime = poissrnd(T_F1); %put in a switch statement which reads from other file
+				%feedtime = randraw('tri',[lower,T_F1,upper],1);
+				%feedtime = T_F1;
 				
             case 50
 				disp(['cannot feed there are ',num2str(b1.Data(1)),' pallets on feed line']);
@@ -85,11 +88,7 @@ while (fstatus.Data(1) == 49)
 			end
 			
         case 49
-		disp('waiting for pallet on transfer line');
-        disp(['transfer buffer = ', num2str(b1.Data(2))]);
-        disp(['feed buffer = ', num2str(b1.Data(1))]);
-        disp(' ');
-        pause(0.3);
+        pause(0.1);
 	end
 	pause(0.2)  %to avoid update error
 end

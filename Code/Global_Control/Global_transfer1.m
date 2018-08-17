@@ -53,7 +53,7 @@ while (fstatus.Data(1) == 49)
 		b1.Data(2) = b1.Data(2) + 1;
 		movePalletToLightSensor(MOTOR_A, -power, nxtT1, SENSOR_3, currentLight3, 10, Tthreshold);
 		
-		while (m1.Data(1) > 48) && (checkStop)
+		while (m1.Data(1) > 48) && (checkStop);
 			pause(0.2);
 			disp('mainline is busy')
 		end
@@ -76,7 +76,7 @@ while (fstatus.Data(1) == 49)
 		
 				else
 			
-					while (m1.Data(1)>48) && (checkStop) %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
+					while (m1.Data(1)>48) && (checkStop); %if there is delay between m1=m1+1 and u1=u1-1 then may clash.
 						pause(0.1);
 						disp('main is busy')
 					end

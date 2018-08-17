@@ -1,9 +1,9 @@
 function result = checkStop
 global fstatus;
-if fstatus.Data(1) ~= 49
-	result = true;
+if (fstatus.Data(1) ~= 49)
+	result = false;
 	return
 end
-result = false
+result = true;
 return
 end

@@ -9,7 +9,7 @@ out 	= textscan(config, '%s %s');
 fclose(config);
 
 power 		= str2double(out{2}(strcmp('SPEED_S',out{1})));
-Saddr		= char(out{2}(strcmp('Splitter',out{1})));
+nxtSAddr		= char(out{2}(strcmp('Splitter',out{1})));
 
 %Which type of pallet do we want to split?
 
@@ -51,18 +51,14 @@ ambientLight2 = GetLight(SENSOR_2, nxtS);
 
 keepSplitterRunning.SendToNXT(nxtS);
 
-for i=1:1:100
-    if (fileInit.Data(1) == 53) %Needs to shutdown in this case according to the user
-        break;
-    end
+while checkStop;
     [result, color] = waitForPalletSplitter(nxtS, SENSOR_3, 5);
-    if (fileInit.Data(1) == 53) %Needs to shutdown in this case according to the user
-        break;
-    end
+    %{
     if strcmp(color, colorCode) == false
         pause(1);
         continue;
     end
+    %}
     keepSplitterRunning.Stop('off', nxtS);
     keepSplitterRunning.TachoLimit = 100;
     keepSplitterRunning.ActionAtTachoLimit = 'Coast';
@@ -81,10 +77,8 @@ for i=1:1:100
 end
 
 %% Terminate this session
-clear fileInit;
 CloseSensor(SENSOR_1, nxtS);
 CloseSensor(SENSOR_2, nxtS);
 CloseSensor(SENSOR_3, nxtS);
 keepSplitterRunning.Stop('off', nxtS);
 COM_CloseNXT(nxtS);
-quit;
