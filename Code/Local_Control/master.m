@@ -17,7 +17,7 @@ end
 
 run initialise
 
-
+%{
 !matlab  -nodesktop -minimize -nosplash -r Local_display&
 %!matlab  -nodesktop -minimize -nosplash -r Local_feed1&
 %!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&
@@ -31,6 +31,7 @@ run initialise
 !matlab  -nodesktop -minimize -nosplash -r Local_mainline3&
 
 !matlab  -nodesktop -minimize -nosplash -r Local_splitter&
+%}
 
 u = memmapfile('count_u.txt', 'Writable', true,'Format','int8');
 m1 = memmapfile('count_m1.txt', 'Writable', true,'Format','int8');

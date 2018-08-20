@@ -22,7 +22,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 16-Aug-2018 11:19:10
+% Last Modified by GUIDE v2.5 20-Aug-2018 11:53:45
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -89,3 +89,21 @@ function global_control_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 cd([pwd,filesep,'Global_Control'])
 !matlab  -nodesktop -nosplash -r master
+
+
+% --- Executes on button press in open_config_file.
+function open_config_file_Callback(hObject, eventdata, handles)
+!notepad config.txt
+% hObject    handle to open_config_file (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in open_priority.
+function open_priority_Callback(hObject, eventdata, handles)
+cd([pwd,filesep,'Global_Control'])
+!notepad priority.txt
+cd ..\
+% hObject    handle to open_priority (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)

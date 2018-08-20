@@ -41,7 +41,6 @@ run initialise
 !matlab  -nodesktop -minimize -nosplash -r Global_transfer1&
 %}
 
-!matlab  -nodesktop -minimize -nosplash -r Splitter1&
 
 u1 = memmapfile('count_u1.txt', 'Writable', true,'Format','int8');
 m1 = memmapfile('count_m1.txt', 'Writable', true,'Format','int8');

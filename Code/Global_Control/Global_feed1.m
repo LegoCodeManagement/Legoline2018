@@ -8,11 +8,13 @@ fstatus.Data(5) = 49;
 config = fopen('config.txt','rt');
 out = textscan(config, '%s %s');
 fclose(config);
-power 		= str2double(out{2}(strcmp('SPEED_F',out{1})));
-F1addr 		= char(out{2}(strcmp('Feed1',out{1})));
-T_F1 		= str2double(out{2}(strcmp('T_F1',out{1})));
-Fthreshold  = str2double(out{2}(strcmp('Fthreshold',out{1})));	
-nxtF1 		= COM_OpenNXTEx('USB', F1addr);
+power 		 = str2double(out{2}(strcmp('SPEED_F',out{1})));
+F1addr 		 = char(out{2}(strcmp('Feed1',out{1})));
+T_F1 		 = str2double(out{2}(strcmp('T_F1',out{1})));
+Fthreshold   = str2double(out{2}(strcmp('Fthreshold',out{1})));	
+nxtF1 		 = COM_OpenNXTEx('USB', F1addr);
+
+dist = char(out{2}(strcmp('feed_distribution',out{1})));
 
 %activate sensors
 OpenSwitch(SENSOR_1, nxtF1);
@@ -46,18 +48,32 @@ while (fstatus.Data(1) == 49)
 				disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feedtime)]);
 				feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 				timer1 = tic;
-				feedtime = poissrnd(T_F1); %put in a switch statement which reads from other file
-				%feedtime = randraw('tri',[lower,T_F1,upper],1);
-				%feedtime = T_F1;
+				switch dist
+					case 1
+						feedtime = T_F1;
+					case 2
+						feedtime = poissrnd(T_F1);
+					case 3
+						feedtime = randraw('tri',[lower,T_F1,upper],1);
+					otherwise
+						disp('error, wrong input distribution')
+				end
 
             case 49  
         		b1.Data(1) = b1.Data(1) + 1;          
                 movePalletSpacing(400, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
                 feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 				timer1 = tic;
-				feedtime = poissrnd(T_F1); %put in a switch statement which reads from other file
-				%feedtime = randraw('tri',[lower,T_F1,upper],1);
-				%feedtime = T_F1;
+				switch dist
+					case 1
+						feedtime = T_F1;
+					case 2
+						feedtime = poissrnd(T_F1);
+					case 3
+						feedtime = randraw('tri',[lower,T_F1,upper],1);
+					otherwise
+						disp('error, wrong input distribution')
+				end
 				
             case 50
 				disp(['cannot feed there are ',num2str(b1.Data(1)),' pallets on feed line']);
