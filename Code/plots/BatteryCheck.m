@@ -1,3 +1,4 @@
+addpath RWTHMindstormsNXT;
 nxtF1Addr = '00165308EE03';
 nxtF2Addr = '001653118A50';
 nxtF3Addr = '0016530D6831';

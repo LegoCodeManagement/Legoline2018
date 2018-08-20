@@ -77,82 +77,82 @@ varargout{1} = handles.output;
 function local_control_Callback(hObject, eventdata, handles)
 % hObject    handle to local_control (see GCBO)
 
-
+global lu lm1 lf1 lt1 lm2 lf2 lt2 lm3 lf3 lt3 ls
 cd([pwd,filesep,'Local_Control']);
-!matlab  -nodesktop -nosplash -r master
+!matlab  -nodesktop -nosplash -r master&
 if lu == 1
-    !matlab  -nodesktop -nosplash -r Local_upstream
+    !matlab  -nodesktop -nosplash -r Local_upstream&
 end
 if lm1 == 1
-    !matlab  -nodesktop -nosplash -r Local_mainline1
+    !matlab  -nodesktop -nosplash -r Local_mainline1&
 end
 if lf1 == 1
-    !matlab  -nodesktop -nosplash -r Local_feed1
+    !matlab  -nodesktop -nosplash -r Local_feed1&
 end
 if lt1 == 1
-    !matlab  -nodesktop -nosplash -r Local_transfer1
+    !matlab  -nodesktop -nosplash -r Local_transfer1&
 end
 if lm2 == 1
-    !matlab  -nodesktop -nosplash -r Local_mainline2
+    !matlab  -nodesktop -nosplash -r Local_mainline2&
 end
 if lf2 == 1
-    !matlab  -nodesktop -nosplash -r Local_feed2
+    !matlab  -nodesktop -nosplash -r Local_feed2&
 end
 if lt2 == 1
-    !matlab  -nodesktop -nosplash -r Local_transfer2
+    !matlab  -nodesktop -nosplash -r Local_transfer2&
 end
 if lm3 == 1
-    !matlab  -nodesktop -nosplash -r Local_mainline3
+    !matlab  -nodesktop -nosplash -r Local_mainline3&
 end
 if lf3 == 1
-    !matlab  -nodesktop -nosplash -r Local_feed3
+    !matlab  -nodesktop -nosplash -r Local_feed3&
 end
 if lt3 == 1
-    !matlab  -nodesktop -nosplash -r Local_transfer3
+    !matlab  -nodesktop -nosplash -r Local_transfer3&
 end
 if ls == 1
-    !matlab  -nodesktop -nosplash -r Local_splitter
+    !matlab  -nodesktop -nosplash -r Local_splitter&
 end
 
 % --- Executes on button press in global_control.
 function global_control_Callback(hObject, eventdata, handles)
 % hObject    handle to global_control (see GCBO)
 
-
+global gu gm1 gf1 gt1 gm2 gf2 gt2 gm3 gf3 gt3 gs
 cd([pwd,filesep,'Global_Control']);
-!matlab  -nodesktop -nosplash -r master
+!matlab  -nodesktop -nosplash -r master&
 if gu == 1
-    !matlab  -nodesktop -nosplash -r Global_upstream
+    !matlab  -nodesktop -nosplash -r Global_upstream&
 end
 if gm1 == 1
-    !matlab  -nodesktop -nosplash -r Global_mainline1
+    !matlab  -nodesktop -nosplash -r Global_mainline1&
 end
 if gf1 == 1
-    !matlab  -nodesktop -nosplash -r Global_feed1
+    !matlab  -nodesktop -nosplash -r Global_feed1&
 end
 if gt1 == 1
-    !matlab  -nodesktop -nosplash -r Global_transfer1
+    !matlab  -nodesktop -nosplash -r Global_transfer1&
 end
 if gm2 == 1
-    !matlab  -nodesktop -nosplash -r Global_mainline2
+    !matlab  -nodesktop -nosplash -r Global_mainline2&
 end
 if gf2 == 1
-    !matlab  -nodesktop -nosplash -r Global_feed2
+    !matlab  -nodesktop -nosplash -r Global_feed2&
 end
 if gt2 == 1
-    !matlab  -nodesktop -nosplash -r Global_transfer2
+    !matlab  -nodesktop -nosplash -r Global_transfer2&
 end
 if gm3 == 1
-    !matlab  -nodesktop -nosplash -r Global_mainline3
+    !matlab  -nodesktop -nosplash -r Global_mainline3&
 end
 if gf3 == 1
-    !matlab  -nodesktop -nosplash -r Global_feed3
+    !matlab  -nodesktop -nosplash -r Global_feed3&
 end
 if gt3 == 1
-    !matlab  -nodesktop -nosplash -r Global_transfer3
+    !matlab  -nodesktop -nosplash -r Global_transfer3&
 end
 if gs == 1
-    !matlab  -nodesktop -nosplash -r Global_splitter
+    !matlab  -nodesktop -nosplash -r Global_splitter&
 end
 
 
@@ -194,109 +194,131 @@ cd([pwd,filesep,'plots']);
 
 % --- Executes on button press in LM1.
 function LM1_Callback(hObject, eventdata, handles)
+global lm1;
 lm1 = get(hObject,'Value');
 
 
 % --- Executes on button press in LU.
 function LU_Callback(hObject, eventdata, handles)
+global lu;
 lu = get(hObject,'Value');
 
 
 % --- Executes on button press in LT1.
 function LT1_Callback(hObject, eventdata, handles)
+global lt1;
 lt1 = get(hObject,'Value');
 
 
 % --- Executes on button press in LF1.
 function LF1_Callback(hObject, eventdata, handles)
+global lf1;
 lf1 = get(hObject,'Value');
 
 
 % --- Executes on button press in LF2.
 function LF2_Callback(hObject, eventdata, handles)
+global lf2;
 lf2 = get(hObject,'Value');
 
 
 % --- Executes on button press in LM2.
 function LM2_Callback(hObject, eventdata, handles)
+global lm2;
 lm2 = get(hObject,'Value');
 
 
 % --- Executes on button press in LM3.
 function LM3_Callback(hObject, eventdata, handles)
+global lm3
 lm3 = get(hObject,'Value');
 
 
 % --- Executes on button press in LT2.
 function LT2_Callback(hObject, eventdata, handles)
+global lt2;
 lt2 = get(hObject,'Value');
 
 
 % --- Executes on button press in LT3.
 function LT3_Callback(hObject, eventdata, handles)
+global lt3;
 lt3 = get(hObject,'Value');
 
 
 % --- Executes on button press in LF3.
 function LF3_Callback(hObject, eventdata, handles)
+global lf3;
 lf3 = get(hObject,'Value');
 
 
 % --- Executes on button press in LS.
 function LS_Callback(hObject, eventdata, handles)
+global ls;
 ls = get(hObject,'Value');
 
 
 % --- Executes on button press in GM1.
 function GM1_Callback(hObject, eventdata, handles)
+global gm1;
 gm1 = get(hObject,'Value');
 
 
 % --- Executes on button press in GU.
 function GU_Callback(hObject, eventdata, handles)
+global gu;
 gu = get(hObject,'Value');
 
 
 % --- Executes on button press in GT1.
 function GT1_Callback(hObject, eventdata, handles)
+global gt1;
 gt1 = get(hObject,'Value');
 
 
 % --- Executes on button press in GF1.
 function GF1_Callback(hObject, eventdata, handles)
+global gf1;
 gf1 = get(hObject,'Value');
 
 
 % --- Executes on button press in GF2.
 function GF2_Callback(hObject, eventdata, handles)
+global gf2;
 gf2 = get(hObject,'Value');
 
 
 % --- Executes on button press in GM2.
 function GM2_Callback(hObject, eventdata, handles)
+global gm2;
 gm2 = get(hObject,'Value');
 
 
 % --- Executes on button press in GM3.
 function GM3_Callback(hObject, eventdata, handles)
+global gm3;
 gm3 = get(hObject,'Value');
 
 
 % --- Executes on button press in GT2.
 function GT2_Callback(hObject, eventdata, handles)
+global gt2;
 gt2 = get(hObject,'Value');
 
 
 % --- Executes on button press in GT3.
 function GT3_Callback(hObject, eventdata, handles)
+global gt3;
 gt3 = get(hObject,'Value');
 
 
 % --- Executes on button press in GF3.
 function GF3_Callback(hObject, eventdata, handles)
+global gf3;
 gf3 = get(hObject,'Value');
 
 
 % --- Executes on button press in GS.
 function GS_Callback(hObject, eventdata, handles)
+global gs;
 gs = get(hObject,'Value');
