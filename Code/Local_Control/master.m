@@ -17,22 +17,6 @@ end
 
 run initialise
 
-%{
-!matlab  -nodesktop -minimize -nosplash -r Local_display&
-%!matlab  -nodesktop -minimize -nosplash -r Local_feed1&
-%!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&
-!matlab  -nodesktop -minimize -nosplash -r Local_mainline1&
-!matlab  -nodesktop -minimize -nosplash -r Local_upstream&
-%!matlab  -nodesktop -minimize -nosplash -r Local_feed2&
-%!matlab  -nodesktop -minimize -nosplash -r Local_transfer2&
-!matlab  -nodesktop -minimize -nosplash -r Local_mainline2&
-%!matlab  -nodesktop -minimize -nosplash -r Local_feed3&
-%!matlab  -nodesktop -minimize -nosplash -r Local_transfer3&
-!matlab  -nodesktop -minimize -nosplash -r Local_mainline3&
-
-!matlab  -nodesktop -minimize -nosplash -r Local_splitter&
-%}
-
 u = memmapfile('count_u.txt', 'Writable', true,'Format','int8');
 m1 = memmapfile('count_m1.txt', 'Writable', true,'Format','int8');
 m2 = memmapfile('count_m2.txt', 'Writable', true,'Format','int8');

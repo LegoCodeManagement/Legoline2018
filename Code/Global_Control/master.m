@@ -16,31 +16,6 @@ for i=1:1:12
 end
 
 run initialise
-%{
-!matlab  -nodesktop -minimize -nosplash -r Global_display&
-!matlab  -nodesktop -minimize -nosplash -r Global_feed1&
-!matlab  -nodesktop -minimize -nosplash -r Global_transfer1&
-!matlab  -nodesktop -minimize -nosplash -r Global_mainline1&
-
-!matlab  -nodesktop -minimize -nosplash -r Global_upstream&
-
-%!matlab  -nodesktop -minimize -nosplash -r Global_feed2&
-%!matlab  -nodesktop -minimize -nosplash -r Global_transfer2&
-%!matlab  -nodesktop -minimize -nosplash -r Global_mainline2&
-
-%!matlab  -nodesktop -minimize -nosplash -r Global_feed3&
-%!matlab  -nodesktop -minimize -nosplash -r Global_transfer3&
-!matlab  -nodesktop -minimize -nosplash -r Global_mainline3&
-
-!matlab  -nodesktop -minimize -nosplash -r Global_splitter&
-%}
-
-%{
-!matlab  -nodesktop -minimize -nosplash -r Global_mainline1&
-!matlab  -nodesktop -minimize -nosplash -r Global_feed1&
-!matlab  -nodesktop -minimize -nosplash -r Global_transfer1&
-%}
-
 
 u1 = memmapfile('count_u1.txt', 'Writable', true,'Format','int8');
 m1 = memmapfile('count_m1.txt', 'Writable', true,'Format','int8');

@@ -48,8 +48,8 @@ end
 function GUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 % hObject    handle to figure
-
-
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to GUI (see VARARGIN)
 
 % Choose default command line output for GUI
@@ -66,8 +66,8 @@ guidata(hObject, handles);
 function varargout = GUI_OutputFcn(hObject, eventdata, handles) 
 % varargout  cell array for returning output args (see VARARGOUT);
 % hObject    handle to figure
-
-
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
@@ -76,51 +76,49 @@ varargout{1} = handles.output;
 % --- Executes on button press in local_control.
 function local_control_Callback(hObject, eventdata, handles)
 % hObject    handle to local_control (see GCBO)
-
-
-cd([pwd,filesep,'Local_Control']);
-!matlab  -nodesktop -nosplash -r master
-if lu == 1
-    !matlab  -nodesktop -nosplash -r Local_upstream
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+cd([pwd,filesep,'Local_Control'])
+if gu == 1
+    !matlab  -nodesktop -nosplash -r Global_upstream
 end
-if lm1 == 1
-    !matlab  -nodesktop -nosplash -r Local_mainline1
+if gm1 == 1
+    !matlab  -nodesktop -nosplash -r Global_mainline1
 end
-if lf1 == 1
-    !matlab  -nodesktop -nosplash -r Local_feed1
+if gf1 == 1
+    !matlab  -nodesktop -nosplash -r Global_feed1
 end
-if lt1 == 1
-    !matlab  -nodesktop -nosplash -r Local_transfer1
+if gt1 == 1
+    !matlab  -nodesktop -nosplash -r Global_transfer1
 end
-if lm2 == 1
-    !matlab  -nodesktop -nosplash -r Local_mainline2
+if gm2 == 1
+    !matlab  -nodesktop -nosplash -r Global_mainline2
 end
-if lf2 == 1
-    !matlab  -nodesktop -nosplash -r Local_feed2
+if gf2 == 1
+    !matlab  -nodesktop -nosplash -r Global_feed2
 end
-if lt2 == 1
-    !matlab  -nodesktop -nosplash -r Local_transfer2
+if gt2 == 1
+    !matlab  -nodesktop -nosplash -r Global_transfer2
 end
-if lm3 == 1
-    !matlab  -nodesktop -nosplash -r Local_mainline3
+if gm3 == 1
+    !matlab  -nodesktop -nosplash -r Global_mainline3
 end
-if lf3 == 1
-    !matlab  -nodesktop -nosplash -r Local_feed3
+if gf3 == 1
+    !matlab  -nodesktop -nosplash -r Global_feed3
 end
-if lt3 == 1
-    !matlab  -nodesktop -nosplash -r Local_transfer3
+if gt3 == 1
+    !matlab  -nodesktop -nosplash -r Global_transfer3
 end
-if ls == 1
-    !matlab  -nodesktop -nosplash -r Local_splitter
+if gs == 1
+    !matlab  -nodesktop -nosplash -r Global_splitter
 end
 
 % --- Executes on button press in global_control.
 function global_control_Callback(hObject, eventdata, handles)
 % hObject    handle to global_control (see GCBO)
-
-
-cd([pwd,filesep,'Global_Control']);
-!matlab  -nodesktop -nosplash -r master
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+cd([pwd,filesep,'Global_Control'])
 if gu == 1
     !matlab  -nodesktop -nosplash -r Global_upstream
 end
@@ -160,143 +158,237 @@ end
 % --- Executes on button press in open_config_file.
 function open_config_file_Callback(hObject, eventdata, handles)
 !notepad config.txt
+% hObject    handle to open_config_file (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
 
 % --- Executes on button press in open_priority.
 function open_priority_Callback(hObject, eventdata, handles)
-cd([pwd,filesep,'Global_Control']);
+cd([pwd,filesep,'Global_Control'])
 !notepad priority.txt
 cd ..\
+% hObject    handle to open_priority (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
 
 % --- Executes on button press in mainline_plot.
 function mainline_plot_Callback(hObject, eventdata, handles)
-cd([pwd,filesep,'plots']);
+cd([pwd,filesep,'plots'])
 !matlab  -nodesktop -nosplash -r LightSensorPlotMain
+% hObject    handle to mainline_plot (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
 
 % --- Executes on button press in feed_transfer_plot.
 function feed_transfer_plot_Callback(hObject, eventdata, handles)
-cd([pwd,filesep,'plots']);
+cd([pwd,filesep,'plots'])
 !matlab  -nodesktop -nosplash -r LightSensorPlotFeedtransfer
+% hObject    handle to feed_transfer_plot (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
 
 % --- Executes on button press in splitter_plot.
 function splitter_plot_Callback(hObject, eventdata, handles)
-cd([pwd,filesep,'plots']);
+cd([pwd,filesep,'plots'])
 !matlab  -nodesktop -nosplash -r LightSensorPlotSplitter
+% hObject    handle to splitter_plot (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
 
 % --- Executes on button press in transfer_arm_plot.
 function transfer_arm_plot_Callback(hObject, eventdata, handles)
-cd([pwd,filesep,'plots']);
+cd([pwd,filesep,'plots'])
 !matlab  -nodesktop -nosplash -r LightSensorPlotTransferArm
+% hObject    handle to transfer_arm_plot (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
 
 % --- Executes on button press in battery_check.
 function battery_check_Callback(hObject, eventdata, handles)
-cd([pwd,filesep,'plots']);
+cd([pwd,filesep,'plots'])
 !matlab  -nodesktop -nosplash -r BatteryCheck
+% hObject    handle to battery_check (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
 
 % --- Executes on button press in LM1.
 function LM1_Callback(hObject, eventdata, handles)
+% hObject    handle to LM1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 lm1 = get(hObject,'Value');
 
 
 % --- Executes on button press in LU.
 function LU_Callback(hObject, eventdata, handles)
+% hObject    handle to LU (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 lu = get(hObject,'Value');
 
 
 % --- Executes on button press in LT1.
 function LT1_Callback(hObject, eventdata, handles)
+% hObject    handle to LT1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 lt1 = get(hObject,'Value');
 
 
 % --- Executes on button press in LF1.
 function LF1_Callback(hObject, eventdata, handles)
+% hObject    handle to LF1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 lf1 = get(hObject,'Value');
 
 
 % --- Executes on button press in LF2.
 function LF2_Callback(hObject, eventdata, handles)
+% hObject    handle to LF2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 lf2 = get(hObject,'Value');
 
 
 % --- Executes on button press in LM2.
 function LM2_Callback(hObject, eventdata, handles)
+% hObject    handle to LM2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 lm2 = get(hObject,'Value');
 
 
 % --- Executes on button press in LM3.
 function LM3_Callback(hObject, eventdata, handles)
+% hObject    handle to LM3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 lm3 = get(hObject,'Value');
 
 
 % --- Executes on button press in LT2.
 function LT2_Callback(hObject, eventdata, handles)
+% hObject    handle to LT2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 lt2 = get(hObject,'Value');
 
 
 % --- Executes on button press in LT3.
 function LT3_Callback(hObject, eventdata, handles)
+% hObject    handle to LT3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 lt3 = get(hObject,'Value');
 
 
 % --- Executes on button press in LF3.
 function LF3_Callback(hObject, eventdata, handles)
+% hObject    handle to LF3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 lf3 = get(hObject,'Value');
 
 
 % --- Executes on button press in LS.
 function LS_Callback(hObject, eventdata, handles)
+% hObject    handle to LS (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 ls = get(hObject,'Value');
 
 
 % --- Executes on button press in GM1.
 function GM1_Callback(hObject, eventdata, handles)
+% hObject    handle to GM1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 gm1 = get(hObject,'Value');
 
 
 % --- Executes on button press in GU.
 function GU_Callback(hObject, eventdata, handles)
+% hObject    handle to GU (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 gu = get(hObject,'Value');
 
 
 % --- Executes on button press in GT1.
 function GT1_Callback(hObject, eventdata, handles)
+% hObject    handle to GT1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 gt1 = get(hObject,'Value');
 
 
 % --- Executes on button press in GF1.
 function GF1_Callback(hObject, eventdata, handles)
+% hObject    handle to GF1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 gf1 = get(hObject,'Value');
 
 
 % --- Executes on button press in GF2.
 function GF2_Callback(hObject, eventdata, handles)
+% hObject    handle to GF2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 gf2 = get(hObject,'Value');
 
 
 % --- Executes on button press in GM2.
 function GM2_Callback(hObject, eventdata, handles)
+% hObject    handle to GM2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 gm2 = get(hObject,'Value');
 
 
 % --- Executes on button press in GM3.
 function GM3_Callback(hObject, eventdata, handles)
+% hObject    handle to GM3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 gm3 = get(hObject,'Value');
 
 
 % --- Executes on button press in GT2.
 function GT2_Callback(hObject, eventdata, handles)
+% hObject    handle to GT2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 gt2 = get(hObject,'Value');
 
 
 % --- Executes on button press in GT3.
 function GT3_Callback(hObject, eventdata, handles)
+% hObject    handle to GT3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 gt3 = get(hObject,'Value');
 
 
 % --- Executes on button press in GF3.
 function GF3_Callback(hObject, eventdata, handles)
+% hObject    handle to GF3 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 gf3 = get(hObject,'Value');
 
 
 % --- Executes on button press in GS.
 function GS_Callback(hObject, eventdata, handles)
+% hObject    handle to GS (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
 gs = get(hObject,'Value');
