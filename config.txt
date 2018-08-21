@@ -12,11 +12,7 @@ Splitter1 001653132A78
 Upstream 0016530EE120
 
 Speed_Settings:
-SPEED_S 30
-SPEED_T 40
-SPEED_M 40
-SPEED_F 40
-SPEED_U 40
+line_speed 40
 
 Transfer_Arm_Calibration_Angles:
 T1angle 23
@@ -24,9 +20,7 @@ T2angle 19
 T3angle 13
 
 Transfer_Arm_Wait_Before_Reset
-T1armwait 0.6
-T2armwait 0.6
-T3armwait 0.6
+Tarmwait 0.6
 
 Feed_Frequencies
 T_U 12

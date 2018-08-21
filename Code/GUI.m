@@ -22,7 +22,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 21-Aug-2018 12:01:28
+% Last Modified by GUIDE v2.5 21-Aug-2018 16:05:50
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -328,23 +328,9 @@ global gs;
 gs = get(hObject,'Value');
 
 
-% --- Executes on slider movement.
-function slider2_Callback(hObject, eventdata, handles)
-% hObject    handle to slider2 (see GCBO)
+% --- Executes on button press in run_config_gui.
+function run_config_gui_Callback(hObject, eventdata, handles)
+run conf.m
+% hObject    handle to run_config_gui (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-get(hObject,'Value');
-% Hints: get(hObject,'Value') returns position of slider
-%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-
-
-% --- Executes during object creation, after setting all properties.
-function slider2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to slider2 (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: slider controls usually have a light gray background.
-if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor',[.9 .9 .9]);
-end
