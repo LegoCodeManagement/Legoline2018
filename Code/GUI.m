@@ -22,7 +22,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 20-Aug-2018 15:06:29
+% Last Modified by GUIDE v2.5 21-Aug-2018 12:01:28
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -171,16 +171,19 @@ cd ..\
 function mainline_plot_Callback(hObject, eventdata, handles)
 cd([pwd,filesep,'plots']);
 !matlab  -nodesktop -nosplash -r LightSensorPlotMain
+cd ..\
 
 % --- Executes on button press in feed_transfer_plot.
 function feed_transfer_plot_Callback(hObject, eventdata, handles)
 cd([pwd,filesep,'plots']);
 !matlab  -nodesktop -nosplash -r LightSensorPlotFeedtransfer
+cd ..\
 
 % --- Executes on button press in splitter_plot.
 function splitter_plot_Callback(hObject, eventdata, handles)
 cd([pwd,filesep,'plots']);
 !matlab  -nodesktop -nosplash -r LightSensorPlotSplitter
+cd ..\
 
 % --- Executes on button press in transfer_arm_plot.
 function transfer_arm_plot_Callback(hObject, eventdata, handles)
@@ -191,6 +194,7 @@ cd([pwd,filesep,'plots']);
 function battery_check_Callback(hObject, eventdata, handles)
 cd([pwd,filesep,'plots']);
 !matlab  -nodesktop -nosplash -r BatteryCheck
+cd ..\
 
 % --- Executes on button press in LM1.
 function LM1_Callback(hObject, eventdata, handles)
@@ -322,3 +326,25 @@ gf3 = get(hObject,'Value');
 function GS_Callback(hObject, eventdata, handles)
 global gs;
 gs = get(hObject,'Value');
+
+
+% --- Executes on slider movement.
+function slider2_Callback(hObject, eventdata, handles)
+% hObject    handle to slider2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+get(hObject,'Value');
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function slider2_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end

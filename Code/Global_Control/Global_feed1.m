@@ -29,7 +29,8 @@ while fstatus.Data(1) == 48
     pause(0.5);
 end
 
-%calculate the background light in the room. Further measurements will be measured as a difference to this.
+%calculate the background light in the room.
+%Further measurements will be measured as a difference to this.
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
 %feed all the pallets or until told to stop.
@@ -48,7 +49,8 @@ while (fstatus.Data(1) == 49)
 				disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feedtime)]);
 				feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 				timer1 = tic;
-				switch dist
+				switch dist %dist will never change unless file is re-read
+							%but switch statement repeatedly checks value of dist - inefficient?
 					case 1
 						feedtime = T_F1;
 					case 2
