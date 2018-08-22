@@ -12,7 +12,7 @@ Splitter1 001653132A78
 Upstream 0016530EE120
 _______________________________________________ 
 Speed_Settings: 
-line_speed 45.0
+line_speed 20.0
 _______________________________________________ 
 Transfer_Arm_Calibration_Angles: 
 T1angle 23
@@ -20,9 +20,7 @@ T2angle 19
 T3angle 13
 _______________________________________________ 
 Transfer_Arm_Wait_Before_Reset 
-T1armwait 0.6
-T2armwait 0.6
-T3armwait 0.6
+Tarmwait 0.6
 _______________________________________________ 
 Feed_Frequencies 
 T_U 12
@@ -31,16 +29,16 @@ T_F2 7
 T_F3 13
 _______________________________________________ 
 Distribution_type: 
-feed_distribution 1
+dist_choice 3.0
 %1=uniform 
 %2=poisson 
 %3=triangular 
-poisson_mean 4.0
+poisson_mean 1.0
 uniform_max 5.0
 uniform_min 6.0
-triangular_max 1.0
-triangular_min 3.0
-triangular_mode 2.0
+triangular_max 2.0
+triangular_min 4.0
+triangular_mode 3.0
 _______________________________________________ 
 Pallet_has_left_delay: 
 M1delay 4.6

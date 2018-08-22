@@ -16,11 +16,11 @@ global fstatus
 config = fopen('config.txt','rt');
 out = textscan(config, '%s %s');
 fclose(config);
-power 		= str2double(out{2}(strcmp('SPEED_T',out{1})));
+power 		= str2double(out{2}(strcmp('line_speed',out{1})));
 T2addr		= char(out{2}(strcmp('Transfer2',out{1})));
 T2angle 	= str2double(out{2}(strcmp('T2angle',out{1})));
 T2delay 	= str2double(out{2}(strcmp('T2delay',out{1})));	
-T2armwait	= str2double(out{2}(strcmp('T2armwait',out{1})));
+Tarmwait	= str2double(out{2}(strcmp('Tarmwait',out{1})));
 Tthreshold  = str2double(out{2}(strcmp('Tthreshold',out{1})));
 
 %open connection and activate sensors
@@ -70,7 +70,7 @@ while (fstatus.Data(1) == 49)
 					addpallet(transferpallet2,'count_m2.txt')
 				
 					b2.Data(2) = b2.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
-					pause(T2armwait);
+					pause(Tarmwait);
 					TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);
 					wait.Data(2) = 48; 						%tell upstream to resume
 		
@@ -89,7 +89,7 @@ while (fstatus.Data(1) == 49)
 				addpallet(transferpallet2,'count_m2.txt')
 			
 				b2.Data(2) = b2.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
-				pause(T2armwait);
+				pause(Tarmwait);
 				TransferArmReset(MOTOR_B, SENSOR_2, nxtT2, T2angle);	
 			
 			end

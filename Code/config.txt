@@ -20,9 +20,7 @@ T2angle 19
 T3angle 13
 _______________________________________________
 Transfer_Arm_Wait_Before_Reset
-T1armwait 0.6
-T2armwait 0.6
-T3armwait 0.6
+Tarmwait 0.6
 _______________________________________________
 Feed_Frequencies
 T_U 12
@@ -31,7 +29,7 @@ T_F2 7
 T_F3 13
 _______________________________________________
 Distribution_type:
-feed_distribution 1
+dist_choice 1
 %1=uniform
 %2=poisson
 %3=triangular

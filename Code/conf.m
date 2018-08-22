@@ -22,7 +22,7 @@ function varargout = conf(varargin)
 
 % Edit the above text to modify the response to help conf
 
-% Last Modified by GUIDE v2.5 21-Aug-2018 17:05:15
+% Last Modified by GUIDE v2.5 22-Aug-2018 15:17:12
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -54,13 +54,12 @@ function conf_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for conf
 handles.output = hObject;
-
+        
 % Update handles structure
 guidata(hObject, handles);
 
 % UIWAIT makes conf wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
-
 
 % --- Outputs from this function are returned to the command line.
 function varargout = conf_OutputFcn(hObject, eventdata, handles) 
@@ -90,8 +89,6 @@ function triang_max_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-
-
 
 function triang_mode_Callback(hObject, eventdata, handles)
 % hObject    handle to triang_mode (see GCBO)
@@ -217,9 +214,12 @@ function save_changes_Callback(hObject, eventdata, handles)
 % hObject    handle to save_changes (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-global triang_max triang_min triang_mode poiss_mean unif_max unif_min line_speed
+
+
+global triang_max triang_min triang_mode poiss_mean unif_max unif_min line_speed dist_choice
 config  = fopen('config.txt','rt');
 out 	= textscan(config, '%s %s');
+out{2}{strcmp('dist_choice',out{1})} = sprintf('%2.1f',dist_choice);
 out{2}{strcmp('poisson_mean',out{1})} = sprintf('%2.1f',poiss_mean);
 out{2}{strcmp('uniform_max',out{1})} = sprintf('%2.1f',unif_max);
 out{2}{strcmp('uniform_min',out{1})} = sprintf('%2.1f',unif_min);
@@ -243,20 +243,20 @@ function save_changes_CreateFcn(hObject, eventdata, handles)
 
 
 % --- Executes on slider movement.
-function line_speed_slider_Callback(hObject, eventdata, handles)
-% hObject    handle to line_speed_slider (see GCBO)
+function line_speed_Callback(hObject, eventdata, handles)
+global line_speed
+line_speed = get(hObject,'Value');
+% hObject    handle to line_speed (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-global line_speed;
-line_speed = get(hObject,'Value');
-caption = sprintf('%.1f', line_speed);
-set(handles.linespeed_label, 'String', caption);
+
+% Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
 
 % --- Executes during object creation, after setting all properties.
-function line_speed_slider_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to line_speed_slider (see GCBO)
+function line_speed_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to line_speed (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -264,3 +264,12 @@ function line_speed_slider_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+
+
+% --- Executes when selected object is changed in radiogroup.
+function radiogroup_SelectionChangedFcn(hObject, eventdata, handles)
+global dist_choice
+dist_choice = str2double(get(hObject,'String'));
+% hObject    handle to the selected object in radiogroup 
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)

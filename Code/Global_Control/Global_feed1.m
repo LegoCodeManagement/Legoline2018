@@ -8,7 +8,7 @@ fstatus.Data(5) = 49;
 config = fopen('config.txt','rt');
 out = textscan(config, '%s %s');
 fclose(config);
-power 		 = str2double(out{2}(strcmp('SPEED_F',out{1})));
+power 		 = str2double(out{2}(strcmp('line_speed',out{1})));
 F1addr 		 = char(out{2}(strcmp('Feed1',out{1})));
 T_F1 		 = str2double(out{2}(strcmp('T_F1',out{1})));
 Fthreshold   = str2double(out{2}(strcmp('Fthreshold',out{1})));	

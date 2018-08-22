@@ -8,11 +8,11 @@ config = fopen('config.txt','rt');
 out = textscan(config, '%s %s');
 fclose(config);
 %retrieve parameters
-power = str2double(out{2}(strcmp('SPEED_T',out{1})));
+power = str2double(out{2}(strcmp('line_speed',out{1})));
 T1addr = char(out{2}(strcmp('Transfer1',out{1})));
 T1angle = str2double(out{2}(strcmp('T1angle',out{1})));
 T1delay = str2double(out{2}(strcmp('T1delay',out{1})));	
-T1armwait	= str2double(out{2}(strcmp('T1armwait',out{1})));
+Tarmwait	= str2double(out{2}(strcmp('Tarmwait',out{1})));
 Tthreshold = str2double(out{2}(strcmp('Tthreshold',out{1})));	
 %open connection and activate sensors
 nxtT1 = COM_OpenNXTEx('USB', T1addr);
@@ -76,7 +76,7 @@ while (fstatus.Data(1) == 49)
         k=k+1;
 		TransferArmRun(MOTOR_B, nxtT1, 105);
 		start(clearPalletT1(k));%start timer, which executes m1 = m1 - 1 after T1delay seconds.
-		pause(T1armwait);
+		pause(Tarmwait);
 		m1.Data(1) = m1.Data(1) + 1;
         b1.Data(2) = b1.Data(2) - 1;
 		TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle);

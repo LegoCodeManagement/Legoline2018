@@ -9,7 +9,7 @@ config = fopen('config.txt','rt');
 out = textscan(config, '%s %s');
 fclose(config);
 %retrieve parameters
-power = str2double(out{2}(strcmp('SPEED_F',out{1})));
+power = str2double(out{2}(strcmp('line_speed',out{1})));
 F3addr = char(out{2}(strcmp('Feed3',out{1})));
 T_F3 = str2double(out{2}(strcmp('T_F3',out{1})));
 Fthreshold = str2double(out{2}(strcmp('Fthreshold',out{1})));	

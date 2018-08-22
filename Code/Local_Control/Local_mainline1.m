@@ -10,7 +10,7 @@ config = fopen('config.txt','rt');
 out = textscan(config, '%s %s');
 fclose(config);
 %retrieve parameters
-power = str2double(out{2}(strcmp('SPEED_M',out{1})));
+power = str2double(out{2}(strcmp('line_speed',out{1})));
 M1addr = char(out{2}(strcmp('Main1',out{1})));
 M1delay = str2double(out{2}(strcmp('M1delay',out{1})));	
 Mthreshold = str2double(out{2}(strcmp('Mthreshold',out{1})));	

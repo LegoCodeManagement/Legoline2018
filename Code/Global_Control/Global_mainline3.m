@@ -15,7 +15,7 @@ out 	= textscan(config, '%s %s');
 fclose(config);
 
 %retrieve parameters
-power 	= str2double(out{2}(strcmp('SPEED_M',out{1})));
+power 	= str2double(out{2}(strcmp('line_speed',out{1})));
 M3addr 	= char(out{2}(strcmp('Main3',out{1})));
 
 

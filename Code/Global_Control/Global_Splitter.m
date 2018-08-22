@@ -10,7 +10,7 @@ out = textscan(config, '%s %s');
 fclose(config);
 
 %retrieve parameters
-power = str2double(out{2}(strcmp('SPEED_S',out{1})));
+power = str2double(out{2}(strcmp('line_speed',out{1})));
 Saddr = char(out{2}(strcmp('Splitter1',out{1})));
 %open connection and activate sensors
 nxtS = COM_OpenNXTEx('USB', Saddr);
