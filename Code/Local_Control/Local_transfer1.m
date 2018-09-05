@@ -65,13 +65,11 @@ while (fstatus.Data(1) == 49)
 			disp('mainline is busy') %this clogs up console, need another method
             if fstatus.Data(1) ~= 49
                 break
-                disp('break');
             end
 		end
 		
 		if fstatus.Data(1) ~= 49
             break
-            disp('break');
         end
         k=k+1;
 		TransferArmRun(MOTOR_B, nxtT1, 105);

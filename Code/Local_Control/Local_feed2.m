@@ -46,7 +46,6 @@ while (k<12) && (fstatus.Data(1) == 49)
 				feedPallet(nxtF2, SENSOR_1, MOTOR_A);
 				
 				if fstatus.Data(1) ~= 49
-                    disp('break');
 					break
 				end
 				
@@ -58,7 +57,6 @@ while (k<12) && (fstatus.Data(1) == 49)
                 feedPallet(nxtF2, SENSOR_1, MOTOR_A);
 
                 if fstatus.Data(1) ~= 49
-                    disp('break');
 					break
                 end
 				
@@ -68,7 +66,9 @@ while (k<12) && (fstatus.Data(1) == 49)
 				b2.Data(1) = b2.Data(1) + 1;
 				
 			case 50
-				disp(['cannot feed there are ',num2str(b2.Data(1)),' pallets on feed line']);
+				disp(['cannot feed there are ',num2str(b2.Data(1)),' pallets on feed line'])
+				logwrite('Buffer exceeded on feed 2');
+				fstatus.Data(1)==50;
 			
 			otherwise
 				disp(['error, there are ',num2str(b2.Data(1)),' pallets on feed line']);

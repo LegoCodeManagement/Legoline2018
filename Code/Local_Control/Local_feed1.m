@@ -69,6 +69,10 @@ while (k<12) && (fstatus.Data(1) == 49)
 				
             case 50
 				disp(['cannot feed there are ',num2str(b1.Data(1)),' pallets on feed line']);
+				
+				logwrite('Buffer exceeded on feed 2');
+				
+				fstatus.Data(1)==50;
 			
 			otherwise
 				disp(['error, there are ',num2str(b1.Data(1)),' pallets on feed line']);

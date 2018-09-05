@@ -1,0 +1,72 @@
+Addresses:
+Main1 0016530EE594
+Main2 001653118AC9
+Main3 001653118B91	
+Transfer1 0016530AABDF
+Transfer2 0016530EE129
+Transfer3 0016530A6F56
+Feed1 00165308EE03
+Feed2 001653118A50
+Feed3 0016530D6831 
+Splitter1 001653132A78
+Upstream 0016530EE120
+
+Speed_Settings:
+SPEED_S 30
+SPEED_T 40
+SPEED_M 40
+SPEED_F 40
+SPEED_U 40
+
+Transfer_Arm_Calibration_Angles:
+T1angle 23
+T2angle 19
+T3angle 13
+
+Transfer_Arm_Wait_Before_Reset
+T1armwait 0.6
+T2armwait 0.6
+T3armwait 0.6
+
+Feed_Frequencies
+T_U 12
+T_F1 8
+T_F2 7
+T_F3 13
+
+Pallet_has_left delay:
+M1delay 4.6
+M2delay 4.6
+T1delay 4
+T2delay 4
+Udelay 1.5
+
+STD_Light_sensor_threshold_for_detection
+Mthreshold 25
+Tthreshold 30
+Uthreshold 15
+Fthreshold 60
+
+timeOut_for_pallet_detection
+timeOut 5
+
+Timing_Values:
+
+
+MainlinePass 14
+PalletUnloadPause 5
+FeedUnloadPause 3
+TransientPause 2
+
+Splitter_Timings:	
+
+T1 0.8
+T2 1.3
+T3 1.4
+T4 1.8
+T5 2.0
+T6 2.5
+
+SPIKE 1.5
+
+

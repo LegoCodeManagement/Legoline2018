@@ -40,7 +40,6 @@ mainline.SendToNXT(nxtM1);
 array = ones(1,10)*GetLight(SENSOR_2,nxtM1);
 stdarray = zeros(1,7);
 stdavg = mean(stdarray);
-ambient = array(1);
 
 while (fstatus.Data(1) == 49)
 	%tic
@@ -53,7 +52,6 @@ while (fstatus.Data(1) == 49)
 			pause(0.05)
 			[stdavg,avg,stdarray,array] = averagestd(nxtM1,SENSOR_2,stdarray,array);
 		end
-		
 		pause(0.08)
 	end
 
@@ -64,7 +62,15 @@ while (fstatus.Data(1) == 49)
 		end
 		mainline.SendToNXT(nxtM1);
 	end
-
+	
+	if m1.Data(1) == 48
+	mainline.Stop('off', nxtM1);
+		while m1.Data(1) == 48
+			pause(0.2);
+		end
+	mainline.SendToNXT(nxtM1);
+	end
+	
 	pause(0.1); %prevents updating to quickly
 end
 

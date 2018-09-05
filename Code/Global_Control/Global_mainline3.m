@@ -53,6 +53,14 @@ while (fstatus.Data(1) == 49)
 		removepallet('count_m3.txt')
 		pause(0.08)
 	end
+	
+	if m3.Data(1) == 48
+	mainline.Stop('off', nxtM3);
+		while m3.Data(1) == 48
+			pause(0.2);
+		end
+	mainline.SendToNXT(nxtM3);
+	end
 
 	pause(0.1); %prevents updating to quickly
 end

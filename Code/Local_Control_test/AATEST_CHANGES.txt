@@ -1,0 +1,5 @@
+feed - able to change buffer size with value of n
+mainline - only runs while pallet is on line 
+upstream - buffer
+
+all - log file write function

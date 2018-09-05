@@ -64,6 +64,14 @@ while (fstatus.Data(1) == 49)
 		end
 		mainline.SendToNXT(nxtM2);
 	end
+	
+	if m2.Data(1) == 48
+	mainline.Stop('off', nxtM2);
+		while m2.Data(1) == 48
+			pause(0.2);
+		end
+	mainline.SendToNXT(nxtM2);
+	end
 
 	pause(0.1); %prevents updating to quickly
 end

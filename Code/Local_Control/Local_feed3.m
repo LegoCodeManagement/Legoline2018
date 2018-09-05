@@ -51,7 +51,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 				k=k+1;
 				tic %set timer for next pallet
 			
-            case 49            
+            case 49
                 movePalletSpacing(400, MOTOR_B, power, nxtF3); %move pallet already on feed line out the way
                 feedPallet(nxtF3, SENSOR_1, MOTOR_A);
 
@@ -65,8 +65,10 @@ while (k<12) && (fstatus.Data(1) == 49)
 				tic %set timer for next pallet
 				b3.Data(1) = b3.Data(1) + 1;
 							
-			case 50
+			case 48
 				disp(['cannot feed there are ',num2str(b3.Data(1)),' pallets on feed line']);
+				logwrite('Buffer exceeded on feed 3');
+				fstatus.Data(1)==50;
 			
 			otherwise
 				disp(['error, there are ',num2str(b3.Data(1)),' pallets on feed line']);

@@ -65,7 +65,6 @@ while (k<12) && (fstatus.Data(1) == 49)
         k=k+1;
         movePalletPastLSupstream(MOTOR_B,power,nxtU,SENSOR_2,3,Uthreshold);
         start(palletHasLeft(k))
-        
     end
         %take movepallet outside if statement and make new: if u.Data(1) > 1 then movepallet.
         

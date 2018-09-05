@@ -54,7 +54,14 @@ while (fstatus.Data(1) == 49)
 			
 			otherwise
 				disp(['error, there are ',num2str(b2.Data(1)),' pallets on feed line']);
-				break;
+				entry = 'Buffer exceeded on feed 2'
+				errorlogID = fopen('errorlog.txt', 'a');
+				if errorlogID == -1
+				  error('Cannot open log file.');
+				end
+				fprintf(errorlogID, '%s: %s\n', datestr(now, 0), entry);
+				fclose(errorlogID);
+				fstatus.Data(1)==50;
 		end
 	end
 	switch b2.Data(2)

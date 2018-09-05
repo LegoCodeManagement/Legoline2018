@@ -54,7 +54,7 @@ while (fstatus.Data(1) == 49)
 					case 1
 						feedtime = T_F1;
 					case 2
-						feedtime = poissrnd(T_F1);
+						feedtime = randraw('exp',(1/T_F1),1)
 					case 3
 						feedtime = randraw('tri',[lower,T_F1,upper],1);
 					otherwise
@@ -70,7 +70,7 @@ while (fstatus.Data(1) == 49)
 					case 1
 						feedtime = T_F1;
 					case 2
-						feedtime = poissrnd(T_F1);
+						feedtime = randraw('exp',(1/T_F1),1)
 					case 3
 						feedtime = randraw('tri',[lower,T_F1,upper],1);
 					otherwise
@@ -79,6 +79,14 @@ while (fstatus.Data(1) == 49)
 				
             case 50
 				disp(['cannot feed there are ',num2str(b1.Data(1)),' pallets on feed line']);
+				entry = 'Buffer exceeded on feed 1'
+				errorlogID = fopen('errorlog.txt', 'a');
+				if errorlogID == -1
+				  error('Cannot open log file.');
+				end
+				fprintf(errorlogID, '%s: %s\n', datestr(now, 0), entry);
+				fclose(errorlogID);
+				fstatus.Data(1)==50;
 			
 			otherwise
 				disp(['error, there are ',num2str(b1.Data(1)),' pallets on feed line']);
@@ -94,7 +102,7 @@ while (fstatus.Data(1) == 49)
 					movePalletPastLSfeed(MOTOR_B, power, nxtF1, SENSOR_3, 6, Fthreshold);
 					disp('pushing one pallet to transfer line')
 					b1.Data(1) = b1.Data(1) - 1;
-                case 50
+            	case 50
                 	movePalletSpacing(500, MOTOR_B, power, nxtF1);
                 	pause(1);
 					b1.Data(1) = b1.Data(1) - 1;
