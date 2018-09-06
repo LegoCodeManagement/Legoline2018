@@ -270,7 +270,7 @@ global_chosen(11) = get(hObject,'Value');
 
 % --- Executes on button press in run_config_gui.
 function run_config_gui_Callback(hObject, eventdata, handles)
-run conf.m
+run conf
 
 % --- Executes on button press in open_errorlog.
 function open_errorlog_Callback(hObject, eventdata, handles)
