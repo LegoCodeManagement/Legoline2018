@@ -22,7 +22,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 05-Sep-2018 09:50:33
+% Last Modified by GUIDE v2.5 06-Sep-2018 12:44:47
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -279,3 +279,25 @@ function open_errorlog_Callback(hObject, eventdata, handles)
 % --- Executes on button press in clear_errorlog.
 function clear_errorlog_Callback(hObject, eventdata, handles)
 fopen('errorlog.txt','w');
+
+
+% --- Executes on button press in all_local.
+function all_local_Callback(hObject, eventdata, handles)
+global local_chosen
+local_chosen = ones(1,11);
+% hObject    handle to all_local (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of all_local
+
+
+% --- Executes on button press in all_global.
+function all_global_Callback(hObject, eventdata, handles)
+global global_chosen
+global_chosen = ones(1,11);
+% hObject    handle to all_global (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of all_global
