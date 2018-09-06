@@ -16,7 +16,13 @@ T_F1 		 = str2double(out{2}(strcmp('T_F1',out{1})));
 Fthreshold   = str2double(out{2}(strcmp('Fthreshold',out{1})));	
 nxtF1 		 = COM_OpenNXTEx('USB', F1addr);
 
-dist = char(out{2}(strcmp('feed_distribution',out{1})));
+dist 		= str2double(out{2}(strcmp('dist_choice',out{1})));
+poiss_mean 	= str2double(out{2}(strcmp('poisson_mean',out{1})));
+unif_max 	= str2double(out{2}(strcmp('uniform_max',out{1})));
+unif_min 	= str2double(out{2}(strcmp('uniform_min',out{1})));
+triang_max  = str2double(out{2}(strcmp('triangular_max',out{1})));
+triang_min  = str2double(out{2}(strcmp('triangular_min',out{1})));
+triang_mode = str2double(out{2}(strcmp('triangular_mode',out{1})));
 
 %activate sensors
 OpenSwitch(SENSOR_1, nxtF1);
@@ -40,8 +46,6 @@ currentLight3 = GetLight(SENSOR_3, nxtF1);
 timer1 = tic;
 timer2 = tic;
 feedtime = 0;
-lower = T_F1 - 3;
-upper = T_F1 + 3;
 
 while (fstatus.Data(1) == 49) 
 	if (toc(timer1) >= feedtime) %true if it's time to feed
@@ -53,14 +57,17 @@ while (fstatus.Data(1) == 49)
 				timer1 = tic;
 				switch dist %dist will never change unless file is re-read
 							%but switch statement repeatedly checks value of dist - inefficient?
-					case 1
+					case 0
 						feedtime = T_F1;
+					case 1
+						feedtime = randraw('uniform',[unif_min,unif_max],1);
 					case 2
-						feedtime = randraw('exp',(1/T_F1),1)
+						feedtime = randraw('exp',(1/poiss_mean),1);
 					case 3
-						feedtime = randraw('tri',[lower,T_F1,upper],1);
+						feedtime = randraw('tri',[triang_min,triang_mode,triang_max],1);
 					otherwise
 						disp('error, wrong input distribution')
+						%write to errorlog and quit
 				end
 
             case 49  

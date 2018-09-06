@@ -14,14 +14,6 @@ _______________________________________________
 Speed_Settings:
 line_speed 40
 _______________________________________________
-Transfer_Arm_Calibration_Angles:
-T1angle 23
-T2angle 19
-T3angle 13
-_______________________________________________
-Transfer_Arm_Wait_Before_Reset
-Tarmwait 0.6
-_______________________________________________
 Feed_Frequencies
 T_U 12
 T_F1 8
@@ -52,6 +44,14 @@ Mthreshold 25
 Tthreshold 30
 Uthreshold 15
 Fthreshold 60
+_______________________________________________
+Transfer_Arm_Calibration_Angles:
+T1angle 23
+T2angle 19
+T3angle 13
+_______________________________________________
+Transfer_Arm_Wait_Before_Reset
+Tarmwait 0.6
 _______________________________________________
 timeOut_for_pallet_detection
 timeOut 5

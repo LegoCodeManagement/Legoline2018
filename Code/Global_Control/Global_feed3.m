@@ -16,6 +16,14 @@ T_F3		= str2double(out{2}(strcmp('T_F3',out{1})));
 Fthreshold 	= str2double(out{2}(strcmp('Fthreshold',out{1})));	
 nxtF3		= COM_OpenNXTEx('USB', F3addr);
 
+dist 		= str2double(out{2}(strcmp('dist_choice',out{1})));
+poiss_mean 	= str2double(out{2}(strcmp('poisson_mean',out{1})));
+unif_max 	= str2double(out{2}(strcmp('uniform_max',out{1})));
+unif_min 	= str2double(out{2}(strcmp('uniform_min',out{1})));
+triang_max  = str2double(out{2}(strcmp('triangular_max',out{1})));
+triang_min  = str2double(out{2}(strcmp('triangular_min',out{1})));
+triang_mode = str2double(out{2}(strcmp('triangular_mode',out{1})));
+
 %activate sensors
 OpenSwitch(SENSOR_1, nxtF3);
 OpenLight(SENSOR_3, 'ACTIVE', nxtF3);
