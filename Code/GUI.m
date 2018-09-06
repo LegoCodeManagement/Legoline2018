@@ -97,6 +97,8 @@ command = cmd_local(find(local_chosen));
 for i = 1:1:length(command)
     eval(char(command(i)));
 end
+pause(0.5)
+cd ..\
 
 % --- Executes on button press in global_control.
 function global_control_Callback(hObject, eventdata, handles)
@@ -118,6 +120,8 @@ command = cmd_global(find(global_chosen));
 for i = 1:1:length(command)
     eval(char(command(i)));
 end
+pause(0.5)
+cd ..\
 
 % --- Executes on button press in open_config_file.
 function open_config_file_Callback(hObject, eventdata, handles)
