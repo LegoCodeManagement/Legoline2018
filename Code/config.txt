@@ -28,9 +28,9 @@ dist_choice 3
 poisson_mean 10
 uniform_max 16
 uniform_min 6
-triangular_max 16
-triangular_min 8
-triangular_mode 12
+triangular_max 8.01
+triangular_min 7.99
+triangular_mode 8
 _______________________________________________
 Pallet_has_left_delay:
 M1delay 4.6
@@ -43,7 +43,7 @@ STD_Light_sensor_threshold_for_detection
 Mthreshold 25
 Tthreshold 30
 Uthreshold 15
-Fthreshold 60
+Fthreshold 30
 _______________________________________________
 Transfer_Arm_Calibration_Angles:
 T1angle 23

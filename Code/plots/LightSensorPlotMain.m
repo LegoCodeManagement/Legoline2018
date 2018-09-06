@@ -2,7 +2,7 @@
 %Notice that when two lights shine at each other their reading is different
 %Now I am using the difference > 10 method. If this method does not work
 %I will go back to setting thresholds for light sensors
-
+addpath RWTHMindstormsNXT;
 Uaddr = '0016530EE120';
 nxtU = COM_OpenNXTEx('USB', Uaddr);
 M1Addr = '0016530EE594';

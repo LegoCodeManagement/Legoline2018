@@ -10,7 +10,9 @@ global fstatus
 global wait
 
 %open config file and save variable names and values column 1 and 2 respectively.
-config  = fopen('config.txt','rt');
+cd ../
+config = fopen('config.txt','rt');
+cd([pwd,filesep,'Global_Control']);
 out 	= textscan(config, '%s %s');
 fclose(config);
 
@@ -66,7 +68,7 @@ while (fstatus.Data(1) == 49)
 	if m1.Data(1) == 48
 	mainline.Stop('off', nxtM1);
 		while m1.Data(1) == 48
-			pause(0.2);
+			pause(0.1);
 		end
 	mainline.SendToNXT(nxtM1);
 	end

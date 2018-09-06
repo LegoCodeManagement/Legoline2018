@@ -1,3 +1,4 @@
+addpath RWTHMindstormsNXT;
 SAddr = '001653132A78';
 nxtS = COM_OpenNXTEx('USB', SAddr);
 

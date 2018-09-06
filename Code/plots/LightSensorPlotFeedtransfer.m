@@ -1,3 +1,4 @@
+addpath RWTHMindstormsNXT;
 F1addr = '00165308EE03';
 T1addr = '0016530AABDF';
 

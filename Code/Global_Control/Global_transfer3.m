@@ -67,9 +67,10 @@ while (fstatus.Data(1) == 49)
 				if checkpriority(transferpallet3,m2.Data(1)) %
 			
 					wait.Data(3) = 49;						%tell upstream to stop
-					TransferArmRun(MOTOR_B, nxtT3, 105);
-				
 					addpallet(transferpallet3,'count_m3.txt')
+                    TransferArmRun(MOTOR_B, nxtT3, 105);
+				
+					
 				
 					b3.Data(2) = b3.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
 					pause(Tarmwait);
@@ -85,10 +86,11 @@ while (fstatus.Data(1) == 49)
 				
 				end
 		
-			else
+            else
+                addpallet(transferpallet3,'count_m3.txt')
 				TransferArmRun(MOTOR_B, nxtT3, 105);
 			
-				addpallet(transferpallet3,'count_m3.txt')
+				
 			
 				b3.Data(2) = b3.Data(2) - 1; 			%remove one pallet from transfer line section of buffer
 				pause(Tarmwait);

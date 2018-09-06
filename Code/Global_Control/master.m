@@ -149,6 +149,7 @@ for i=1:100
 		clear result;
 		clear fstatusStatus;
 		clear fileConfig;
+        quit
 	elseif result == 2
         break 
     %{
