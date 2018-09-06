@@ -7,7 +7,9 @@ fstatus.Data(2) = 49;
 global fstatus
 
 %open config file and save variable names and values column 1 and 2 respectively.
+cd ../
 config = fopen('config.txt','rt');
+cd([pwd,filesep,'Global_Control']);
 out = textscan(config, '%s %s');
 fclose(config);
 

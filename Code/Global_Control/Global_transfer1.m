@@ -13,7 +13,9 @@ global wait
 global fstatus
 
 %open config file and save variable names and values column 1 and 2 respectively set variables accordingly
+cd ../
 config = fopen('config.txt','rt');
+cd([pwd,filesep,'Global_Control']);
 out = textscan(config, '%s %s');
 fclose(config);
 power 		= str2double(out{2}(strcmp('line_speed',out{1})));

@@ -5,7 +5,9 @@ fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(8) = 49;
 
 %open config file and save variable names and values column 1 and 2 respectively.
+cd ../
 config = fopen('config.txt','rt');
+cd([pwd,filesep,'Global_Control']);
 out = textscan(config, '%s %s');
 fclose(config);
 power 		= str2double(out{2}(strcmp('line_speed',out{1})));

@@ -6,7 +6,9 @@ m1 = memmapfile('count_m1.txt', 'Writable', true, 'Format', 'int8');
 
 %open config file and save variable names and values column 1 and 2
 %respectively.
+cd ../
 config = fopen('config.txt','rt');
+cd([pwd,filesep,'Local_Control']);
 out = textscan(config, '%s %s');
 fclose(config);
 %retrieve parameters
