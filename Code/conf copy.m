@@ -185,6 +185,7 @@ function save_changes_Callback(hObject, eventdata, handles)
 
 global triang_max triang_min triang_mode poiss_mean unif_max unif_min line_speed dist_choice...
     u_threshold m_threshold t_threshold f_threshold
+%{
 config  = fopen('config.txt','rt');
 out 	= textscan(config, '%s %s');
 fclose(config);
@@ -208,7 +209,7 @@ for i=1:1:length(C)
     fprintf(config2,format,C(i,:));
 end
 fclose(config2);
-
+%}
 
 % --- Executes during object creation, after setting all properties.
 function save_changes_CreateFcn(hObject, eventdata, handles)
@@ -267,8 +268,6 @@ set(hObject,'String',out{2}{strcmp('Tthreshold',out{1})});
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-
-
 
 function f_threshold_Callback(hObject, eventdata, handles)
 global f_threshold
