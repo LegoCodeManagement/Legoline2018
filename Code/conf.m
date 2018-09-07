@@ -200,15 +200,14 @@ out{2}{strcmp('Uthreshold',out{1})} = sprintf('%2.1f',u_threshold);
 out{2}{strcmp('Mthreshold',out{1})} = sprintf('%2.1f',m_threshold);
 out{2}{strcmp('Tthreshold',out{1})} = sprintf('%2.1f',t_threshold);
 out{2}{strcmp('Fthreshold',out{1})} = sprintf('%2.1f',f_threshold);
-
-C = [string(out{1}), string(out{2})];
-format = '%s %s\n';
-config2 = fopen('config.txt','w');
-for i=1:1:length(C)
-    fprintf(config2,format,C(i,:));
+C1 = out{1};
+C2 = out{2};
+config2 = fopen('config2.txt','w');
+for i=1:1:length(C1)
+    line = [char(C1(i)),' ',char(C2(i))];
+    fprintf(config2,'%s\r\n',line);
 end
 fclose(config2);
-
 
 % --- Executes during object creation, after setting all properties.
 function save_changes_CreateFcn(hObject, eventdata, handles)
