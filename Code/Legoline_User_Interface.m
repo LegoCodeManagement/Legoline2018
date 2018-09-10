@@ -91,7 +91,7 @@ uistack(background_axes_handle,'bottom');
 I=imread('legoline.JPG');
 hi = imagesc(I);
 set(background_axes_handle,'handlevisibility','off','visible','off')
-
+%{
 % Set up pull down menu for the running comamnds initialise start and stop 
 runcommandmenu = uimenu('label','Run Commands ');
 uimenu(runcommandmenu,'label','Single Run','Enable','off');
@@ -114,12 +114,18 @@ uimenu(configmenu,'label','NXT MAC Data','Callback',@getconfig);
 uimenu(configmenu,'label','Interactive Configuration Tool','Callback',@conf);
 uimenu(configmenu,'label','MAC Data Master','Callback',@getconfig,'Enable','off');
 
+configmenu = uimenu('label','Plots and Checks');
+uimenu(configmenu,'label','Transfer Arm','Callback',@);
+uimenu(configmenu,'label','Feed Transfer','Callback',@);
+uimenu(configmenu,'label','Mainline','Callback',@);
+uimenu(configmenu,'label','Splitter','Callback',@);
+uimenu(configmenu,'label','Battery Check','Callback',@);
 
 % Log File Menus, by calling the timer function early. 
 resultmenu = uimenu(Legoline_GUI,'label','Data Logging');
 logmenu = uimenu(Legoline_GUI,'label','Event Logs');
 %Update_menus_main(0,0)
-     
+%}
 % Set Up Buttons to Do The Run Commands for a demonstration run. 
 initbutton = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Initialise','tooltipstring','Press to Initialise the motors and clear any pallets from the line','BackgroundColor','y','ForegroundColor','k','units','normal','Position',[0.1,0.8,0.2,0.1], 'callback', @initButtonCallback);
 startbutton = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Start','tooltipstring','Once Initialised Click Here to run the line','BackgroundColor','g','ForegroundColor','k','units','normal','Position',[0.1,0.5,0.2,0.1],'callback',@startButtonCallback);

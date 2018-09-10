@@ -22,7 +22,7 @@ function varargout = conf(varargin)
 
 % Edit the above text to modify the response to help conf
 
-% Last Modified by GUIDE v2.5 05-Sep-2018 14:41:20
+% Last Modified by GUIDE v2.5 10-Sep-2018 13:16:17
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -117,8 +117,6 @@ function triang_min_Callback(hObject, eventdata, handles)
 global triang_min
 triang_min = str2double(get(hObject,'String'));
 %        str2double(get(hObject,'String')) returns contents of triang_min as a double
-
-
 
 % --- Executes during object creation, after setting all properties.
 function poiss_mean_CreateFcn(hObject, eventdata, handles)
@@ -334,3 +332,13 @@ end
 function radiogroup_SelectionChangedFcn(hObject, eventdata, handles)
 global dist_choice
 dist_choice = str2double(get(hObject,'String'));
+
+
+% --- Executes on button press in pushbutton5.
+function pushbutton5_Callback(hObject, eventdata, handles)
+cd([pwd,filesep,'Global_Control']);
+!notepad priority.txt
+cd ..\
+% hObject    handle to pushbutton5 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
