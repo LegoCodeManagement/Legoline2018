@@ -5,6 +5,7 @@ fstatus.Data(2) = 49; %initalise
 
 %open config file and save variable names and values column 1 and 2
 %respectively.
+pwd
 cd ../
 config = fopen('config.txt','rt');
 cd([pwd,filesep,'Local_Control']);
@@ -23,12 +24,11 @@ nxtU = COM_OpenNXTEx('USB', Uaddr);
 
 %establish memory map to junction file
 u = memmapfile('count_u.txt','Writable',true);
-disp(u.Data(1));
 
 OpenLight(SENSOR_2,'ACTIVE',nxtU);
 OpenSwitch(SENSOR_1,nxtU);
 fstatus.Data(2) = 50; %ready
-disp('UPSTREAM');
+disp('Local Upstream');
 disp('waiting for ready signal')
 while fstatus.Data(1) == 48
     pause(0.1); %wait for ready sign
@@ -65,7 +65,7 @@ while (k<12) && (fstatus.Data(1) == 49)
         end
         
         k=k+1;
-        movePalletPastLSupstream(MOTOR_B,power,nxtU,SENSOR_2,3,Uthreshold);
+        movePalletPastLSupstream(MOTOR_B,power,nxtU,SENSOR_2,5,Uthreshold);
         start(palletHasLeft(k))
     end
         %take movepallet outside if statement and make new: if u.Data(1) > 1 then movepallet.

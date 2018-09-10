@@ -5,8 +5,8 @@ movePallet.SpeedRegulation = 0;
 movePallet.SendToNXT(nxt);
 
 array = ones(1,10)*GetLight(port,nxt);
-stdarray = zeros(1,7)
-stdavg = mean(stdarray)
+stdarray = zeros(1,7);
+stdavg = mean(stdarray);
 
 tic;
 

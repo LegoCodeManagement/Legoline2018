@@ -28,7 +28,7 @@ movePallet.SpeedRegulation = 0;
 OpenLight(SENSOR_2,'ACTIVE',nxtU);
 OpenSwitch(SENSOR_1,nxtU);
 fstatus.Data(2) = 50; %ready
-disp('UPSTREAM');
+disp('Global Upstream');
 disp('waiting for ready signal');
 
 while fstatus.Data(1) == 48
@@ -64,13 +64,13 @@ while (fstatus.Data(1) == 49)
 				movePallet.SendToNXT(nxtU);
 			end
 
-			[stdavg,avg,stdarray,array] = averagestd(nxtU,port,stdarray,array);
+			[stdavg,avg,stdarray,array] = averagestd(nxtU,SENSOR_2,stdarray,array);
 			pause(0.02)
 			%checkTimeOut(timeOut)
 		end
 		%tic;
 		while stdavg > Uthreshold*0.5
-			[stdavg,avg,stdarray,array] = averagestd(nxtU,port,stdarray,array);
+			[stdavg,avg,stdarray,array] = averagestd(nxtU,SENSOR_2,stdarray,array);
 			pause(0.02)
 			%checkTimeOut(timeOut)
 		end

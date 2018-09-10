@@ -12,7 +12,7 @@ Splitter1 001653132A78
 Upstream 0016530EE120
 ____________________ 
 Speed_Settings: 
-line_speed 48.8235
+line_speed 42
 ____________________ 
 Feed_Frequencies 
 T_U 12

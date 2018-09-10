@@ -167,8 +167,4 @@ for i=1:100
 	end
 end
 
-input('press ENTER to start Legoline');
-fstatus.Data(1) = 49;
-input('press ENTER to stop Legoline');
-fstatus.Data(1) = 50;
-
+quit;

@@ -207,8 +207,8 @@ function save_changes_CreateFcn(hObject, eventdata, handles)
 % --- Executes on slider movement.
 function line_speed_Callback(hObject, eventdata, handles)
 handles = guidata(hObject);
-line_speed = get(hObject,'Value');
-handles.line_speed = line_speed
+line_speed = round(get(hObject,'Value'));
+handles.line_speed = line_speed;
 guidata(hObject,handles);
 
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
