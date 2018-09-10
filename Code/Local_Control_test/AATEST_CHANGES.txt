@@ -1,5 +1,5 @@
-feed - able to change buffer size with value of n
-mainline - only runs while pallet is on line 
-upstream - buffer
+feed - able to change buffer size with value of n - moved this to global feed 1
+mainline - only runs while pallet is on line - only on global
+upstream - buffer - cannot implement this?
 
 all - log file write function

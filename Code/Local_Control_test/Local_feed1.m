@@ -6,7 +6,9 @@ b1 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
 
 %open config file and save variable names and values column 1 and 2
 %respectively.
+cd ../
 config = fopen('config.txt','rt');
+cd([pwd,filesep,'Local_Control']);
 out = textscan(config, '%s %s');
 fclose(config);
 %retrieve parameters
@@ -15,6 +17,14 @@ F1addr = char(out{2}(strcmp('Feed1',out{1})));
 T_F1 = str2double(out{2}(strcmp('T_F1',out{1})));
 Fthreshold = str2double(out{2}(strcmp('Fthreshold',out{1})));	
 nxtF1 = COM_OpenNXTEx('USB', F1addr);
+
+dist 		= str2double(out{2}(strcmp('dist_choice',out{1})));
+poiss_mean 	= str2double(out{2}(strcmp('poisson_mean',out{1})));
+unif_max 	= str2double(out{2}(strcmp('uniform_max',out{1})));
+unif_min 	= str2double(out{2}(strcmp('uniform_min',out{1})));
+triang_max  = str2double(out{2}(strcmp('triangular_max',out{1})));
+triang_min  = str2double(out{2}(strcmp('triangular_min',out{1})));
+triang_mode = str2double(out{2}(strcmp('triangular_mode',out{1})));
 
 %activate sensors
 OpenSwitch(SENSOR_1, nxtF1);
@@ -32,22 +42,37 @@ end
 %calculate the background light in the room. Further measurements will be measured as a difference to this.
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
-%feed all the pallets or until told to stop.
-feedPallet(nxtF1, SENSOR_1, MOTOR_A); %so that feed starts immediately
-b1.Data(1) = b1.Data(1) + 1;
-tic;
+timer1 = tic;
+timer2 = tic;
+feedtime = 0;
 k=0;
+%feed all the pallets or until told to stop.
 while (k<12) && (fstatus.Data(1) == 49) 
-	if (toc >= T_F1) %true if it's time to feed
+	if (toc(timer1) >= feedtime) %true if it's time to feed
 		if b1.Data(1) == 48
 			b1.Data(1) = b1.Data(1) + 1;
+			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feedtime)]);
 			feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 			k=k+1;
-			tic %set timer for next pallet
+			timer1 = tic
+			switch dist %dist will never change unless file is re-read
+						%but switch statement repeatedly checks value of dist - inefficient?
+				case 0
+					feedtime = T_F1;
+				case 1
+					feedtime = randraw('uniform',[unif_min,unif_max],1);
+				case 2
+					feedtime = randraw('exp',(1/poiss_mean),1);
+				case 3
+					feedtime = randraw('tri',[triang_min,triang_mode,triang_max],1);
+				otherwise
+					disp('error, wrong input distribution')
+					%write to errorlog and quit
 		
 		elseif b1.Data(1) < 48+n
                       
 			movePalletSpacing(400, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
+			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feedtime)]);
 			feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 			k=k+1;
 			clear toc
@@ -56,13 +81,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 				
 		elseif b1.Data(1) == 48+n
 			disp(['cannot feed there are ',num2str(b1.Data(1)),' pallets on feed line']);
-			entry = 'Buffer exceeded on feed 1';
-			errorlogID = fopen('errorlog.txt', 'a');
-			if errorlogID == -1
-			  error('Cannot open log file.');
-			end
-			fprintf(errorlogID, '%s: %s\n', datestr(now, 0), entry);
-			fclose(errorlogID);
+			logwrite('Buffer exceeded on feed 2');
 			fstatus.Data(1)=50;
 			
 		else

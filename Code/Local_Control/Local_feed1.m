@@ -42,36 +42,23 @@ end
 %calculate the background light in the room. Further measurements will be measured as a difference to this.
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
-%feed all the pallets or until told to stop.
-feedPallet(nxtF1, SENSOR_1, MOTOR_A); %so that feed starts immediately
-b1.Data(1) = b1.Data(1) + 1;
-pause(0.1)
-tic;
+timer1 = tic;
+timer2 = tic;
+feedtime = 0;
 k=0;
+%feed all the pallets or until told to stop.
 while (k<12) && (fstatus.Data(1) == 49) 
 	if (toc >= T_F1) %true if it's time to feed
 		switch b1.Data(1)
     		case 48
                 b1.Data(1) = b1.Data(1) + 1;
 				feedPallet(nxtF1, SENSOR_1, MOTOR_A);
-				
-				if fstatus.Data(1) ~= 49
-                    disp('break');
-					break
-				end
-				
 				k=k+1;
 				tic %set timer for next pallet
 				
             case 49            
                 movePalletSpacing(400, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
                 feedPallet(nxtF1, SENSOR_1, MOTOR_A);
-				
-                if fstatus.Data(1) ~= 49
-                    disp('break');
-					break
-                end
-				
 				k=k+1;
 				clear toc
 				tic %set timer for next pallet
@@ -79,10 +66,8 @@ while (k<12) && (fstatus.Data(1) == 49)
 				
             case 50
 				disp(['cannot feed there are ',num2str(b1.Data(1)),' pallets on feed line']);
-				
-				logwrite('Buffer exceeded on feed 2');
-				
-				fstatus.Data(1)==50;
+				logwrite('Buffer exceeded on feed 1');
+				fstatus.Data(1)=50;
 			
 			otherwise
 				disp(['error, there are ',num2str(b1.Data(1)),' pallets on feed line']);
@@ -101,8 +86,7 @@ while (k<12) && (fstatus.Data(1) == 49)
                 case 50 
                 	movePalletSpacing(500, MOTOR_B, power, nxtF1);
                 	pause(1);
-					%movePalletPastLightSensor(MOTOR_B, power, nxtF1, SENSOR_3, currentLight3, 6, 10);
-					b1.Data(1) = b1.Data(1) - 1;
+                	b1.Data(1) = b1.Data(1) - 1;
 					movePalletSpacing(450, MOTOR_B, -power, nxtF1); %move pallet back on feed line so two can fit
 					
 				otherwise

@@ -47,59 +47,46 @@ timer1 = tic;
 timer2 = tic;
 feedtime = 0;
 
-while (fstatus.Data(1) == 49) 
+while (fstatus.Data(1) == 49) && (k<12)
 	if (toc(timer1) >= feedtime) %true if it's time to feed
-		switch b1.Data(1)
-    		case 48
-                b1.Data(1) = b1.Data(1) + 1;
-				disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feedtime)]);
-				feedPallet(nxtF1, SENSOR_1, MOTOR_A);
-				timer1 = tic;
-				switch dist %dist will never change unless file is re-read
-							%but switch statement repeatedly checks value of dist - inefficient?
-					case 0
-						feedtime = T_F1;
-					case 1
-						feedtime = randraw('uniform',[unif_min,unif_max],1);
-					case 2
-						feedtime = randraw('exp',(1/poiss_mean),1);
-					case 3
-						feedtime = randraw('tri',[triang_min,triang_mode,triang_max],1);
-					otherwise
-						disp('error, wrong input distribution')
-						%write to errorlog and quit
-				end
-
-            case 49  
-        		b1.Data(1) = b1.Data(1) + 1;          
-                movePalletSpacing(400, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
-                feedPallet(nxtF1, SENSOR_1, MOTOR_A);
-				timer1 = tic;
-				switch dist
-					case 1
-						feedtime = T_F1;
-					case 2
-						feedtime = randraw('exp',(1/T_F1),1)
-					case 3
-						feedtime = randraw('tri',[lower,T_F1,upper],1);
-					otherwise
-						disp('error, wrong input distribution')
-				end
+		if b1.Data(1) == 48
+			b1.Data(1) = b1.Data(1) + 1;
+			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feedtime)]);
+			feedPallet(nxtF1, SENSOR_1, MOTOR_A);
+			k=k+1;
+			timer1 = tic
+			switch dist %dist will never change unless file is re-read
+						%but switch statement repeatedly checks value of dist - inefficient?
+				case 0
+					feedtime = T_F1;
+				case 1
+					feedtime = randraw('uniform',[unif_min,unif_max],1);
+				case 2
+					feedtime = randraw('exp',(1/poiss_mean),1);
+				case 3
+					feedtime = randraw('tri',[triang_min,triang_mode,triang_max],1);
+				otherwise
+					disp('error, wrong input distribution')
+					%write to errorlog and quit
+		
+		elseif b1.Data(1) < 48+n
+                      
+			movePalletSpacing(400, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
+			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feedtime)]);
+			feedPallet(nxtF1, SENSOR_1, MOTOR_A);
+			k=k+1;
+			clear toc
+			tic %set timer for next pallet
+			b1.Data(1) = b1.Data(1) + 1;
 				
-            case 50
-				disp(['cannot feed there are ',num2str(b1.Data(1)),' pallets on feed line']);
-				entry = 'Buffer exceeded on feed 1'
-				errorlogID = fopen('errorlog.txt', 'a');
-				if errorlogID == -1
-				  error('Cannot open log file.');
-				end
-				fprintf(errorlogID, '%s: %s\n', datestr(now, 0), entry);
-				fclose(errorlogID);
-				fstatus.Data(1)==50;
+		elseif b1.Data(1) == 48+n
+			disp(['cannot feed there are ',num2str(b1.Data(1)),' pallets on feed line']);
+			logwrite('Buffer exceeded on feed 2');
+			fstatus.Data(1)=50;
 			
-			otherwise
-				disp(['error, there are ',num2str(b1.Data(1)),' pallets on feed line']);
-				break;
+		else
+			disp(['error, there are ',num2str(b1.Data(1)),' pallets on feed line']);
+			break;
 		end
 	end
 	switch b1.Data(2)
