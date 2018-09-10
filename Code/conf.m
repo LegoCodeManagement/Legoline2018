@@ -82,8 +82,7 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 function triang_max_Callback(hObject, eventdata, handles)
-global triang_max
-triang_max = str2double(get(hObject,'String'));
+handles.triang_max = str2double(get(hObject,'String'));
 
 % --- Executes during object creation, after setting all properties.
 function triang_mode_CreateFcn(hObject, eventdata, handles)
@@ -182,27 +181,19 @@ unif_min = str2double(get(hObject,'String'));
 
 % --- Executes on button press in save_changes.
 function save_changes_Callback(hObject, eventdata, handles)
-
-global triang_max triang_min triang_mode poiss_mean unif_max unif_min line_speed dist_choice...
-    u_threshold m_threshold t_threshold f_threshold
+handles = guidata(hObject);
+guidata(hObject,handles);
 config  = fopen('config.txt','rt');
 out 	= textscan(config, '%s %s');
 fclose(config);
-out{2}{strcmp('dist_choice',out{1})} = sprintf('%2.1f',dist_choice);
-out{2}{strcmp('poisson_mean',out{1})} = sprintf('%2.1f',poiss_mean);
-out{2}{strcmp('uniform_max',out{1})} = sprintf('%2.1f',unif_max);
-out{2}{strcmp('uniform_min',out{1})} = sprintf('%2.1f',unif_min);
-out{2}{strcmp('triangular_max',out{1})} = sprintf('%2.1f',triang_max);
-out{2}{strcmp('triangular_min',out{1})} = sprintf('%2.1f',triang_min);
-out{2}{strcmp('triangular_mode',out{1})} = sprintf('%2.1f',triang_mode);
-out{2}{strcmp('line_speed',out{1})} = sprintf('%2.1f',line_speed);
-out{2}{strcmp('Uthreshold',out{1})} = sprintf('%2.1f',u_threshold);
-out{2}{strcmp('Mthreshold',out{1})} = sprintf('%2.1f',m_threshold);
-out{2}{strcmp('Tthreshold',out{1})} = sprintf('%2.1f',t_threshold);
-out{2}{strcmp('Fthreshold',out{1})} = sprintf('%2.1f',f_threshold);
+
+out{2}{strcmp('line_speed',out{1})} = num2str(handles.line_speed);
+
 C1 = out{1};
 C2 = out{2};
-config2 = fopen('config2.txt','w');
+
+%format = '%s %s\n';
+config2 = fopen('config.txt','w');
 for i=1:1:length(C1)
     line = [char(C1(i)),' ',char(C2(i))];
     fprintf(config2,'%s\r\n',line);
@@ -215,14 +206,20 @@ function save_changes_CreateFcn(hObject, eventdata, handles)
 
 % --- Executes on slider movement.
 function line_speed_Callback(hObject, eventdata, handles)
-global line_speed
+handles = guidata(hObject);
 line_speed = get(hObject,'Value');
+handles.line_speed = line_speed
+guidata(hObject,handles);
 
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
 
 
 % --- Executes during object creation, after setting all properties.
 function line_speed_CreateFcn(hObject, eventdata, handles)
+config  = fopen('config.txt','rt');
+out 	= textscan(config, '%s %s');
+fclose(config);
+set(hObject,'Value',str2double(out{2}{strcmp('line_speed',out{1})}));
 
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
@@ -232,7 +229,6 @@ function uthreshold_Callback(hObject, eventdata, handles)
 global u_threshold
 u_threshold = str2double(get(hObject,'String'));
 %        str2double(get(hObject,'String')) returns contents of uthreshold as a double
-clc
 
 
 % --- Executes during object creation, after setting all properties.

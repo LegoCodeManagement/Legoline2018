@@ -12,7 +12,7 @@ Splitter1 001653132A78
 Upstream 0016530EE120
 ____________________ 
 Speed_Settings: 
-line_speed 
+line_speed 20
 ____________________ 
 Feed_Frequencies 
 T_U 12
@@ -21,16 +21,16 @@ T_F2 7
 T_F3 13
 ____________________ 
 Distribution_type: 
-dist_choice 
+dist_choice 3
 %1=uniform 
 %2=poisson 
 %3=triangular 
-poisson_mean 10.0
-uniform_max 16.0
-uniform_min 6.0
-triangular_max 8.0
-triangular_min 8.0
-triangular_mode 8.0
+poisson_mean 10
+uniform_max 16
+uniform_min 6
+triangular_max 8.01
+triangular_min 7.99
+triangular_mode 8
 ____________________ 
 Pallet_has_left_delay: 
 M1delay 4.6
@@ -40,10 +40,10 @@ T2delay 4
 Udelay 1.5
 ____________________ 
 STD_Light_sensor_threshold_for_detection 
-Mthreshold 25.0
-Tthreshold 30.0
-Uthreshold 15.0
-Fthreshold 30.0
+Mthreshold 25
+Tthreshold 30
+Uthreshold 15
+Fthreshold 30
 ____________________ 
 Transfer_Arm_Calibration_Angles: 
 T1angle 23

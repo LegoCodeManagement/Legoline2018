@@ -43,24 +43,16 @@ else
 end
 % End initialization code - DO NOT EDIT
 
-function initialise()
-background_axes_handle = axes('units','normalized','position',[0 0 1 1]);
-uistack(background_axes_handle,'bottom');
-I=imread('legoline.jpg');
-hi = imagesc(I);
-set(background_axes_handle,'handlevisibility','off','visible','off')
-global local_chosen
-local_chosen = zeros(1,11);
-
-global global_chosen
-global_chosen = zeros(1,11);
-
-
 
 % --- Executes just before GUI is made visible.
 function GUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % This function has no output args, see OutputFcn.
 
+global local_chosen
+local_chosen = zeros(1,11);
+
+global global_chosen
+global_chosen = zeros(1,11);
 
 % varargin   command line arguments to GUI (see VARARGIN)
 
