@@ -20,6 +20,9 @@ T_F1 8
 T_F2 7
 T_F3 13
 ____________________ 
+Size_of_buffer_on_feed_lines 
+buffer_size 2
+____________________ 
 Distribution_type: 
 dist_choice 3
 %1=uniform 
@@ -40,7 +43,7 @@ T2delay 4
 Udelay 1.5
 ____________________ 
 STD_Light_sensor_threshold_for_detection 
-Mthreshold 25
+Mthreshold 26
 Tthreshold 30
 Uthreshold 15
 Fthreshold 30

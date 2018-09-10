@@ -91,7 +91,7 @@ uistack(background_axes_handle,'bottom');
 I=imread('legoline.JPG');
 hi = imagesc(I);
 set(background_axes_handle,'handlevisibility','off','visible','off')
-%{
+
 % Set up pull down menu for the running comamnds initialise start and stop 
 runcommandmenu = uimenu('label','Run Commands ');
 uimenu(runcommandmenu,'label','Single Run','Enable','off');
@@ -101,25 +101,18 @@ uimenu(runcommandmenu,'label','Finish','call','Finish');
 uimenu(runcommandmenu,'label','Run Experiments','Enable','off','separator','on','Enable','off');
 uimenu(runcommandmenu,'label','Buffer Size Experiment','call',@Pallet_Buffer_Experiment_Callback,'separator','on','Enable','off' );
 uimenu(runcommandmenu,'label','Feed Rate Experiment','call',@Feed_Rate_Experiment_Callback,'Enable','off');
-uimenu(runcommandmenu,'label','Import Data','call','import_simiodata');
+uimenu(runcommandmenu,'label','Import Data','call','import_simiodata','Enable','off');
 uimenu(runcommandmenu,'label','Run Graphing Tool','separator','on','call',{@Graphing_Tool_GUI_Function2},'Enable','off');
-uimenu(runcommandmenu,'label','Run Status Monitor','separator','on','call','Run_Statedraw');
-uimenu(runcommandmenu,'label','Stop Status Monitor','call',@stop_statedraw_callback);
-uimenu(runcommandmenu,'label','Simulate Upstream Line','separator','on','call',@Generate_feed_data_callback);
+uimenu(runcommandmenu,'label','Run Status Monitor','separator','on','call','Run_Statedraw','Enable','off');
+uimenu(runcommandmenu,'label','Stop Status Monitor','call',@stop_statedraw_callback,'Enable','off');
+uimenu(runcommandmenu,'label','Simulate Upstream Line','separator','on','call',@Generate_feed_data_callback,'Enable','off');
 
 % Configuration Menu and its sub items 
 configmenu = uimenu('label','Configuration');
-uimenu(configmenu,'label','Buffer and Feed','Callback',@getconfig);
-uimenu(configmenu,'label','NXT MAC Data','Callback',@getconfig);
+uimenu(configmenu,'label','Buffer and Feed','Callback',@getconfig,'Enable','off');
+uimenu(configmenu,'label','NXT MAC Data','Callback',@getconfig,'Enable','off');
 uimenu(configmenu,'label','Interactive Configuration Tool','Callback',@conf);
 uimenu(configmenu,'label','MAC Data Master','Callback',@getconfig,'Enable','off');
-
-configmenu = uimenu('label','Plots and Checks');
-uimenu(configmenu,'label','Transfer Arm','Callback',@);
-uimenu(configmenu,'label','Feed Transfer','Callback',@);
-uimenu(configmenu,'label','Mainline','Callback',@);
-uimenu(configmenu,'label','Splitter','Callback',@);
-uimenu(configmenu,'label','Battery Check','Callback',@);
 
 % Log File Menus, by calling the timer function early. 
 resultmenu = uimenu(Legoline_GUI,'label','Data Logging');
@@ -128,28 +121,31 @@ logmenu = uimenu(Legoline_GUI,'label','Event Logs');
 %}
 % Set Up Buttons to Do The Run Commands for a demonstration run. 
 initbutton = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Initialise','tooltipstring','Press to Initialise the motors and clear any pallets from the line','BackgroundColor','y','ForegroundColor','k','units','normal','Position',[0.1,0.8,0.2,0.1], 'callback', @initButtonCallback);
-startbutton = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Start','tooltipstring','Once Initialised Click Here to run the line','BackgroundColor','g','ForegroundColor','k','units','normal','Position',[0.1,0.5,0.2,0.1],'callback',@startButtonCallback);
-finishbutton = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Finish','tooltipstring','Click here to stop the line and record all data from the run','BackgroundColor','r','ForegroundColor','k','units','normal','Position',[0.1,0.2,0.2,0.1],'callback', @finishButtonCallback);
+startbutton = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Start','tooltipstring','Once Initialised Click Here to run the line','BackgroundColor','g','ForegroundColor','k','units','normal','Position',[0.4,0.8,0.2,0.1],'callback',@startButtonCallback);
+finishbutton = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Finish','tooltipstring','Click here to stop the line and record all data from the run','BackgroundColor','r','ForegroundColor','k','units','normal','Position',[0.7,0.8,0.2,0.1],'callback', @finishButtonCallback);
 bg = uibuttongroup(Legoline_GUI,'Visible','on','Position',[0.1,0.9,0.2,0.05],'SelectionChangeFcn',@ChoiceCallback,'CreateFcn',@ChoiceCreationCallback);
 radioLocal = uicontrol(bg,'Style','radiobutton','String','Local','BackgroundColor','w','ForegroundColor','k','units','normal','Position',[0,0,0.5,1],'Value',1);
 radioGlobal = uicontrol(bg,'Style','radiobutton','String','Global','BackgroundColor','w','ForegroundColor','k','units','normal','Position',[0.5,0,0.5,1],'Value',0);
-% Function buttons for second cloumn, these generally run more complex
+% Function buttons for second row, these generally run more complex
 % experiments 
 
 % old code fragment for a button which can display all event logs for
 % complex error tracking. 
 %event_button = uicontrol('Style','pushbutton','String','Display Event Logs','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','Position',[475,500,150,50],'Callback',{@display_logdata,6,0});
 
-run_timed_button = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Timed Run','tooltipstring','Once Initialsied Click Here to run the line for a specified time','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','units','normal','Position',[0.4,0.8,0.2,0.1],'call',@Timed_Run);
-run_feed_button = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Run Feed Experiment','tooltipstring','Click Here to Lauch the Configured Feed Rate Experiment','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','units','normal','Position',[0.4,0.5,0.2,0.1],'call',@Feed_Rate_Experiment_Callback,'Enable','off');
-run_pallet_button = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Run Buffer Experiment','tooltipstring','Click Here to Lauch the Configured Buffer Size Experiment','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','units','normal','Position',[0.4,0.2,0.2,0.1],'call',@Pallet_Buffer_Experiment_Callback,'Enable','off');
+run_timed_button = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Timed Run','tooltipstring','Once Initialsied Click Here to run the line for a specified time','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','units','normal','Position',[0.1,0.6,0.2,0.1],'call',@Timed_Run,'Enable','off');
+run_feed_button = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Run Feed Experiment','tooltipstring','Click Here to Lauch the Configured Feed Rate Experiment','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','units','normal','Position',[0.4,0.6,0.2,0.1],'call',@Feed_Rate_Experiment_Callback,'Enable','off');
+run_pallet_button = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Run Buffer Experiment','tooltipstring','Click Here to Lauch the Configured Buffer Size Experiment','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','units','normal','Position',[0.4,0.4,0.2,0.1],'call',@Pallet_Buffer_Experiment_Callback,'Enable','off');
 
-% print the thrid column of dashboard buttons - these tend to show results
+% print the third row of dashboard buttons - these tend to show results
 % files 
-feed_button = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Display Feed Logs','tooltipstring','Click here to display the feed logs from all units from the last run','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','units','normal','Position',[0.7,0.8,0.2,0.1],'Callback',{@display_logdata,5,0});
-results_button = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Display Results','tooltipstring','If an experiment mode run has just been completed click here to generate the results file for saving','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','units','normal','Position',[0.7,0.5,0.2,0.1],'Callback',{@display_logdata,10,0},'Enable','off');
-graphing_button = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Graphing Tool','tooltipstring','If an experiment mode run has just been completed click here to view the failure surface in 3D','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','units','normal','Position',[0.7,0.2,0.2,0.1],'Callback',{@Graphing_Tool_GUI_Function2},'Enable','off');
+feed_button = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Display Feed Logs','tooltipstring','Click here to display the feed logs from all units from the last run','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','units','normal','Position',[0.1,0.4,0.2,0.1],'Callback',{@display_logdata,5,0},'Enable','off');
+results_button = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Display Results','tooltipstring','If an experiment mode run has just been completed click here to generate the results file for saving','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','units','normal','Position',[0.7,0.6,0.2,0.1],'Callback',{@display_logdata,10,0},'Enable','off');
+graphing_button = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Graphing Tool','tooltipstring','If an experiment mode run has just been completed click here to view the failure surface in 3D','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','units','normal','Position',[0.7,0.4,0.2,0.1],'Callback',{@Graphing_Tool_GUI_Function2},'Enable','off');
 
+%fourth row
+conf_gui = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Configuration tool','tooltipstring','Click here to configure Legoline parameters in a seperate window','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','units','normal','Position',[0.1,0.2,0.2,0.1],'Callback',@conf,'Enable','on');
+plots_gui = uicontrol(Legoline_GUI ,'Style','pushbutton','String','Plotting Tool','tooltipstring','Click here to access plotting functionality in seperate window','BackgroundColor',colour_matrix(2,:),'ForegroundColor','k','units','normal','Position',[0.4,0.2,0.2,0.1],'Callback',@open_plot_gui,'Enable','on');
 
 menuhandles = findall(Legoline_GUI,'type','uimenu');
 set(menuhandles,'HandleVisibility','on');
@@ -253,6 +249,11 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
     function ChoiceCreationCallback(src,evnt)
         global choice
         choice = 'Local';
+    end
+
+    function open_plot_gui(src,evnt)
+        cd([pwd,filesep,'plots']);
+        plot_gui
     end
 %%
 %{

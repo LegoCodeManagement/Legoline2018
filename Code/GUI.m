@@ -99,7 +99,7 @@ cmd_local = {'!matlab  -nodesktop -minimize -nosplash -r Local_upstream&';...
 '!matlab  -nodesktop -minimize -nosplash -r Local_splitter&';};
 
 global local_chosen
-cd([pwd,filesep,'Local_Control']);
+cd([pwd,filesep,'Local_Control_test']);
 !matlab  -nodesktop -nosplash -r master&
 command = cmd_local(find(local_chosen));
 for i = 1:1:length(command)
