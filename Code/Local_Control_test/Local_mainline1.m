@@ -2,12 +2,13 @@ addpath RWTHMindstormsNXT;
 %establish memory map to status.txt. 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(3) = 49;
-global fstatus
 m1 = memmapfile('count_m1.txt', 'Writable', true, 'Format', 'int8');
 
 %open config file and save variable names and values column 1 and 2
 %respectively.
+cd ../
 config = fopen('config.txt','rt');
+cd([pwd,filesep,'Local_Control']);
 out = textscan(config, '%s %s');
 fclose(config);
 %retrieve parameters
@@ -31,49 +32,52 @@ while fstatus.Data(1) == 48
 end
 
 ambientLight1 = GetLight(SENSOR_1, nxtM1);
-
+mainline.SendToNXT(nxtM1);
 %one timer for each pallet.
+
+clearPalletM = [timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);
+                timer('TimerFcn', 'm1.Data(1) = m1.Data(1) - 1;', 'StartDelay', M1delay);];
+
 
 %If pallet detected at start of mainline, wait for pallet to be detected at end.
 %If not detected before timeout, display error.
 
+k=0;
 array = ones(1,10)*GetLight(SENSOR_1,nxtM1);
-stdarray = zeros(1,7);
-stdavg = mean(stdarray);
+avg = mean(array);
+while (fstatus.Data(1) == 49)
 
-array2 = ones(1,10)*GetLight(SENSOR_1,nxtM1);
-stdarray2 = zeros(1,7);
-stdavg2 = mean(stdarray);
-
-while (fstatus.Data(1) == 49) && (checkStop)
-
-	[stdavg,avg,stdarray,array] 	= averagestd(nxtM1,SENSOR_1,stdarray,array);
-	[stdavg2,avg2,stdarray2,array2] = averagestd(nxtM1,SENSOR_2,stdarray2,array2);
+	waitForDetectionExit(nxtM1,SENSOR_1,4,Mthreshold)
 	
-	if stdavg > Mthreshold && busy == 0
-		if m1.Data(1) == 48
-			mainline.SendToNXT(nxtM1);
-		end
-		m1.Data(1) = m1.Data(1) + 1;
-		busy = 1;
-	end
-	
-	if stdavg2 > Mthreshold && busy2 == 0
-		m1.Data(1) = m1.Data(1) - 1;
-		if m1.Data(1) == 48
-			mainline.Stop('off', nxtM1);
-		end
-		busy = 1;
-	end
-	
-	if (busy == 1) && (stdavg < Mthreshold*0.5)
-		busy = 0;
-	end
+    k=k+1;
+    disp(['pallet detected. Pallets on mainline 1: ',num2str(m1.Data(1)-48)]);
+    start(clearPalletM(k));
+    pause(0.5)
+    m1.Data(1) = m1.Data(1) + 1;
     
-    if (busy2 == 1) && (stdavg2 < Mthreshold*0.5)
-		busy2 = 0;
-	end
-    
+    if fstatus.Data(1) ~= 49
+        break
+		disp('break');
+    end
+
 	pause(0.1); %prevents updating to quickly
 end
 

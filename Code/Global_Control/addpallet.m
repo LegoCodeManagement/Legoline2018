@@ -1,4 +1,5 @@
 function addpallet(pallet,filename)
+%adds a pallet of type 'pallet' to file 'filename'
 m1 = memmapfile(filename, 'Writable', true);
 
 for i = 5:-1:1

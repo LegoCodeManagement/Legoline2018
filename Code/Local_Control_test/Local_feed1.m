@@ -73,11 +73,23 @@ while (k<12) && (fstatus.Data(1) == 49)
                       
 			movePalletSpacing(400, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
 			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feedtime)]);
+			b1.Data(1) = b1.Data(1) + 1;
 			feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 			k=k+1;
-			clear toc
-			tic %set timer for next pallet
-			b1.Data(1) = b1.Data(1) + 1;
+			timer 1 = tic
+			switch dist %dist will never change unless file is re-read
+						%but switch statement repeatedly checks value of dist - inefficient?
+				case 0
+					feedtime = T_F1;
+				case 1
+					feedtime = randraw('uniform',[unif_min,unif_max],1);
+				case 2
+					feedtime = randraw('exp',(1/poiss_mean),1);
+				case 3
+					feedtime = randraw('tri',[triang_min,triang_mode,triang_max],1);
+				otherwise
+					disp('error, wrong input distribution')
+					%write to errorlog and quit
 				
 		elseif b1.Data(1) == 48+n
 			disp(['cannot feed there are ',num2str(b1.Data(1)),' pallets on feed line']);

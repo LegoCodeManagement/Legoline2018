@@ -25,6 +25,7 @@ unif_min 	= str2double(out{2}(strcmp('uniform_min',out{1})));
 triang_max  = str2double(out{2}(strcmp('triangular_max',out{1})));
 triang_min  = str2double(out{2}(strcmp('triangular_min',out{1})));
 triang_mode = str2double(out{2}(strcmp('triangular_mode',out{1})));
+buffer 		= str2double(out{2}(strcmp('buffer_size',out{1})));
 
 %activate sensors
 OpenSwitch(SENSOR_1, nxtF2);
@@ -36,53 +37,74 @@ disp('FEED 2');
 disp('waiting for ready signal');
 %wait for ready sign so that all matlab instances start simultaneously
 while fstatus.Data(1) == 48
-    pause(0.5);
+    pause(0.3);
 end
 
 %calculate the background light in the room. Further measurements will be measured as a difference to this.
 currentLight3 = GetLight(SENSOR_3, nxtF2);
 
-%feed all the pallets or until told to stop.
-feedPallet(nxtF2, SENSOR_1, MOTOR_A); %so that feed starts immediately
-b2.Data(1) = b2.Data(1) + 1;
-pause(0.1)
-tic;
+timer1 = tic;
+timer2 = tic;
+feedtime = 0;
 k=0;
+%feed all the pallets or until told to stop.
 while (k<12) && (fstatus.Data(1) == 49)
-	if (toc >= T_F2) %true if it's time to feed
-		switch b2.Data(1)
-			case 48
-				b2.Data(1) = b2.Data(1) + 1;
-				feedPallet(nxtF2, SENSOR_1, MOTOR_A);
+	if (toc(timer1) >= feedtime) %true if it's time to feed
+		if b2.Data(1) == 48
+			b2.Data(1) = b2.Data(1) + 1;
+			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feedtime)]);
+			feedPallet(nxtF2, SENSOR_1, MOTOR_A);
+			k=k+1;
+			timer1 = tic
+			switch dist %dist will never change unless file is re-read
+						%but switch statement repeatedly checks value of dist - inefficient?
+				case 0
+					feedtime = T_F2;
+				case 1
+					feedtime = randraw('uniform',[unif_min,unif_max],1);
+				case 2
+					feedtime = randraw('exp',(1/poiss_mean),1);
+				case 3
+					feedtime = randraw('tri',[triang_min,triang_mode,triang_max],1);
+				otherwise
+					disp('error, wrong input distribution')
+					logwrite('invalid input distribution')
+					fstatus.Data(1) = 50;
+		
+		elseif b2.Data(1) < 48+buffer
+                      
+			movePalletSpacing(400, MOTOR_B, power, nxtF2); %move pallet already on feed line out the way
+			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feedtime)]);
+			b2.Data(1) = b2.Data(1) + 1;
+			feedPallet(nxtF2, SENSOR_1, MOTOR_A);
+			k=k+1;
+			timer1 = tic
+			switch dist %dist will never change unless file is re-read
+						%but switch statement repeatedly checks value of dist - inefficient?
+				case 0
+					feedtime = T_F2;
+				case 1
+					feedtime = randraw('uniform',[unif_min,unif_max],1);
+				case 2
+					feedtime = randraw('exp',(1/poiss_mean),1);
+				case 3
+					feedtime = randraw('tri',[triang_min,triang_mode,triang_max],1);
+				otherwise
+					disp('error, wrong input distribution')
+					logwrite('invalid input distribution')
+					fstatus.Data(1) = 50;
 				
-				if fstatus.Data(1) ~= 49
-					break
-				end
-				
-				k=k+1;
-				tic %set timer for next pallet
+		elseif b2.Data(1) == 48+buffer
+			disp(['cannot feed there are ',num2str(b2.Data(1)),' pallets on feed line']);
+			logwrite(['buffer exceeded, there were ',num2str(b2.Data(1)),' pallets on feed line 2']);
+			fstatus.Data(1)=50;
+			break;
 			
-            case 49            
-                movePalletSpacing(400, MOTOR_B, power, nxtF2); %move pallet already on feed line out the way
-                feedPallet(nxtF2, SENSOR_1, MOTOR_A);
-
-                if fstatus.Data(1) ~= 49
-					break
-                end
-				
-				k=k+1;
-				clear toc
-				tic %set timer for next pallet
-				b2.Data(1) = b2.Data(1) + 1;
-				
-			case 50
-				disp(['cannot feed there are ',num2str(b2.Data(1)),' pallets on feed line'])
-				logwrite('Buffer exceeded on feed 2');
-				fstatus.Data(1)==50;
-			
-			otherwise
-				disp(['error, there are ',num2str(b2.Data(1)),' pallets on feed line']);
-				break;
+		else
+			disp(['error, there are ',num2str(b2.Data(1)),' pallets on feed line 2']);
+			logwrite(['error, there are ',num2str(b2.Data(1)),' pallets on feed line 2']);
+			fstatus.Data(1)=50;
+			break;
 		end
 	end
 	switch b2.Data(2)
@@ -92,18 +114,17 @@ while (k<12) && (fstatus.Data(1) == 49)
 					pause(0.1);
 				case 49
 					movePalletPastLSfeed(MOTOR_B, power, nxtF2, SENSOR_3, 6, Fthreshold);
-                    disp('pushing one pallet to transfer line')
 					b2.Data(1) = b2.Data(1) - 1;
 			
 				case 50
 					movePalletSpacing(500, MOTOR_B, power, nxtF2);
 					pause(1);
-					
 					b2.Data(1) = b2.Data(1) - 1;
 					movePalletSpacing(450, MOTOR_B, -power, nxtF2);
 					
 				otherwise
 					disp(['error, there are ',num2str(b2.Data(1)),' pallets on feed line']);
+					logwrite(['error, there were ',num2str(b2.Data(1)),' pallets on feed line 2']);
 					break;
 			end
 			

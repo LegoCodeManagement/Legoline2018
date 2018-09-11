@@ -1,57 +1,60 @@
-Addresses:
+Addresses: 
 Main1 0016530EE594
 Main2 001653118AC9
-Main3 001653118B91	
+Main3 001653118B91
 Transfer1 0016530AABDF
 Transfer2 0016530EE129
 Transfer3 0016530A6F56
 Feed1 00165308EE03
 Feed2 001653118A50
-Feed3 0016530D6831 
+Feed3 0016530D6831
 Splitter1 001653132A78
 Upstream 0016530EE120
-_______________________________________________
-Speed_Settings:
-line_speed 40
-_______________________________________________
-Transfer_Arm_Calibration_Angles:
-T1angle 23
-T2angle 19
-T3angle 13
-_______________________________________________
-Transfer_Arm_Wait_Before_Reset
-Tarmwait 0.6
-_______________________________________________
-Feed_Frequencies
+____________________ 
+Speed_Settings: 
+line_speed 42
+____________________ 
+Feed_Frequencies 
 T_U 12
 T_F1 8
 T_F2 7
 T_F3 13
-_______________________________________________
-Distribution_type:
+____________________ 
+Size_of_buffer_on_feed_lines 
+buffer_size 2
+____________________ 
+Distribution_type: 
 dist_choice 3
-%1=uniform
-%2=poisson
-%3=triangular
+%1=uniform 
+%2=poisson 
+%3=triangular 
 poisson_mean 10
 uniform_max 16
 uniform_min 6
-triangular_max 16
-triangular_min 8
-triangular_mode 12
-_______________________________________________
-Pallet_has_left_delay:
+triangular_max 8.01
+triangular_min 7.99
+triangular_mode 8
+____________________ 
+Pallet_has_left_delay: 
 M1delay 4.6
 M2delay 4.6
 T1delay 4
 T2delay 4
 Udelay 1.5
-_______________________________________________
-STD_Light_sensor_threshold_for_detection
-Mthreshold 25
+____________________ 
+STD_Light_sensor_threshold_for_detection 
+Mthreshold 26
 Tthreshold 30
 Uthreshold 15
-Fthreshold 60
-_______________________________________________
-timeOut_for_pallet_detection
+Fthreshold 30
+____________________ 
+Transfer_Arm_Calibration_Angles: 
+T1angle 23
+T2angle 19
+T3angle 13
+____________________ 
+Transfer_Arm_Wait_Before_Reset 
+Tarmwait 0.6
+____________________ 
+timeOut_for_pallet_detection 
 timeOut 5

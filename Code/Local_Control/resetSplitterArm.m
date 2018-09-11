@@ -16,4 +16,6 @@ while GetSwitch(touch, nxt) == 0
     pause(0.05);
 end
 resetArm.Stop('off', nxt);
+pause(0.4);
+resetArm.Stop('off', nxt);
 end
