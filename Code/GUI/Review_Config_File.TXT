@@ -7,21 +7,18 @@ Priority is Given to the Mainline over the Feed Lines
 
 Upstream Unit
 
-The Upstream Unit is set to run with the following feed schedule
-Arrivals Periodic : period = 15 seconds
+The Upstream Unit will not run
 
 
 
 Feed Lines
 
-Feed Line 1  is running in with a feed line buffer of 4 pallets and a Main Line Buffer of size4 pallets
-Arrivals Periodic : period = 9 seconds
+Feed Line 1  is running in with a feed line buffer of 2 pallets and a Main Line Buffer of size2 pallets
+Arrivals Periodic : period = 10 seconds
 
-Feed Line 2  is running in with a feed line buffer of 4 pallets and a Main Line Buffer of size4 pallets
-Arrivals Periodic : period = 13 seconds
+Feed Line 2  is running in data gathering mode only and will not feed
 
-Feed Line 3  is running in with a feed line buffer of 3 pallets and a Main Line Buffer of size3 pallets
-Arrivals Periodic : period = 17 seconds
+Feed Line 3  is running in data gathering mode only and will not feed
 
 
 

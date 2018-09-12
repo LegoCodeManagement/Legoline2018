@@ -180,15 +180,14 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
         
         cd(['..',filesep])
 		config = fopen('Parameters.txt','rt');
-		cd([pwd,filesep,'Local_Control']);
 		out = textscan(config, '%s %s %s %s %s');
 		fclose(config);
 		choice = char(out{2}(strcmp('Control_Method',out{1})));
         chosen(4) = str2double(out{2}(strcmp('Upstream',out{1})));
-        chosen(5) = str2double(out{2}(strcmp('Splitter1',out{1})));
-        chosen(6) = str2double(out{2}(strcmp('Line1',out{1})));
-        chosen(7) = str2double(out{2}(strcmp('Line2',out{1})));
-        chosen(8) = str2double(out{2}(strcmp('Line3',out{1})));
+        chosen(5) = str2double(out{3}(strcmp('Line1',out{1})));
+        chosen(6) = str2double(out{3}(strcmp('Line2',out{1})));
+        chosen(7) = str2double(out{3}(strcmp('Line3',out{1})));
+        chosen(8) = str2double(out{2}(strcmp('Splitter1',out{1})));
         
         if strcmp(choice,'Local_Control') == 1
             
@@ -199,7 +198,7 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
             '!matlab  -nodesktop -minimize -nosplash -r Local_feed1&,!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&';...
             '!matlab  -nodesktop -minimize -nosplash -r Local_feed2&,!matlab  -nodesktop -minimize -nosplash -r Local_transfer2&';...
             '!matlab  -nodesktop -minimize -nosplash -r Local_feed3&,!matlab  -nodesktop -minimize -nosplash -r Local_transfer3&';...
-            '!matlab  -nodesktop -minimize -nosplash -r Local_splitter&';};
+            '!matlab  -nodesktop -minimize -nosplash -r Local_Splitter&';};
 
             cd([pwd,filesep,'Local_Control']);
             !matlab  -nodesktop -nosplash -r master&
@@ -214,7 +213,7 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
             '!matlab  -nodesktop -minimize -nosplash -r Global_feed1&,!matlab  -nodesktop -minimize -nosplash -r Global_transfer1&';...
             '!matlab  -nodesktop -minimize -nosplash -r Global_feed2&,!matlab  -nodesktop -minimize -nosplash -r Global_transfer2&';...
             '!matlab  -nodesktop -minimize -nosplash -r Global_feed3&,!matlab  -nodesktop -minimize -nosplash -r Global_transfer3&';...
-            '!matlab  -nodesktop -minimize -nosplash -r Global_splitter&';};
+            '!matlab  -nodesktop -minimize -nosplash -r Global_Splitter&';};
             
             cd([pwd,filesep,'Global_Control']);
             !matlab  -nodesktop -nosplash -r master&
@@ -232,10 +231,12 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
     end
     function startButtonCallback(src, evnt)
         global choice
-        if strcmp(choice,'Local') == 1
+        if strcmp(choice,'Local_Control') == 1
             cd([pwd,filesep,'Local_Control']);
-        elseif strcmp(choice,'Global') == 1
+        elseif strcmp(choice,'Global_Control') == 1
             cd([pwd,filesep,'Global_Control']);
+        else
+            disp('error in finding directory')
         end
         fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
         fstatus.Data(1) = 49;
@@ -244,10 +245,12 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
     end
     function finishButtonCallback(src, evnt)
         global choice
-        if strcmp(choice,'Local') == 1
+        if strcmp(choice,'Local_Control') == 1
             cd([pwd,filesep,'Local_Control']);
-        elseif strcmp(choice,'Global') == 1
+        elseif strcmp(choice,'Global_Control') == 1
             cd([pwd,filesep,'Global_Control']);
+        else
+            disp('error in finding directory')
         end
         fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
         fstatus.Data(1) = 50;
@@ -274,6 +277,7 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
         cd([pwd,filesep,'Global_Control']);
             ! notepad errorlog.txt
         cd(['..',filesep])
+        cd([pwd,filesep,'GUI']);
     end
     function open_local_log(src,evnt)
         cd(['..',filesep])

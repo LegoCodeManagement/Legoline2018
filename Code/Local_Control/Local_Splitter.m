@@ -9,7 +9,7 @@ config  = fopen('config.txt','rt');
 cd([pwd,filesep,'Local_Control']);
 out 	= textscan(config, '%s %s');
 fclose(config);
-power 		= str2double(out{2}(strcmp('SPEED_S',out{1})));
+power       = str2double(out{2}(strcmp('line_speed',out{1})));
 nxtSAddr	= char(out{2}(strcmp('Splitter',out{1})));
 
 %% Open NXT and wait for the ready sign
@@ -65,3 +65,4 @@ CloseSensor(SENSOR_2, nxtS);
 CloseSensor(SENSOR_3, nxtS);
 keepSplitterRunning.Stop('off', nxtS);
 COM_CloseNXT(nxtS);
+quit

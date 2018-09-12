@@ -6,26 +6,33 @@ b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
 
 %open config file and save variable names and values column 1 and 2
 %respectively.
-cd ../
+cd(['..',filesep])
 config = fopen('config.txt','rt');
 cd([pwd,filesep,'Local_Control']);
-out = textscan(config, '%s %s');
+out = textscan(config, '%s %s %s %s %s');
 fclose(config);
 %retrieve parameters
-power = str2double(out{2}(strcmp('line_speed',out{1})));
-F3addr = char(out{2}(strcmp('Feed3',out{1})));
-T_F3 = str2double(out{2}(strcmp('T_F3',out{1})));
-Fthreshold = str2double(out{2}(strcmp('Fthreshold',out{1})));	
-nxtF3 = COM_OpenNXTEx('USB', F3addr);
+power 		= str2double(out{2}(strcmp('line_speed',out{1})));
+F1addr 		= char(out{2}(strcmp('Feed1',out{1})));
+T_F1 		= str2double(out{2}(strcmp('T_F1',out{1})));
+Fthreshold 	= str2double(out{2}(strcmp('Fthreshold',out{1})));	
+nxtF1 		= COM_OpenNXTEx('USB', F1addr);
+clear out
 
-dist 		= str2double(out{2}(strcmp('dist_choice',out{1})));
-poiss_mean 	= str2double(out{2}(strcmp('poisson_mean',out{1})));
-unif_max 	= str2double(out{2}(strcmp('uniform_max',out{1})));
-unif_min 	= str2double(out{2}(strcmp('uniform_min',out{1})));
-triang_max  = str2double(out{2}(strcmp('triangular_max',out{1})));
-triang_min  = str2double(out{2}(strcmp('triangular_min',out{1})));
-triang_mode = str2double(out{2}(strcmp('triangular_mode',out{1})));
-buffer 		= str2double(out{2}(strcmp('buffer_size',out{1})));
+cd(['..',filesep])
+param = fopen('Parameters.txt','rt');
+cd([pwd,filesep,'Local_Control']);
+out = textscan(param, '%s %s %s %s %s');
+fclose(param);
+row 	= find(strcmp('ControlUpstr',out{1}));
+
+dist    = char(out{2}(row));
+param1  = str2double(out{3}(row));
+param2  = str2double(out{4}(row));
+param3  = str2double(out{5}(row));
+row 	= find(strcmp('Line3',out{1}));
+%buffer is line 3
+buffer 	= str2double(out{3}(row));
 
 %activate sensors
 OpenSwitch(SENSOR_1, nxtF3);

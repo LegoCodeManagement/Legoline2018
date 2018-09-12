@@ -8,7 +8,7 @@ Transfer3 0016530A6F56
 Feed1 00165308EE03
 Feed2 001653118A50
 Feed3 0016530D6831
-Splitter1 001653132A78
+Splitter 001653132A78
 Upstream 0016530EE120
 ____________________ 
 Speed_Settings: 
