@@ -27,9 +27,9 @@ global path2gui
 
 Rootpath    = pwd;
 path2gui    = [Rootpath filesep 'Code' filesep 'GUI' filesep];
-path2config = [Rootpath filesep 'Code' filesep 'Configurations.txt'];
+%path2config = [Rootpath filesep 'Code' filesep 'Configurations.txt'];
 path2param  = [Rootpath filesep 'Code' filesep 'Parameters.txt'];
-path2init   = [Rootpath filesep 'Code' filesep 'InitializationStatus.txt'];
+%path2init   = [Rootpath filesep 'Code' filesep 'InitializationStatus.txt'];
 
 %{
 global path2config

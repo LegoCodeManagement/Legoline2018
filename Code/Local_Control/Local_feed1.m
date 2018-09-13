@@ -13,7 +13,6 @@ fclose(config);
 %retrieve parameters
 power 		= str2double(out{2}(strcmp('line_speed',out{1})));
 F1addr 		= char(out{2}(strcmp('Feed1',out{1})));
-T_F1 		= str2double(out{2}(strcmp('T_F1',out{1})));
 Fthreshold 	= str2double(out{2}(strcmp('Fthreshold',out{1})));	
 nxtF1 		= COM_OpenNXTEx('USB', F1addr);
 clear out
@@ -23,8 +22,8 @@ param = fopen('Parameters.txt','rt');
 cd([pwd,filesep,'Local_Control']);
 out = textscan(param, '%s %s %s %s %s');
 fclose(param);
-row 	= find(strcmp('ControlLine1',out{1}));
 
+row 	= find(strcmp('ControlLine1',out{1}));
 dist    = char(out{2}(row));
 param1  = str2double(out{3}(row));
 param2  = str2double(out{4}(row));
@@ -45,7 +44,7 @@ disp('waiting for ready signal');
 while fstatus.Data(1) == 48
     pause(0.3);
 end
-
+disp('Feed 1 has started!')
 %calculate the background light in the room. 
 %Further measurements will be measured as a difference to this.
 currentLight3 = GetLight(SENSOR_3, nxtF1);

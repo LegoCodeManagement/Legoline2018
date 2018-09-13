@@ -30,7 +30,7 @@ disp('waiting for ready signal');
 while fstatus.Data(1) == 48
     pause(0.5);
 end
-
+disp('Main 2 has started!')
 ambientLight2 = GetLight(SENSOR_1, nxtM2);
 mainline.SendToNXT(nxtM2);
 %one timer for each pallet.

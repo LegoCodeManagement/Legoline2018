@@ -26,9 +26,8 @@ fstatus.Data(12) = 50;
 while fstatus.Data(1) == 48 %Wait for the ready sign
     pause(0.5);
 end
-
+disp('Splitter has started!')
 %% Start the main loop
-disp('Started!');
 ambientLight2 = GetLight(SENSOR_2, nxtS);
 
 keepSplitterRunning.SendToNXT(nxtS);

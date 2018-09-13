@@ -28,7 +28,7 @@ disp('waiting for ready signal');
 while fstatus.Data(1) == 48
     pause(0.1);
 end
-
+disp('Main 3 has started!')
 mainline.SendToNXT(nxtM3);
 
 while fstatus.Data(1) == 49

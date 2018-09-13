@@ -35,6 +35,7 @@ disp('waiting for ready signal');
 while fstatus.Data(1) == 48
     pause(0.5);
 end
+disp('Transfer 2 has started!')
 %detect ambient light in room
 currentLight1 = GetLight(SENSOR_1, nxtT2);
 currentLight3 = GetLight(SENSOR_3, nxtT2);

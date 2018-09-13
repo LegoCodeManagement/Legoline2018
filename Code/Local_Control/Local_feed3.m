@@ -45,7 +45,7 @@ disp('waiting for ready signal');
 while fstatus.Data(1) == 48
     pause(0.3);
 end
-
+disp('Feed 3 has started!')
 %calculate the background light in the room. Further measurements will be measured as a difference to this.
 currentLight3 = GetLight(SENSOR_3, nxtF3);
 

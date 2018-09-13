@@ -4,10 +4,11 @@
 %Red: Red above 150 but smaller than 170
 %It cannot always differentiate black from grey.
 function [result, color] = waitForPalletSplitter(nxt, port, timeOut)
+global fstatus
 tic;
 currentTime = toc;
 result = true;
-while true
+while (true) && (checkStop)
     if (toc - currentTime > timeOut)
         disp('The color sensor hasnt detected the pallet before timeout');
         color = 'Unknown';
