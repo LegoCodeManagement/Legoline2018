@@ -31,7 +31,7 @@ param2  = str2double(out{4}(row));
 param3  = str2double(out{5}(row));
 row 	= find(strcmp('Line1',out{1}));
 %buffer is line 3
-buffer 	= str2double(out{3}(row));
+buffer 	= str2double(out{4}(row));
 
 %activate sensors
 OpenSwitch(SENSOR_1, nxtF1);
@@ -57,6 +57,7 @@ k=0;
 %feed all the pallets or until told to stop.
 while (k<12) && (fstatus.Data(1) == 49) 
 	if (toc(timer1) >= feed_time) %true if it's time to feed
+
 		if b1.Data(1) == 48
 			b1.Data(1) = b1.Data(1) + 1;
 			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feed_time)]);
@@ -66,7 +67,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 			feed_time = feedtime(dist,param1,param2,param3);
 			
 		elseif b1.Data(1) < 48+buffer     
-			movePalletSpacing(400, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
+			movePalletSpacing(400, MOTOR_B, power, nxtF1); %move this into statement above?
 			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feed_time)]);
 			b1.Data(1) = b1.Data(1) + 1;
 			feedPallet(nxtF1, SENSOR_1, MOTOR_A);
@@ -75,14 +76,14 @@ while (k<12) && (fstatus.Data(1) == 49)
 			feed_time = feedtime(dist,param1,param2,param3);
 				
 		elseif b1.Data(1) == 48+buffer
-			disp(['cannot feed there are ',num2str(b1.Data(1)),' pallets on feed line']);
-			logwrite(['buffer exceeded, there were ',num2str(b1.Data(1)),' pallets on feed line 1']);
+			disp(['cannot feed there are ',num2str(b1.Data(1)-48),' pallets on feed line']);
+			logwrite(['buffer exceeded, there were ',num2str(b1.Data(1)-48),' pallets on feed line 1']);
 			fstatus.Data(1)=50;
 			break;
 			
 		else
-			disp(['error, there are ',num2str(b1.Data(1)),' pallets on feed line 1']);
-			logwrite(['error, there are ',num2str(b1.Data(1)),' pallets on feed line 1']);
+			disp(['error, there are ',num2str(b1.Data(1)-48),' pallets on feed line 1']);
+			logwrite(['error, there are ',num2str(b1.Data(1)-48),' pallets on feed line 1']);
 			fstatus.Data(1)=50;
 			break;
 		end
@@ -102,8 +103,8 @@ while (k<12) && (fstatus.Data(1) == 49)
 					movePalletSpacing(450, MOTOR_B, -power, nxtF1); %move pallet back on feed line so two can fit
 					
 				otherwise
-					disp(['error, there are ',num2str(b1.Data(1)),' pallets on feed line 1']);
-					logwrite(['error, there were ',num2str(b1.Data(1)),' pallets on feed line 1']);
+					disp(['error, there are ',num2str(48-b1.Data(1)),' pallets on feed line 1']);
+					logwrite(['error, there were ',num2str(48-b1.Data(1)),' pallets on feed line 1']);
 					break;
 			end
 			

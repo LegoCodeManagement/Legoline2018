@@ -108,7 +108,8 @@ LightSensorPlotSplitter
 % --- Executes on button press in pushbutton5.
 function pushbutton5_Callback(hObject, eventdata, handles)
 close(plot_gui);
-cd ..\
+cd(['..',filesep])
+cd([pwd,filesep,'GUI']);
 
 % hObject    handle to pushbutton5 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB

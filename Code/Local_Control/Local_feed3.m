@@ -31,7 +31,7 @@ param2  = str2double(out{4}(row));
 param3  = str2double(out{5}(row));
 row 	= find(strcmp('Line3',out{1}));
 %buffer is line 3
-buffer 	= str2double(out{3}(row));
+buffer 	= str2double(out{4}(row));
 
 %activate sensors
 OpenSwitch(SENSOR_1, nxtF3);

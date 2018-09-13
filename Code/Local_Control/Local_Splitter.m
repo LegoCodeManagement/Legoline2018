@@ -48,7 +48,7 @@ while fstatus.Data(1) == 49
     keepSplitterRunning.SendToNXT(nxtS);
     keepSplitterRunning.WaitFor(2, nxtS);
     runSplitterArm(nxtS, MOTOR_A, 2);
-    keepSplitterRunning.TachoLimit = 470;
+    keepSplitterRunning.TachoLimit = 450;
     keepSplitterRunning.ActionAtTachoLimit = 'Coast';
     keepSplitterRunning.SendToNXT(nxtS);
     keepSplitterRunning.WaitFor(3, nxtS);

@@ -19,15 +19,15 @@ while true
         color = 'Yellow';
         [~, r g b] = GetColor(port, 0, nxt)
         return;
-    elseif (r > 120)
+    elseif (r > 130)
         color = 'Red';
         [~, r g b] = GetColor(port, 0, nxt)
         return;
-    elseif (b > 100)
+    elseif (b > 120)
         color = 'Blue';
         [~, r g b] = GetColor(port, 0, nxt)
         return;
     end
-    pause(0.05);
+    pause(0.1);
 end
 end

@@ -46,7 +46,7 @@ STD_Light_sensor_threshold_for_detection
 Mthreshold 26
 Tthreshold 30
 Uthreshold 15
-Fthreshold 30
+Fthreshold 60
 ____________________ 
 Transfer_Arm_Calibration_Angles: 
 T1angle 21

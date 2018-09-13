@@ -4,7 +4,7 @@ errorlogID = fopen('errorlog.txt', 'a');
 if errorlogID == -1
   error('Cannot open log file.');
 end
-fprintf(errorlogID, '%s: %s\n', datestr(now, 0), entry);
+fprintf(errorlogID, '%s: %s\r\n', datestr(now, 0), entry);
 fclose(errorlogID);
 
 end

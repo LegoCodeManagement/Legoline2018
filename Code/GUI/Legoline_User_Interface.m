@@ -244,6 +244,7 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
         fstatus.Data(1) = 49;
         clear fstatus;
         cd(['..',filesep])
+        cd([filesep,GUI])
     end
     function finishButtonCallback(src, evnt)
         global choice
@@ -271,6 +272,7 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
     end
 
     function open_plot_gui(src,evnt)
+        cd(['..',filesep])
         cd([pwd,filesep,'plots']);
         plot_gui
     end
