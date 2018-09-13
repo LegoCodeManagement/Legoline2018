@@ -60,7 +60,7 @@ feed_time = 0;
 k=0;
 %feed all the pallets or until told to stop.
 while (k<12) && (fstatus.Data(1) == 49)
-	if (toc(timer1) >= feed_time)
+	if (toc(timer1) > feed_time)
 		u.Data(1) = u.Data(1) + 1;
         disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feed_time)]);
 		feedPallet(nxtU,SENSOR_1,MOTOR_A);

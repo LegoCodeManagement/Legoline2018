@@ -13,9 +13,9 @@ end
 config_editor_flag = 1;
 config_open_flag = 1; 
 
-fid = fopen(path2config,'rt');
-out = textscan(fid,'%s %s %s %s');
-fclose(fid);
+fid1 = fopen(path2config,'r');
+out = textscan(fid1,'%s %s %s %s');
+fclose(fid1);
 % find the number of feed lines
 ind = strmatch('No_of_Feedlines',out{1},'exact');
 Number_of_Feedlines = out{2}(ind);

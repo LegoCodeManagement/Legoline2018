@@ -96,10 +96,10 @@ while (k<12) && (fstatus.Data(1) == 49)
 					movePalletPastLSfeed(MOTOR_B, power, nxtF1, SENSOR_3, 6, Fthreshold);
 					b1.Data(1) = b1.Data(1) - 1;
                 case 50 
-                	movePalletSpacing(500, MOTOR_B, power, nxtF1);
+                	movePalletSpacing(70, MOTOR_B, power, nxtF1);
                 	pause(1);
                 	b1.Data(1) = b1.Data(1) - 1;
-					movePalletSpacing(450, MOTOR_B, -power, nxtF1); %move pallet back on feed line so two can fit
+			
 					
 				otherwise
 					disp(['error, there are ',num2str(48-b1.Data(1)),' pallets on feed line 1']);
