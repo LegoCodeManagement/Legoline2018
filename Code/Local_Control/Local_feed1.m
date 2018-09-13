@@ -4,8 +4,7 @@ fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(5) = 49;
 b1 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
 
-%open config file and save variable names and values column 1 and 2
-%respectively.
+%open config file and save variable names and values column 1 and 2 respectively.
 cd(['..',filesep])
 config = fopen('config.txt','rt');
 cd([pwd,filesep,'Local_Control']);
@@ -24,7 +23,7 @@ param = fopen('Parameters.txt','rt');
 cd([pwd,filesep,'Local_Control']);
 out = textscan(param, '%s %s %s %s %s');
 fclose(param);
-row 	= find(strcmp('ControlUpstr',out{1}));
+row 	= find(strcmp('ControlLine1',out{1}));
 
 dist    = char(out{2}(row));
 param1  = str2double(out{3}(row));
@@ -47,7 +46,8 @@ while fstatus.Data(1) == 48
     pause(0.3);
 end
 
-%calculate the background light in the room. Further measurements will be measured as a difference to this.
+%calculate the background light in the room. 
+%Further measurements will be measured as a difference to this.
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
 timer1 = tic;
@@ -64,8 +64,8 @@ while (k<12) && (fstatus.Data(1) == 49)
 			k=k+1;
 			timer1 = tic
 			feed_time = feedtime(dist,param1,param2,param3);
-		elseif b1.Data(1) < 48+buffer
-                      
+			
+		elseif b1.Data(1) < 48+buffer     
 			movePalletSpacing(400, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
 			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feed_time)]);
 			b1.Data(1) = b1.Data(1) + 1;
@@ -81,7 +81,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 			break;
 			
 		else
-			disp(['error, there are ',num2str(b1.Data(1)),' pallets on feed line']);
+			disp(['error, there are ',num2str(b1.Data(1)),' pallets on feed line 1']);
 			logwrite(['error, there are ',num2str(b1.Data(1)),' pallets on feed line 1']);
 			fstatus.Data(1)=50;
 			break;
@@ -108,13 +108,8 @@ while (k<12) && (fstatus.Data(1) == 49)
 			end
 			
         case 49
-		disp('waiting for pallet on transfer line');
-        disp(['transfer buffer = ', num2str(b1.Data(2))]);
-        disp(['feed buffer = ', num2str(b1.Data(1))]);
-        disp(' ');
-        pause(0.3);
+        pause(0.1);
 	end
-	
 	pause(0.2)  %to avoid update error
 end
 

@@ -1,10 +1,12 @@
-function result = runTransferArm(motor, nxt, degree)
+function result = TransferArmRun(motor, nxt, degree)
     transfer=NXTMotor(motor);
-    transfer.Power=-30;
+    transfer.Power=-40;
     transfer.SpeedRegulation=0;
     transfer.TachoLimit=degree;
     transfer.ActionAtTachoLimit='brake';
     transfer.SendToNXT(nxt);
     result = transfer.WaitFor(4, nxt);
+    transfer.Stop('on', nxt);
+    pause(0.5)
     transfer.Stop('on', nxt);
 end

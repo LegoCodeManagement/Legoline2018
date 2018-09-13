@@ -68,7 +68,7 @@ while checkStop;
     keepSplitterRunning.SendToNXT(nxtS);
     keepSplitterRunning.WaitFor(2, nxtS);
     runSplitterArm(nxtS, MOTOR_A, 2);
-    keepSplitterRunning.TachoLimit = 200;
+    keepSplitterRunning.TachoLimit = 470;
     keepSplitterRunning.ActionAtTachoLimit = 'Coast';
     keepSplitterRunning.SendToNXT(nxtS);
     keepSplitterRunning.WaitFor(3, nxtS);
