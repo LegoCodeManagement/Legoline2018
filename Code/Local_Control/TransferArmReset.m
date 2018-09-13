@@ -1,4 +1,4 @@
-function result = resetTransferArm(motor, touch, nxt, degree)
+function result = TransferArmReset(motor, touch, nxt, degree)
     resetArm1 = NXTMotor(motor);
     resetArm1.Power = 30;
     resetArm1.SpeedRegulation=0;

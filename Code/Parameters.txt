@@ -4,7 +4,7 @@ ColourCode1 Red
 Upstream 1 Main
 Splitter1 1 Colour
 PalletCode1 0 0 0
-ControlUpstr E 1 1 0
+ControlUpstr E 10 1 0
 ControlLine1 P 10 1 0
 ControlLine2 N 1 0 0
 ControlLine3 R 1 0 0

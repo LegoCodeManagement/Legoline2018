@@ -4,23 +4,23 @@ array = ones(1,10)*GetLight(port,nxt);
 stdarray = zeros(1,7)
 stdavg = mean(stdarray)
 
-tic;
+%tic;
 
 while stdavg < threshold
 	[stdavg,avg,stdarray,array] = averagestd(nxt,port,stdarray,array);
     pause(0.1)
     
-    checkTimeOut(timeOut)
+    %checkTimeOut(timeOut)
     
 end
 
-tic;
+%tic;
 
 while stdavg > threshold*0.5
 	[stdavg,avg,stdarray,array] = averagestd(nxt,port,stdarray,array);
     pause(0.1)
     
-    checkTimeOut(timeOut)
+    %checkTimeOut(timeOut)
     
 end
 

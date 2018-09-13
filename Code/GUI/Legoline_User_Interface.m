@@ -175,19 +175,21 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
   
         global choice
         
-        chosen = zeros(1,8);
+        chosen = zeros(1,11);
         chosen(1:3) = 1;
         
         cd(['..',filesep])
 		config = fopen('Parameters.txt','rt');
 		out = textscan(config, '%s %s %s %s %s');
 		fclose(config);
-		choice = char(out{2}(strcmp('Control_Method',out{1})));
+		choice    = char(out{2}(strcmp('Control_Method',out{1})));
         chosen(4) = str2double(out{2}(strcmp('Upstream',out{1})));
-        chosen(5) = str2double(out{3}(strcmp('Line1',out{1})));
-        chosen(6) = str2double(out{3}(strcmp('Line2',out{1})));
-        chosen(7) = str2double(out{3}(strcmp('Line3',out{1})));
-        chosen(8) = str2double(out{2}(strcmp('Splitter1',out{1})));
+        chosen(5) = str2double(out{2}(strcmp('Splitter1',out{1})));
+        chosen(6:7) = str2double(out{3}(strcmp('Line1',out{1})));
+        chosen(8:9) = str2double(out{3}(strcmp('Line2',out{1})));
+        chosen(10:11) = str2double(out{3}(strcmp('Line3',out{1})));
+        %chosen(i) = 1 if the i'th module has been selected to r un/
+        
         
         if strcmp(choice,'Local_Control') == 1
             
@@ -195,10 +197,10 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
             '!matlab  -nodesktop -minimize -nosplash -r Local_mainline2&';...
             '!matlab  -nodesktop -minimize -nosplash -r Local_mainline3&';...
             '!matlab  -nodesktop -minimize -nosplash -r Local_upstream&';...
-            '!matlab  -nodesktop -minimize -nosplash -r Local_feed1&,!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&';...
-            '!matlab  -nodesktop -minimize -nosplash -r Local_feed2&,!matlab  -nodesktop -minimize -nosplash -r Local_transfer2&';...
-            '!matlab  -nodesktop -minimize -nosplash -r Local_feed3&,!matlab  -nodesktop -minimize -nosplash -r Local_transfer3&';...
-            '!matlab  -nodesktop -minimize -nosplash -r Local_Splitter&';};
+            '!matlab  -nodesktop -minimize -nosplash -r Local_Splitter&';
+            '!matlab  -nodesktop -minimize -nosplash -r Local_feed1&';'!matlab  -nodesktop -minimize -nosplash -r Local_transfer1&';...
+            '!matlab  -nodesktop -minimize -nosplash -r Local_feed2&';'!matlab  -nodesktop -minimize -nosplash -r Local_transfer2&';...
+            '!matlab  -nodesktop -minimize -nosplash -r Local_feed3&';'!matlab  -nodesktop -minimize -nosplash -r Local_transfer3&';};
 
             cd([pwd,filesep,'Local_Control']);
             !matlab  -nodesktop -nosplash -r master&
@@ -210,10 +212,10 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
             '!matlab  -nodesktop -minimize -nosplash -r Global_mainline2&';...
             '!matlab  -nodesktop -minimize -nosplash -r Global_mainline3&';...
             '!matlab  -nodesktop -minimize -nosplash -r Global_upstream&';...
-            '!matlab  -nodesktop -minimize -nosplash -r Global_feed1&,!matlab  -nodesktop -minimize -nosplash -r Global_transfer1&';...
-            '!matlab  -nodesktop -minimize -nosplash -r Global_feed2&,!matlab  -nodesktop -minimize -nosplash -r Global_transfer2&';...
-            '!matlab  -nodesktop -minimize -nosplash -r Global_feed3&,!matlab  -nodesktop -minimize -nosplash -r Global_transfer3&';...
-            '!matlab  -nodesktop -minimize -nosplash -r Global_Splitter&';};
+            '!matlab  -nodesktop -minimize -nosplash -r Global_Splitter&';...
+            '!matlab  -nodesktop -minimize -nosplash -r Global_feed1&';'!matlab  -nodesktop -minimize -nosplash -r Global_transfer1&';...
+            '!matlab  -nodesktop -minimize -nosplash -r Global_feed2&';'!matlab  -nodesktop -minimize -nosplash -r Global_transfer2&';...
+            '!matlab  -nodesktop -minimize -nosplash -r Global_feed3&';'!matlab  -nodesktop -minimize -nosplash -r Global_transfer3&';};
             
             cd([pwd,filesep,'Global_Control']);
             !matlab  -nodesktop -nosplash -r master&

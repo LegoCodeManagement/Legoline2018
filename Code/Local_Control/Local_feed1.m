@@ -52,27 +52,27 @@ currentLight3 = GetLight(SENSOR_3, nxtF1);
 
 timer1 = tic;
 timer2 = tic;
-feedtime = 0;
+feed_time = 0;
 k=0;
 %feed all the pallets or until told to stop.
 while (k<12) && (fstatus.Data(1) == 49) 
-	if (toc(timer1) >= feedtime) %true if it's time to feed
+	if (toc(timer1) >= feed_time) %true if it's time to feed
 		if b1.Data(1) == 48
 			b1.Data(1) = b1.Data(1) + 1;
-			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feedtime)]);
+			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feed_time)]);
 			feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 			k=k+1;
 			timer1 = tic
-			feedtime = feedtime(dist,param1,param2,param3);
+			feed_time = feedtime(dist,param1,param2,param3);
 		elseif b1.Data(1) < 48+buffer
                       
 			movePalletSpacing(400, MOTOR_B, power, nxtF1); %move pallet already on feed line out the way
-			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feedtime)]);
+			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feed_time)]);
 			b1.Data(1) = b1.Data(1) + 1;
 			feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 			k=k+1;
 			timer1 = tic
-			feedtime = feedtime(dist,param1,param2,param3);
+			feed_time = feedtime(dist,param1,param2,param3);
 				
 		elseif b1.Data(1) == 48+buffer
 			disp(['cannot feed there are ',num2str(b1.Data(1)),' pallets on feed line']);

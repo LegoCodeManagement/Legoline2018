@@ -12,7 +12,7 @@ Splitter 001653132A78
 Upstream 0016530EE120
 ____________________ 
 Speed_Settings: 
-line_speed 42
+line_speed 40
 ____________________ 
 Feed_Frequencies 
 T_U 12
@@ -49,12 +49,12 @@ Uthreshold 15
 Fthreshold 30
 ____________________ 
 Transfer_Arm_Calibration_Angles: 
-T1angle 23
+T1angle 21
 T2angle 19
 T3angle 13
 ____________________ 
 Transfer_Arm_Wait_Before_Reset 
-Tarmwait 0.6
+Tarmwait 0.1
 ____________________ 
 timeOut_for_pallet_detection 
 timeOut 5
