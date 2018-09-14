@@ -1,6 +1,7 @@
 addpath RWTHMindstormsNXT;
 %establish memory map to status.txt. 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+global fstatus
 fstatus.Data(5) = 49;
 b1 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
 
@@ -45,8 +46,7 @@ while fstatus.Data(1) == 48
     pause(0.3);
 end
 disp('Feed 1 has started!')
-%calculate the background light in the room. 
-%Further measurements will be measured as a difference to this.
+%calculate the background light in the room. Further measurements will be measured as a difference to this.
 currentLight3 = GetLight(SENSOR_3, nxtF1);
 
 timer1 = tic;
@@ -56,22 +56,21 @@ k=0;
 %feed all the pallets or until told to stop.
 while (k<12) && (fstatus.Data(1) == 49) 
 	if (toc(timer1) >= feed_time) %true if it's time to feed
-
 		if b1.Data(1) == 48
 			b1.Data(1) = b1.Data(1) + 1;
 			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feed_time)]);
 			feedPallet(nxtF1, SENSOR_1, MOTOR_A);
+			movePalletSpacing(410, MOTOR_B, power, nxtF1);
 			k=k+1;
-			timer1 = tic
+			timer1 = tic;
 			feed_time = feedtime(dist,param1,param2,param3);
 			
-		elseif b1.Data(1) < 48+buffer     
-			movePalletSpacing(400, MOTOR_B, power, nxtF1); %move this into statement above?
+		elseif b1.Data(1) < 48+buffer
 			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feed_time)]);
 			b1.Data(1) = b1.Data(1) + 1;
 			feedPallet(nxtF1, SENSOR_1, MOTOR_A);
 			k=k+1;
-			timer1 = tic
+			timer1 = tic;
 			feed_time = feedtime(dist,param1,param2,param3);
 				
 		elseif b1.Data(1) == 48+buffer
@@ -82,11 +81,12 @@ while (k<12) && (fstatus.Data(1) == 49)
 			
 		else
 			disp(['error, there are ',num2str(b1.Data(1)-48),' pallets on feed line 1']);
-			logwrite(['error, there are ',num2str(b1.Data(1)-48),' pallets on feed line 1']);
+			logwrite(['error, there were ',num2str(b1.Data(1)-48),' pallets on feed line 1']);
 			fstatus.Data(1)=50;
 			break;
 		end
 	end
+	pause(0.05)
 	switch b1.Data(2)
         case 48
 			switch b1.Data(1)
@@ -96,14 +96,13 @@ while (k<12) && (fstatus.Data(1) == 49)
 					movePalletPastLSfeed(MOTOR_B, power, nxtF1, SENSOR_3, 6, Fthreshold);
 					b1.Data(1) = b1.Data(1) - 1;
                 case 50 
-                	movePalletSpacing(70, MOTOR_B, power, nxtF1);
+                	movePalletSpacing(460, MOTOR_B, power, nxtF1);
                 	pause(1);
                 	b1.Data(1) = b1.Data(1) - 1;
 			
-					
 				otherwise
-					disp(['error, there are ',num2str(48-b1.Data(1)),' pallets on feed line 1']);
-					logwrite(['error, there were ',num2str(48-b1.Data(1)),' pallets on feed line 1']);
+					disp(['error, there are ',num2str(b1.Data(1)-48),' pallets on feed line 1']);
+					logwrite(['error, there were ',num2str(b1.Data(1)-48),' pallets on feed line 1']);
 					break;
 			end
 			

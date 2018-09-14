@@ -1,6 +1,7 @@
 addpath RWTHMindstormsNXT;
 %establish memory map to status.txt. 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
+global fstatus
 fstatus.Data(8) = 49;
 b2 = memmapfile('buffer2.txt', 'Writable', true, 'Format', 'int8');
 
@@ -60,28 +61,28 @@ while (k<12) && (fstatus.Data(1) == 49)
 			b2.Data(1) = b2.Data(1) + 1;
 			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feed_time)]);
 			feedPallet(nxtF2, SENSOR_1, MOTOR_A);
+            movePalletSpacing(410, MOTOR_B, power, nxtF2);
 			k=k+1;
-			timer1 = tic
+			timer1 = tic;
 			feed_time = feedtime(dist,param1,param2,param3);
 		
 		elseif b2.Data(1) < 48+buffer       
-			movePalletSpacing(400, MOTOR_B, power, nxtF2); %move pallet already on feed line out the way
-			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feedtime)]);
+			disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feed_time)]);
 			b2.Data(1) = b2.Data(1) + 1;
 			feedPallet(nxtF2, SENSOR_1, MOTOR_A);
 			k=k+1;
-			timer1 = tic
+			timer1 = tic;
 			feed_time = feedtime(dist,param1,param2,param3);
 				
 		elseif b2.Data(1) == 48+buffer
-			disp(['cannot feed there are ',num2str(b2.Data(1)),' pallets on feed line']);
-			logwrite(['buffer exceeded, there were ',num2str(b2.Data(1)),' pallets on feed line 2']);
+			disp(['cannot feed there are ',num2str(b2.Data(1)-48),' pallets on feed line']);
+			logwrite(['buffer exceeded, there were ',num2str(b2.Data(1)-48),' pallets on feed line 2']);
 			fstatus.Data(1)=50;
 			break;
 			
 		else
-			disp(['error, there are ',num2str(b2.Data(1)),' pallets on feed line 2']);
-			logwrite(['error, there are ',num2str(b2.Data(1)),' pallets on feed line 2']);
+			disp(['error, there are ',num2str(b2.Data(1)-48),' pallets on feed line 2']);
+			logwrite(['error, there are ',num2str(b2.Data(1)-48),' pallets on feed line 2']);
 			fstatus.Data(1)=50;
 			break;
 		end
@@ -94,23 +95,21 @@ while (k<12) && (fstatus.Data(1) == 49)
 				case 49
 					movePalletPastLSfeed(MOTOR_B, power, nxtF2, SENSOR_3, 6, Fthreshold);
 					b2.Data(1) = b2.Data(1) - 1;
-			
 				case 50
-					movePalletSpacing(500, MOTOR_B, power, nxtF2);
+					movePalletSpacing(460, MOTOR_B, power, nxtF2);
 					pause(1);
 					b2.Data(1) = b2.Data(1) - 1;
-					movePalletSpacing(450, MOTOR_B, -power, nxtF2);
 					
 				otherwise
-					disp(['error, there are ',num2str(b2.Data(1)),' pallets on feed line']);
-					logwrite(['error, there were ',num2str(b2.Data(1)),' pallets on feed line 2']);
+					disp(['error, there are ',num2str(b2.Data(1)-48),' pallets on feed line']);
+					logwrite(['error, there were ',num2str(b2.Data(1)-48),' pallets on feed line 2']);
 					break;
 			end
 			
 		case 49
 		disp('waiting for pallet on transfer line');
-        disp(['transfer buffer = ', num2str(b2.Data(2))]);
-        disp(['feed buffer = ', num2str(b2.Data(1))]);
+        disp(['transfer buffer = ', num2str(b2.Data(2)-48)]);
+        disp(['feed buffer = ', num2str(b2.Data(1)-48)]);
         disp(' ');
         pause(0.3);
 	end

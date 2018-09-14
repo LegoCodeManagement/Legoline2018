@@ -70,7 +70,7 @@ while (fstatus.Data(1) == 49)
     k=k+1;
     disp(['pallet detected. Pallets on mainline 1: ',num2str(m1.Data(1)-48)]);
     start(clearPalletM(k));
-    pause(0.5)
+    pause(0.2)
     m1.Data(1) = m1.Data(1) + 1;
     
     if fstatus.Data(1) ~= 49

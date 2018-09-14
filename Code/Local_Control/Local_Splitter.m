@@ -9,7 +9,7 @@ config  = fopen('config.txt','rt');
 cd([pwd,filesep,'Local_Control']);
 out 	= textscan(config, '%s %s');
 fclose(config);
-power       = str2double(out{2}(strcmp('line_speed',out{1})));
+power       = round(str2double(out{2}(strcmp('line_speed',out{1})))*1.2);
 nxtSAddr	= char(out{2}(strcmp('Splitter',out{1})));
 
 %% Open NXT and wait for the ready sign
@@ -47,8 +47,8 @@ while fstatus.Data(1) == 49
     keepSplitterRunning.SendToNXT(nxtS);
     keepSplitterRunning.WaitFor(2, nxtS);
     runSplitterArm(nxtS, MOTOR_A, 2);
-    keepSplitterRunning.TachoLimit = 450;
-    keepSplitterRunning.ActionAtTachoLimit = 'Coast';
+    keepSplitterRunning.TachoLimit = 250;
+    keepSplitterRunning.ActionAtTachoLimit = 'brake';
     keepSplitterRunning.SendToNXT(nxtS);
     keepSplitterRunning.WaitFor(3, nxtS);
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%need some delay here

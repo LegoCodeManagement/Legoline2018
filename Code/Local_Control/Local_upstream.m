@@ -65,10 +65,10 @@ while (k<12) && (fstatus.Data(1) == 49)
         disp([num2str(toc(timer1)),' ',num2str(toc(timer2)),' ',num2str(toc(timer1)-feed_time)]);
 		feedPallet(nxtU,SENSOR_1,MOTOR_A);
 		k=k+1;
-        timer1 = tic
+        timer1 = tic;
 		feed_time = feedtime(dist,param1,param2,param3);
         movePalletPastLSupstream(MOTOR_B,power,nxtU,SENSOR_2,5,Uthreshold);
-        start(palletHasLeft(k))
+        start(palletHasLeft(k));
     end
         %take movepallet outside if statement and make new: if u.Data(1) > 1 then movepallet.
         

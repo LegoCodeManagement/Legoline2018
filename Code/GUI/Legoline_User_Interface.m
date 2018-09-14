@@ -239,6 +239,7 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
     end
     function startButtonCallback(src, evnt)
         global choice
+        cd(['..',filesep])
         if strcmp(choice,'Local_Control') == 1
             cd([pwd,filesep,'Local_Control']);
         elseif strcmp(choice,'Global_Control') == 1
@@ -250,7 +251,6 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
         fstatus.Data(1) = 49;
         clear fstatus;
         cd(['..',filesep])
-        cd([filesep,GUI])
     end
     function finishButtonCallback(src, evnt)
         global choice
@@ -265,6 +265,7 @@ set(Legoline_GUI,'Visible','on');%,'handlevisibility','callback','CloseRequestFc
         fstatus.Data(1) = 50;
         clear fstatus;
         cd(['..',filesep])
+        cd([pwd,filesep,'GUI'])
     end
 
     function ChoiceCallback(src,evnt)

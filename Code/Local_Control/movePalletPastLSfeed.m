@@ -5,27 +5,25 @@ currentTime = toc;
 movePallet = NXTMotor(motor, 'Power', power);
 movePallet.SpeedRegulation = 0;
 movePallet.SendToNXT(nxt);
+global fstatus
 
 array = ones(1,10)*GetLight(port,nxt);
 stdarray = zeros(1,7)
 stdavg = mean(stdarray)
 
-while stdavg < threshold
+while (stdavg < threshold) && (checkStop) && (checkTimeOut(timeOut))
 	[stdavg,avg,stdarray,array] = averagestd(nxt,port,stdarray,array);
     pause(0.02)
-    checkTimeOut(timeOut)
 end
 
-while stdavg > threshold*0.9
+while (stdavg > threshold*0.95) && (checkStop) && (checkTimeOut(timeOut))
 	[stdavg,avg,stdarray,array] = averagestd(nxt,port,stdarray,array);
     pause(0.02)
-    checkTimeOut(timeOut)
 end
 
-while stdavg < threshold
+while (stdavg < threshold) && (checkStop) && (checkTimeOut(timeOut))
 	[stdavg,avg,stdarray,array] = averagestd(nxt,port,stdarray,array);
     pause(0.02)
-    checkTimeOut(timeOut)
 end
 
 pause(0.1)

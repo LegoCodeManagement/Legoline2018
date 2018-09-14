@@ -69,7 +69,7 @@ while (fstatus.Data(1) == 49)
 	k=k+1;
 	disp(['pallet detected. Pallets on mainline 2: ',num2str(m2.Data(1)-48)]);
 	start(clearPalletM(k)); %start timer, which executes m2 = m2 - 1 after M1delay seconds.
-	pause(0.5)
+	pause(0.2)
 	m2.Data(1) = m2.Data(1) + 1;
 	
 	if fstatus.Data(1) ~= 49

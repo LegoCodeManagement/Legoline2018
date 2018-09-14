@@ -7,14 +7,17 @@ function [result, color] = waitForPalletSplitter(nxt, port, timeOut)
 global fstatus
 tic;
 currentTime = toc;
+colour = 'null'
 result = true;
 while (true) && (checkStop)
+    %{
     if (toc - currentTime > timeOut)
         disp('The color sensor hasnt detected the pallet before timeout');
         color = 'Unknown';
         result = false;
         return;
     end
+    %}
     [~, r g b] = GetColor(port, 0, nxt);
     if (g > 150)
         color = 'Yellow';

@@ -1,7 +1,7 @@
 function result = resetSplitterArm(nxt, touch, motor, timeOut)
 %function result = resetSplitterArm(nxt, touch, motor, timeOut)
 resetArm = NXTMotor(motor);
-resetArm.Power = 50;
+resetArm.Power = 65;
 resetArm.SpeedRegulation = 0;
 resetArm.SendToNXT(nxt);
 result = true;
@@ -16,6 +16,6 @@ while GetSwitch(touch, nxt) == 0
     pause(0.05);
 end
 resetArm.Stop('on', nxt);
-pause(0.4);
+pause(0.3);
 resetArm.Stop('off', nxt);
 end

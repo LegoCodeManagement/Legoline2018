@@ -96,10 +96,9 @@ while (fstatus.Data(1) == 49) && (k<12)
 					b3.Data(1) = b3.Data(1) - 1;
 
 				case 50
-					movePalletSpacing(500, MOTOR_B, power, nxtF3);
+					movePalletSpacing(60, MOTOR_B, power, nxtF3);
 					pause(1);
 					b3.Data(1) = b3.Data(1) - 1;
-					movePalletSpacing(350, MOTOR_B, -power, nxtF3);
 					
 				otherwise
 					disp(['error, there are ',num2str(b3.Data(1)),' pallets on feed line 3']);

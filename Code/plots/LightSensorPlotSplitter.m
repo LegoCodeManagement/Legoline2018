@@ -35,7 +35,7 @@ y14 = zeros(1, n); array7 = ones(1,k)*GetLight(SENSOR_2, nxtM3);
 movePalletS.SendToNXT(nxtS);
 
 r = []; g = []; b = [];
-n=250;
+n=500;
 x=linspace(0,5,n);
 for i=1:1:n
 %{

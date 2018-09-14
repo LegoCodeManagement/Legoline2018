@@ -1,3 +1,4 @@
-13-Sep-2018 15:20:49: buffer exceeded, there were 2 pallets on feed line 1
-13-Sep-2018 15:36:14: buffer exceeded, there were 2 pallets on feed line 1
-13-Sep-2018 17:09:36: buffer exceeded, there were 2 pallets on feed line 1
+14-Sep-2018 12:09:41: buffer exceeded, there were 1 pallets on feed line 2
+14-Sep-2018 13:04:41: buffer exceeded, there were 2 pallets on feed line 1
+14-Sep-2018 13:10:06: buffer exceeded, there were 1 pallets on feed line 1
+14-Sep-2018 13:15:07: error, there are 1 pallets on feed line 1

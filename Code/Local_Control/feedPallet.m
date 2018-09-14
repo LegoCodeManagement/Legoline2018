@@ -4,7 +4,7 @@ initMotor.Power = -50;
 initMotor.SpeedRegulation = 0;
 pushPallet = NXTMotor(liftMotor,'Power',65);
 pushPallet.SpeedRegulation=0;
-pushPallet.TachoLimit=145;%Between 110+30 and 120+30 would do
+pushPallet.TachoLimit=157;%Between 110+30 and 120+30 would do
 pushPallet.ActionAtTachoLimit='Coast';
 initMotor.SendToNXT(nxtFeed);
 tic;
@@ -17,6 +17,7 @@ while GetSwitch(touchSensor, nxtFeed) == 0
         return;
     end
 end
+pause(0.03);
 initMotor.Stop('brake', nxtFeed);
 
 pushPallet.SendToNXT(nxtFeed);
