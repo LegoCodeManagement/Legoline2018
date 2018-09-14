@@ -6,11 +6,11 @@ Splitter1 1 Colour
 PalletCode1 0 0 0
 ControlUpstr E 13 9 0
 ControlLine1 P 14 7 9
-ControlLine2 P 15 0 0
+ControlLine2 P 9 0 0
 ControlLine3 P 6 0 0
 Line1 1 0 2 0
 Line2 1 1 2 0
-Line3 1 1 2 0
+Line3 1 0 2 0
 Pass_Time 250
 Rate_Step 2
 Minimum_Rate 3

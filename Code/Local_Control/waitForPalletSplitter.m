@@ -7,7 +7,7 @@ function [result, color] = waitForPalletSplitter(nxt, port, timeOut)
 global fstatus
 tic;
 currentTime = toc;
-colour = 'null'
+color = 'null'
 result = true;
 while (true) && (checkStop)
     %{

@@ -1,6 +1,6 @@
 function result = TransferArmRun(motor, nxt, degree)
     transfer=NXTMotor(motor);
-    transfer.Power=-30;
+    transfer.Power=-40;
     transfer.SpeedRegulation=0;
     transfer.TachoLimit=degree;
     transfer.ActionAtTachoLimit='brake';

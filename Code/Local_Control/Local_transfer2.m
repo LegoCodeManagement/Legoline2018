@@ -80,7 +80,7 @@ while (fstatus.Data(1) == 49)
         end
         k=k+1;
         m2.Data(1) = m2.Data(1) + 1;
-		TransferArmRun(MOTOR_B, nxtT2, 100);
+		TransferArmRun(MOTOR_B, nxtT2, 106);
 		start(clearPalletT2(k));%start timer, which executes m2 = m2 - 1 after T2delay seconds.
 		pause(Tarmwait);
 		b2.Data(2) = b2.Data(2) - 1;

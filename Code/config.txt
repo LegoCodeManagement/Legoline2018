@@ -23,7 +23,7 @@ Udelay 4
 ____________________ 
 STD_Light_sensor_threshold_for_detection 
 Mthreshold 26
-Tthreshold 30
+Tthreshold 40
 Uthreshold 15
 Fthreshold 50
 ____________________ 
