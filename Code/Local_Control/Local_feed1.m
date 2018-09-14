@@ -30,8 +30,8 @@ param1  = str2double(out{3}(row));
 param2  = str2double(out{4}(row));
 param3  = str2double(out{5}(row));
 row 	= find(strcmp('Line1',out{1}));
-%buffer is line 3
-buffer 	= str2double(out{4}(row));
+%buffer is line 4
+buffer 	= str2double(out{4}(row))-1;
 
 %activate sensors
 OpenSwitch(SENSOR_1, nxtF1);

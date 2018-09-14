@@ -14,7 +14,6 @@ fclose(config);
 %retrieve parameters
 power 		= str2double(out{2}(strcmp('line_speed',out{1})));
 F3addr 		= char(out{2}(strcmp('Feed3',out{1})));
-T_F3 		= str2double(out{2}(strcmp('T_F3',out{1})));
 Fthreshold 	= str2double(out{2}(strcmp('Fthreshold',out{1})));	
 nxtF3		= COM_OpenNXTEx('USB', F3addr);
 clear out
@@ -24,15 +23,15 @@ param = fopen('Parameters.txt','rt');
 cd([pwd,filesep,'Local_Control']);
 out = textscan(param, '%s %s %s %s %s');
 fclose(param);
-row 	= find(strcmp('ControlLine3',out{1}));
 
+row 	= find(strcmp('ControlLine3',out{1}));
 dist    = char(out{2}(row));
 param1  = str2double(out{3}(row));
 param2  = str2double(out{4}(row));
 param3  = str2double(out{5}(row));
 row 	= find(strcmp('Line3',out{1}));
 %buffer is line 3
-buffer 	= str2double(out{4}(row));
+buffer 	= str2double(out{4}(row))-1;
 
 %activate sensors
 OpenSwitch(SENSOR_1, nxtF3);
@@ -82,11 +81,12 @@ while (k<12) && (fstatus.Data(1) == 49)
 			
 		else
 			disp(['error, there are ',num2str(b3.Data(1)-48),' pallets on feed line 3']);
-			logwrite(['error, there are ',num2str(b3.Data(1)-48),' pallets on feed line 1']);
+			logwrite(['error, there were ',num2str(b3.Data(1)-48),' pallets on feed line 1']);
 			fstatus.Data(1)=50;
 			break;
 		end
 	end
+	pause(0.05)
 	switch b3.Data(2)
 		case 48
 			switch b3.Data(1)
@@ -107,11 +107,7 @@ while (k<12) && (fstatus.Data(1) == 49)
 			end
 			
 		case 49
-		disp('waiting for pallet on transfer line');
-        disp(['transfer buffer = ', num2str(b3.Data(2)-48)]);
-        disp(['feed buffer = ', num2str(b3.Data(1)-48)]);
-        disp(' ');
-        pause(0.3);	
+		pause(0.1)
 	end
 	
 	pause(0.2)  %to avoid update error
