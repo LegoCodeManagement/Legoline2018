@@ -1,6 +1,6 @@
 Control_Method Local_Control
 Run_Downstream_Units 1
-ColourCode1 Red
+ColourCode1 None
 Upstream 1 Main
 Splitter1 1 Colour
 PalletCode1 0 0 0
@@ -8,8 +8,8 @@ ControlUpstr E 10 1 0
 ControlLine1 T 5 7 9
 ControlLine2 P 8 0 0
 ControlLine3 R 1 0 0
-Line1 1 0 2 0
-Line2 1 1 1 0
+Line1 1 1 2 0
+Line2 1 0 1 0
 Line3 1 0 1 0
 Pass_Time 250
 Rate_Step 2

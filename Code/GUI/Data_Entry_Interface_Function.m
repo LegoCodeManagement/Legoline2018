@@ -764,14 +764,14 @@ function Redraw(src,evnt)
                 options(20) = 2;
             elseif strcmp(insert_val,'Blue') == 1
                 options(20) = 3;    
-            elseif strcmp(insert_val,'LightGrey') == 1
+            elseif strcmp(insert_val,'None') == 1
                 options(20) = 4;  
             elseif strcmp(insert_val,'DarkGrey') == 1
                 options(20) = 5; 
             end 
             % here we draw the popup menu for colour and add labels for
             % both it and the code slection box. 
-            Splitter_Colour_Popup = uicontrol(Splitter_Panel,'Style','popupmenu','String',{'Red','Yellow','Blue','LightGrey','DarkGrey'},'value',options(20),'BackgroundColor',colour_matrix(1,:),'units','normal', 'Position',[0.75,0.55,0.2,0.4],'callback',@popup_menu_Callback);
+            Splitter_Colour_Popup = uicontrol(Splitter_Panel,'Style','popupmenu','String',{'Red','Yellow','Blue','None','DarkGrey'},'value',options(20),'BackgroundColor',colour_matrix(1,:),'units','normal', 'Position',[0.75,0.55,0.2,0.4],'callback',@popup_menu_Callback);
             Splitter_Text_Code = uicontrol(Splitter_Panel,'style','tex','units','normal', 'Position',[0.55,0.05,0.2,0.4],'backgroundcolor',colour_matrix(2,:),'String','Split Code');
             %option(21)
             SplitterSettings([1,2,3]) = [Relevant4{options(18),2};Relevant4{options(18),3};Relevant4{options(18),4}];
@@ -815,13 +815,13 @@ function Redraw(src,evnt)
                 options(20) = 2;
             elseif strcmp(insert_val,'Blue') == 1
                 options(20) = 3;    
-            elseif strcmp(insert_val,'LightGrey') == 1
+            elseif strcmp(insert_val,'None') == 1
                 options(20) = 4;  
             elseif strcmp(insert_val,'DarkGrey') == 1
                 options(20) = 5; 
             end 
             % add the labels for the dropdown menu and draw the colour box
-            Splitter_Colour_Popup = uicontrol(Splitter_Panel,'Style','popupmenu','String',{'Red','Yellow','Blue','LightGrey','DarkGrey'},'value',options(20),'BackgroundColor',colour_matrix(1,:),'units','normal', 'Position',[0.75,0.55,0.2,0.4],'callback',@popup_menu_Callback,'enable','off');
+            Splitter_Colour_Popup = uicontrol(Splitter_Panel,'Style','popupmenu','String',{'Red','Yellow','Blue','None','DarkGrey'},'value',options(20),'BackgroundColor',colour_matrix(1,:),'units','normal', 'Position',[0.75,0.55,0.2,0.4],'callback',@popup_menu_Callback,'enable','off');
             Splitter_Text_Code = uicontrol(Splitter_Panel,'style','tex','units','normal', 'Position',[0.55,0.05,0.2,0.4],'backgroundcolor',colour_matrix(2,:),'String','Split Code');
             %option(21)
             SplitterSettings([1,2,3]) = [Relevant4{options(18),2};Relevant4{options(18),3};Relevant4{options(18),4}];
@@ -993,7 +993,7 @@ function popup_menu_Callback(source,eventdata)
                                     % change for use on all sequential
                                     % redraws of the GUI.
                                     options(1) = val;
-                              elseif all(strcmp(str,{'Red';'Yellow';'Blue';'LightGrey';'DarkGrey'})) == 1
+                              elseif all(strcmp(str,{'Red';'Yellow';'Blue';'None';'DarkGrey'})) == 1
                                   % this is the case where we want to
                                   % change the colour to be separated by
                                   % the splitter. 
@@ -1008,7 +1008,7 @@ function popup_menu_Callback(source,eventdata)
                                         case 3
                                             Relevant2{2+options(18),2} = 'Blue';
                                         case 4
-                                            Relevant2{2+options(18),2} = 'LightGrey';
+                                            Relevant2{2+options(18),2} = 'None';
                                         case 5
                                             Relevant2{2+options(18),2} = 'DarkGray';
                                    end% end switch 
