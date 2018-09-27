@@ -17,9 +17,9 @@ end
 
 run initialise
 
-u1 = memmapfile('count_u1.txt', 'Writable', true,'Format','int8');
-m1 = memmapfile('count_m1.txt', 'Writable', true,'Format','int8');
-m2 = memmapfile('count_m2.txt', 'Writable', true,'Format','int8');
+u1 = memmapfile('u.txt', 'Writable', true,'Format','int8');
+m1 = memmapfile('m1.txt', 'Writable', true,'Format','int8');
+m2 = memmapfile('m2.txt', 'Writable', true,'Format','int8');
 b1 = memmapfile('buffer1.txt', 'Writable', true,'Format','int8');
 b2 = memmapfile('buffer2.txt', 'Writable', true,'Format','int8');
 b3 = memmapfile('buffer3.txt', 'Writable', true,'Format','int8');

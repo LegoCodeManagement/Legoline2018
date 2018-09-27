@@ -3,7 +3,7 @@ addpath RWTHMindstormsNXT;
 %establish memory maps 
 fstatus = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(3) = 49;
-m1 		= memmapfile('count_m1.txt', 'Writable', true, 'Format', 'int8');
+m1 		= memmapfile('m1.txt', 'Writable', true, 'Format', 'int8');
 wait 	= memmapfile('wait.txt', 'Writable', true);
 
 global fstatus
@@ -47,9 +47,9 @@ while (fstatus.Data(1) == 49)
 	%tic
 	[stdavg,avg,stdarray,array] = averagestd(nxtM1,SENSOR_2,stdarray,array);
 	if stdavg > 10
-		addpallet(m1.Data(1),'count_m2.txt')
+		addpallet(m1.Data(1),'m2.txt')
 		pause(0.01)
-		removepallet('count_m1.txt')
+		removepallet('m1.txt')
 		while (stdavg > 10) && (checkStop)
 			pause(0.05)
 			[stdavg,avg,stdarray,array] = averagestd(nxtM1,SENSOR_2,stdarray,array);

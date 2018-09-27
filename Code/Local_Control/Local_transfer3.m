@@ -22,7 +22,7 @@ OpenSwitch(SENSOR_2, nxtT3);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT3);
 
 
-m2 = memmapfile('count_m2.txt', 'Writable', true);
+m2 = memmapfile('m2.txt', 'Writable', true);
 b3 = memmapfile('buffer3.txt', 'Writable', true, 'Format', 'int8');
 
 TransferArmReset(MOTOR_B, SENSOR_2, nxtT3, T3angle);

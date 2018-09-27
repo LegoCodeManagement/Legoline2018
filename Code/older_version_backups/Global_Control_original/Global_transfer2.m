@@ -19,8 +19,8 @@ OpenSwitch(SENSOR_2, nxtT2);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT2);
 
 %allow feed to read and edit junction/buffer files
-m1 = memmapfile('count_m1.txt', 'Writable', true);
-m2 = memmapfile('count_m2.txt', 'Writable', true);
+m1 = memmapfile('m1.txt', 'Writable', true);
+m2 = memmapfile('m2.txt', 'Writable', true);
 b2 = memmapfile('buffer2.txt', 'Writable', true, 'Format', 'int8');
 wait = memmapfile('wait.txt', 'Writable', true);
 global wait

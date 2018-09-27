@@ -2,7 +2,7 @@ addpath RWTHMindstormsNXT;
 %establish memory map to status.txt. 
 fstatus	= memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 wait 	= memmapfile('wait.txt', 'Writable', true, 'Format', 'int8');
-u1 		= memmapfile('count_u1.txt', 'Writable', true, 'Format', 'int8');
+u1 		= memmapfile('u.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(2) = 49;
 global fstatus
 
@@ -49,7 +49,7 @@ while (fstatus.Data(1) == 49)
 		clear toc
 		%tic;
 		feedPallet(nxtU,SENSOR_1,MOTOR_A);
-		addpallet(upstreampallet,'count_u1.txt')
+		addpallet(upstreampallet,'u.txt')
 		
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		movePallet.SendToNXT(nxtU);
@@ -77,9 +77,9 @@ while (fstatus.Data(1) == 49)
 		movePallet.Stop('off', nxtU);
 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		addpallet(upstreampallet,'count_m1.txt')
+		addpallet(upstreampallet,'m1.txt')
         pause(0.3);
-        removepallet('count_u1.txt')
+        removepallet('u.txt')
 		
 	end
 	pause(0.1)

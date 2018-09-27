@@ -4,8 +4,8 @@ addpath RWTHMindstormsNXT;
 fstatus	 = memmapfile('status.txt', 'Writable', true, 'Format', 'int8');
 fstatus.Data(4) = 49;
 b1		 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
-m1		 = memmapfile('count_m1.txt', 'Writable', true, 'Format', 'int8');
-u1		 = memmapfile('count_u1.txt', 'Writable', true, 'Format', 'int8');
+m1		 = memmapfile('m1.txt', 'Writable', true, 'Format', 'int8');
+u1		 = memmapfile('u.txt', 'Writable', true, 'Format', 'int8');
 wait	 = memmapfile('wait.txt', 'Writable', true);
 priority = memmapfile('priority.txt', 'Writable', true);
 
@@ -67,7 +67,7 @@ while (fstatus.Data(1) == 49)
 				if checkpriority(transferpallet1,u1.Data(1)) %
 			
 					wait.Data(2) = 49;						%tell upstream to stop
-					addpallet(transferpallet1,'count_m1.txt')
+					addpallet(transferpallet1,'m1.txt')
                     TransferArmRun(MOTOR_B, nxtT1, 105);
 				
 					
@@ -87,7 +87,7 @@ while (fstatus.Data(1) == 49)
 				end
 		
             else
-                addpallet(transferpallet1,'count_m1.txt')
+                addpallet(transferpallet1,'m1.txt')
 				TransferArmRun(MOTOR_B, nxtT1, 105);
 			
 				

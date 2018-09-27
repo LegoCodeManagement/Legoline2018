@@ -52,7 +52,7 @@ while (fstatus.Data(1) == 49)
 			pause(0.05)
 			[stdavg,avg,stdarray,array] = averagestd(nxtM3,SENSOR_2,stdarray,array);
 		end
-		removepallet('count_m3.txt')
+		removepallet('m3.txt')
 		pause(0.08)
 	end
 	

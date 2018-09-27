@@ -23,8 +23,8 @@ OpenSwitch(SENSOR_2, nxtT1);
 OpenLight(SENSOR_1, 'ACTIVE', nxtT1);
 
 %allow feed to read and edit junction/buffer files
-u = memmapfile('count_u.txt', 'Writable', true, 'Format', 'int8');
-m1 = memmapfile('count_m1.txt', 'Writable', true, 'Format', 'int8');
+u = memmapfile('u.txt', 'Writable', true, 'Format', 'int8');
+m1 = memmapfile('m1.txt', 'Writable', true, 'Format', 'int8');
 b1 = memmapfile('buffer1.txt', 'Writable', true, 'Format', 'int8');
 
 TransferArmReset(MOTOR_B, SENSOR_2, nxtT1, T1angle); %initialise
