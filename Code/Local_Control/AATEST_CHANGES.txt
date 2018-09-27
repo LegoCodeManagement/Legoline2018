@@ -1,3 +1,0 @@
-feedtime.m
-
-fileread of param
